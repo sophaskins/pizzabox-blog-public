@@ -6,10 +6,21 @@
     <description>Recent content on Pizza Box Computer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Jan 2020 20:20:00 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 09 Jun 2020 09:45:00 -0400</lastBuildDate>
     
 	<atom:link href="https://blog.pizzabox.computer/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>NeXTstep on the HP 712 Part 2: Getting Software</title>
+      <link>https://blog.pizzabox.computer/posts/hp712-nextstep-part-2/</link>
+      <pubDate>Tue, 09 Jun 2020 09:45:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/hp712-nextstep-part-2/</guid>
+      <description>In the last post of this series, I set up NeXTstep on an HP PA-RISC workstation. Today, I&amp;rsquo;m going to get down to business: configure networking, install system patches, outfit it with developer tools, and install some useful software!
+As with the previous post, I&amp;rsquo;ve also made a YouTube video that covers roughly the same topics! If video is your speed, I&amp;rsquo;d love for you to check it out!
+   My goal is to end up with a capable machine that I can use like it might have been when new, and learn from the experience.</description>
+    </item>
     
     <item>
       <title>NeXTstep on the HP 712 Part 1: Installation</title>

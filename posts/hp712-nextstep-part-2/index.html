@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NeXTstep on the HP 712 Part 2: Getting Software &middot; Pizza Box Computer</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://blog.pizzabox.computer/"><h1>Pizza Box Computer</h1></a>
+      <p class="lead">
+       <a href="https://blog.sophaskins.net/">A Sophie Haskins Project</a> 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphastation/">AlphaStation 200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/aviion300/">AViiON AV/300D</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphaaxp/">DEC 3000 300X</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/decstation/">DECstation 5000/200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp425e/">HP 9000 Model 425e</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp712/">HP 9000 Model 712</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/multia/">Multia</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/nextstation/">NeXTstation</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powermac6100/">PowerMac 6100</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra605/">Quadra 605</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra610/">Quadra 610</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powerstation250/">RS/6000 Model 250</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/indy/">SGI Indy</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation/">SPARCstation 1&#43;</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation20/">SPARCstation 20</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sunblade150/">SunBlade 150</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/vaxstation/">VAXstation 4000 VLC</a></li></ul>
+    </nav>
+
+    <ul class="sidebar-nav">
+      <li><a href="/posts">Post Index</a></li>
+    </ul>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>NeXTstep on the HP 712 Part 2: Getting Software</h1>
+  <time datetime=2020-06-09T09:45:00-0400 class="post-date">Tue, Jun 9, 2020</time>
+  <p>In the <a href="/posts/hp712-nextstep-part-1">last post of this series</a>, I set up NeXTstep on an HP PA-RISC <a href="/pizzaboxes/hp712">workstation</a>. Today, I&rsquo;m going to get down to business: configure networking, install system patches, outfit it with developer tools, and install some useful software!</p>
+<p>As with the previous post, I&rsquo;ve also made a YouTube video that covers roughly the same topics! If video is your speed, I&rsquo;d love for you to check it out!</p>
+<p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/_4hs4K7AEvQ" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<!-- raw HTML omitted --></p>
+<p>My goal is to end up with a capable machine that I can use like it might have been when new, and learn from the experience.</p>
+<h2 id="foreshadowing-networking-woes">Foreshadowing networking woes</h2>
+<p>While it is possible to transfer files from SCSI drives (or even floppies!), <strong>getting a pizzabox on my home network makes loading software much easier</strong>.
+I first tried out NeXTstep on this workstation a couple years ago. The OS installed OK, but I ran in to trouble with networking. I was initially optimistic that I would figure it out:</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I think I&#39;m done for the day but soon if I can fight with NFS and NetInfo (lolololol) I can get screenshots off it and software on</p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/962427825608429568?ref_src=twsrc%5Etfw">February 10, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<blockquote>
+<p><strong>NARRATOR</strong>: she did not soon win the fight with NFS and NetInfo</p>
+</blockquote>
+<p>Hang on a second: NeXTstep is a workstation-focused Unix operating system from the 80s-90s - <strong>how could it be difficult to get it on a network</strong>? The answer is a thing called NetInfo.</p>
+<p>In a surprise to exactly no one, NeXTstep, being from a company founded by Steve Jobs, had it&rsquo;s own NeXT-only ecosystem of tools that fit together amazingly well. <strong>The cornerstone of NeXTstep networking was NetInfo</strong>. If you had a collection of NeXT computers on a network, NetInfo gave you a system to:</p>
+<ul>
+<li>manage user accounts that would work across all machines</li>
+<li>configure file sharing</li>
+<li>control permissions around access to network resources</li>
+<li>assign IP addresses and hostnames</li>
+<li>quickly bring new machines in to the network</li>
+<li>serve this information in a highly-available manner</li>
+</ul>
+<p>which is to say: NetInfo is a &ldquo;directory services&rdquo; system. That&rsquo;s all well and good - in the early 1990s that space had many competitors and a &ldquo;right path&rdquo; hadn&rsquo;t yet been established, but&hellip;<strong>I don&rsquo;t <em>want</em> my machine to be part of a directory</strong>, **I just want it to be on my existing TCP/IP network.</p>
+<h2 id="starting-a-simple-network">Starting a &ldquo;simple&rdquo; network</h2>
+<p>With that in mind, I (naively) attempted to use the &ldquo;SimpleNetworkStarter&rdquo; application.</p>
+
+<link rel="stylesheet" href="/css/hugo-easy-gallery.css" />
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/simple-network-starter-1.png" alt="SimpleNetworkStarter"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/simple-network-starter-1.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>SimpleNetworkStarter</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>The SimpleNetworkStarter window has three &ldquo;steps&rdquo;:</p>
+<ol>
+<li>Select <strong>how we&rsquo;ll integrate</strong> with an existing NetInfo network (since I don&rsquo;t intend to interact with one at all, I have to choose &ldquo;Provide the services specified below&rdquo;, a sort of catch-all)</li>
+<li>Specify <strong>my hostname and IP address</strong> - if I were connecting to an existing NetInfo network, I might not have to do this. &ldquo;Network Options&rdquo; lets me set more granular IP settings like netmask and gateway; &ldquo;NetInfo Options&rdquo; lets me choose how to integrate with existing domains (if relevant).</li>
+<li>Setup <strong>network services</strong>: for my setup I don&rsquo;t really want <em>any</em> of these things, but as a standalone NeXTstep system, I do have to &ldquo;Maintain the master copy of network administrative data&rdquo; (aka, the NetInfo database).</li>
+</ol>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/simple-network-starter-2.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/simple-network-starter-2.png" alt="Network Options"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/simple-network-starter-2.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Network Options</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/simple-network-starter-3.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/simple-network-starter-3.png" alt="NetInfo Options"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/simple-network-starter-3.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>NetInfo Options</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/simple-network-starter-4.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/simple-network-starter-4.png" alt="Configuration Successful"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/simple-network-starter-4.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Configuration Successful</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>So far, this feels like a really good start, but will it let me fetch files from an NFS share?</p>
+<h2 id="networking-woes">Networking woes</h2>
+<p>I immediately tried connecting to my NAS over NFS - after all, the main point of setting up networking was making it easier to transfer files. Unfortunately, it didn&rsquo;t work - I could set up the NFS mount with NFSMananger (more on how to do that later), but the mountpoint would always be empty. Here you can see me attempting to reach it by IP address:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/failing-nfs-mount.png" alt="a failing NFS mount"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/failing-nfs-mount.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>a failing NFS mount</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>So I had <em>some</em> sort of problem. To narrow down potential issues, I ran a few tests:</p>
+<ul>
+<li><strong>attempting to ping my NAS</strong> from the workstation - this turned out to not work because NeXTstep doesn&rsquo;t seem to have any <code>ping</code> command. There are probably ways to accomplish something equivalent with the tools it <em>does</em> have, but I just moved on</li>
+<li><strong>attempting to ping the workstation</strong> from elsewhere on my network. This worked - I was able to ping it from my laptop!</li>
+<li><strong>attempting to connect to my NAS with FTP</strong> - one of the few network tools NeXTstep <em>does</em> seem to have is FTP, so I gave it a shot. To my surprise, this works!</li>
+</ul>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/ftp-by-ip.png" alt="connecting to my NAS via FTP (successfully)"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/ftp-by-ip.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>connecting to my NAS via FTP (successfully)</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>It did not work via hostname, though, which points to at least some trouble with DNS. Taking a deeper look at the &ldquo;NeXTstep 3.3 Network and
+System Administration Manual&rdquo; section on &ldquo;<a href="http://www.nextcomputers.org/NeXTfiles/Docs/NeXTStep/3.3/nsa/11_MixedNet.htmld/index.html">NEXTSTEP Computers in a Mixed Network</a>&rdquo; (which I probably should have done earlier) shows that <strong>I need to manually configure DNS</strong>. There&rsquo;s no GUI options for it, you just have to write out an <code>/etc/resolv.conf</code>:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/resolv-conf.png" alt="editing /etc/resolv.conf in vi"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/resolv-conf.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>editing /etc/resolv.conf in vi</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>After rebooting, I was able to access the NAS via FTP by hostname:
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/ftp-by-hostname.png" alt="connecting to my NAS via FTP (successfully) by hostname"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/ftp-by-hostname.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>connecting to my NAS via FTP (successfully) by hostname</p>
+      </figcaption>
+  </figure>
+</div>
+</p>
+<p>But still couldn&rsquo;t use NFS. What gives? I have network connectivity in both directions, and DNS is also now working! I believe this is as far as I got a few years ago, and man I was FRUSTRATED.</p>
+<p>Eventually I thought to look in the system log (<code>/usr/adm/messages</code>) for hints:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/dmesg.png" alt="an error from autonfsmount"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/dmesg.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>an error from autonfsmount</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>and there it was:</p>
+<pre><code>autonfsmount: Can't get my address
+</code></pre><p>Can&rsquo;t get&hellip;<em>my</em> address? Doesn&rsquo;t the computer know its own address? While I don&rsquo;t know <em>why</em> it has to do this (googling has provided me a couple of <a href="https://rute.gerdesas.com/node31.html">quick asides</a> mentioning it, but not much detail), <strong>mounting an NFS server requires working <em>reverse</em> DNS for your IP</strong>.</p>
+<p>I do have a real-ish DNS server for my home network, and it populates based on DHCP leases and IP reservations. This workstation, though, was just <strong>using an IP that I habitually hardcode for pizzaboxes (192.168.1.200)</strong>. I double-checked the DHCP server config, and it was indeed set up with a different host for that IP, and not set up at all for this hostname. I replaced that entry with one for <code>hp712</code> at <code>192.168.1.200</code> for the MAC address of my workstation, and crossed my fingers.</p>
+<p>It worked! I could browse my NAS from the file-browser.</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/browse-nas.png" alt="browsing my NAS"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/browse-nas.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>browsing my NAS</p>
+      </figcaption>
+  </figure>
+</div>
+
+<h2 id="setting-up-an-nfs-mount">Setting up an NFS mount</h2>
+<p>After all that rigamarole, the right way to configure a remote NFS mount goes through the NFSManager.app. While NFSManager lets you configure both &ldquo;exports&rdquo; (local directories I share with others) and &ldquo;imports&rdquo; (remote directories I want to mount locally).</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/empty-imports.png" alt="an empty list of nfs imports"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/empty-imports.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>an empty list of nfs imports</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>All I have to is click &ldquo;Add&rdquo; and fill in the details for my NAS:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/new-import.png" alt="adding a new nfs import"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/new-import.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>adding a new nfs import</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>That&rsquo;s it? A lot of struggle got me to this point, but <em>finally</em> I can transfer files.</p>
+<h2 id="patch-tuesday">Patch Tuesday</h2>
+<p>The first order of business is to <strong>run system updates</strong>. NeXTstep 3.3 was released in mid-1995, and it had three patch updates: the <a href="https://www.nextop.de/NeXTAnswers/2066.html">first</a> at the end of 1995, and the second and <a href="http://www.nextcomputers.org/NeXTfiles/Software/NEXTSTEP/Patches/NEXTSTEP_3.3_User_Patch_3/nextstep3.3_patch_3_overview.pdf">third</a> in late 1999. Since NeXT were acquired by Apple in 1997, this patch was made by Apple to address Y2k bugs and other longstanding issues. Thanks, Apple! <a href="https://youtu.be/gaI6kBVyu00?t=28"><em>Thapple</em></a>.</p>
+<p>The third patch is a cumulative update, so that should be all I need. Nextcomputers.org generously <a href="http://www.nextcomputers.org/NeXTfiles/Software/NEXTSTEP/Patches/NEXTSTEP_3.3_User_Patch_3/">hosts</a> the patch for download. Because I&rsquo;m using an HP PA-RISC machine, I need <code>NS33RISCUserPatch3.tar</code>. System updates need to be installed as the <code>root</code> user, and if you run them as <code>me</code> (the default user) NeXTstep doesn&rsquo;t prompt to escalate privilges, it just gives an error. Thus, I need to log in as <code>root</code> directly. In order to do that, I need to give the <code>me</code> user a password so the system will stop automatically logging in at boot (giving me a chance to log in as <code>root</code>). To set a password, you go to Preferences.app and navigate to the lock icon.</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/password-before.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/password-before.png" alt="no password!"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/password-before.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>no password!</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/password-set.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/password-set.png" alt="password set"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/password-set.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>password set</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/password-secure.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/password-secure.png" alt="password secure"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/password-secure.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>password secure</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>After the next reboot, I then get the login screen (instead of automatically going to the desktop):</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/login-screen.png" alt="nextstep 3.3 login screen"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/login-screen.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>nextstep 3.3 login screen</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>By default, the <code>root</code> password is blank (you can of course fix this after login in the same way as setting a password for the <code>me</code> account). I navigated to where I had put the patch tarball on my NAS, copied it to the HP 712, and unarchived it.</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/os-update-copy.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/os-update-copy.png" alt="copying from NAS"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/os-update-copy.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>copying from NAS</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/os-update-untar.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/os-update-untar.png" alt="untarring"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/os-update-untar.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>untarring</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/os-update-pkg.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/os-update-pkg.png" alt="the patch package"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/os-update-pkg.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>the patch package</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>Double-clicking the package brings up a familiar-feeling Installer.app</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/os-update-installer.png" alt="installer.app for OS update"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/os-update-installer.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>installer.app for OS update</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>Clicking &ldquo;Install&rdquo; prompts me to make sure I&rsquo;m choosing the right architecture (in my case, PA-RISC), runs a program to determine compatibility, and runs the update.</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/os-update-arch.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/os-update-arch.png" alt="choose system arch"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/os-update-arch.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>choose system arch</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/os-update-install.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/os-update-install.png" alt="installation in progress"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/os-update-install.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>installation in progress</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/os-update-complete.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/os-update-complete.png" alt="installation complete"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/os-update-complete.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>installation complete</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>After a reboot, I&rsquo;m on the most recent version of NeXTstep for PA-RISC, and ready for the year 2000!</p>
+<h2 id="getting-access-to-dev-tools">Getting access to dev tools</h2>
+<p>What&rsquo;s next for making a usable system? Developer tools! <strong>NeXTstep came on two sets of discs - &ldquo;User&rdquo; for the main operating system, and the optional &ldquo;Developer&rdquo; disc</strong> with compilers, GUI building tools, libraries, and documentation. While there were separate versions of NeXTstep User for CISC (m68k and i386) and RISC (PA-RISC and SPARC) platforms, the Developer disc is &ldquo;quad-fat&rdquo; - it contains binaries for all four platforms. I grabbed the Developer disc image from <a href="https://archive.org/details/nextstep3-3dev">the Internet Archive</a>.</p>
+<p>Were this been an actual ISO image, I might have mounted it on my laptop and copied the files to my NAS to make the installer available to the workstation; unfortunately, it&rsquo;s not. What format is it? The first few bytes of a disk image usually can help figure that out:</p>
+<pre><code>head -c 16 nextstepdeveloper3.3.iso | hexdump
+0000000 64 6c 56 33 00 00 00 00 00 00 00 00 4e 45 58 54
+0000010
+</code></pre><p>When trying to find &ldquo;magic numbers&rdquo; like this, I usually check out the <a href="https://github.com/NetBSD/src">NetBSD sources</a>. Since NetBSD focuses on compatibility with the widest possible set of hardware, they often have compatibility for far-out things. As luck would have it, those bytes <em>do</em> show up in <a href="https://github.com/NetBSD/src/blob/trunk/sys/sys/bootblock.h#L1238"><code>sys/sys/bootblock.h</code></a>: <code>0x646c5633</code> is <code>NEXT68K_LABEL_CD_V3</code>. <strong>So, this is a non-standard format specific to NeXT</strong>. There&rsquo;s <a href="https://github.com/NetBSD/src/blob/trunk/sys/arch/next68k/next68k/disksubr.c">some code</a> that shows how to interact with this kind of disc label - maybe in the future I could put together some code to read the CD like I did for <a href="/posts/sgi-efs-yakshave/">SGI EFS</a>? For now, though, I&rsquo;m going to try loading the disc image in to my SCSI2SD &ldquo;fake&rdquo; CD-ROM drive.</p>
+<p>You might wonder why I didn&rsquo;t <em>start</em> at that point - isn&rsquo;t copying installers to a network store a bit overcomplicated? In this case, no. Copying a new disc image to the SCSI2SD requires:</p>
+<ol>
+<li>opening up the workstation case to get at the SCSI2SD&rsquo;s SD card</li>
+<li>writing a <code>dd</code> command with the correct offset for where the CD portion of my configuration is (hope I wrote it down!)</li>
+<li>waiting ~5 minutes for the image to write</li>
+<li>putting it back</li>
+</ol>
+<p>This time, I have no other option! So it&rsquo;s time for the whole rigamarole:</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/cd-setup-open-case.jpeg');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/cd-setup-open-case.jpeg" alt="opening case"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/cd-setup-open-case.jpeg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>opening case</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/cd-setup-get-card.jpeg');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/cd-setup-get-card.jpeg" alt="removing sd card"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/cd-setup-get-card.jpeg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>removing sd card</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/cd-setup-card-computer.jpeg');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/cd-setup-card-computer.jpeg" alt="insert sd card"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/cd-setup-card-computer.jpeg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>insert sd card</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/cd-setup-dd.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/cd-setup-dd.png" alt="dd the image"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/cd-setup-dd.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>dd the image</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/developer-disc-root.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/developer-disc-root.png" alt="we&#39;ve got a disc"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/developer-disc-root.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>we&#39;ve got a disc</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>So it&rsquo;s time to install dev tools, right? I had thought so! While NeXT didn&rsquo;t see fit to including any sort of &ldquo;Readme&rdquo; or &ldquo;Installation&rdquo; document in the root of the CD, there are some <code>.pkg</code> files in the <code>/NextCD/Packages</code> subdirectory that look promising:</p>
+<ul>
+<li>DeveloperDoc.pkg</li>
+<li>DeveloperLibs.pkg</li>
+<li>DeveloperTools.pkg</li>
+<li>GNUSource.pkg</li>
+</ul>
+<p>Signed in as <code>root</code>, I started with DeveloperTools.pkg, got mid-way through, and&hellip;got an error:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/dev-tools-error-file.png" alt="an error while installing the developer tools"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/dev-tools-error-file.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>an error while installing the developer tools</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>If using computers has taught me anything, it&rsquo;s that &ldquo;sometimes if you try it again things work&rdquo;, so I tried this install process several times, <em>all</em> ending in similar errors. At first I thought that it was making it further in the install process each time, but eventually I realized that wasn&rsquo;t the case. Files that had succeeded in a previous run would be the source of <code>cat: write error: Bad address</code> on the next. I tried to eliminate potential causes of the error:</p>
+<ul>
+<li>swapping around RAM sticks (on the assumption &ldquo;Bad address&rdquo; means it is a RAM problem)</li>
+<li>trying a different SD card (on the assumption it means an error writing or something)</li>
+<li>trying a different SCSI2SD unit (on the assumption <em>that</em> was bad)</li>
+</ul>
+<p>but none seemed to make a difference. What to do? I decided to try <em>copying</em> the contents of the CD to my NAS, and then running the install from there.
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/dev-tools-error-copy.png" alt="an error while copying the dev tools"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/dev-tools-error-copy.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>an error while copying the dev tools</p>
+      </figcaption>
+  </figure>
+</div>
+</p>
+<p>This <em>also</em> had failures during the copying of a handful of files, but I was able to note down which ones and try each again - with success!</p>
+<h2 id="installing-the-dev-tools">Installing the dev tools</h2>
+<p>and I also can&rsquo;t seem to find any such overall thing in the NextLibrary directory (where the developer docs live) or online! <strong>&ldquo;User friendliness&rdquo; is something that wasn&rsquo;t necessarily <em>first</em> on NeXTs mind</strong> when making tools for professionals. I do believe that it was packaged with such a document (on paper), but we can make do with our critical thinking skills - there are installable packages in the <code>/NextCD/Packages</code> subdirectory. Things are split across four packages:</p>
+<ul>
+<li>DeveloperDoc.pkg</li>
+<li>DeveloperLibs.pkg</li>
+<li>DeveloperTools.pkg</li>
+<li>GNUSource.pkg</li>
+</ul>
+<p>Signed in as root, I started with DeveloperTools.pkg and proceeded to do all of the others. The process of installing each package was identical to the installation process of OS update I did earlier - seems reasonable, since they both use the standard Installer.app process.</p>
+<p>Speaking of patches, there is <em>also</em> a patch for the developer tools available. The most recent is the NeXTstep 3.3 Developer Patch 2 (vs patch 3 for the NeXTstep User software), and once again was made by Apple in 1999 after they acquired NeXT. The <a href="http://www.nextcomputers.org/NeXTfiles/Software/NEXTSTEP/Patches/NEXTSTEP_3.3_Developer_Patch_2/">nextcomputers.org</a> website hosts a copy of the patch.</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/developer-patch-complete.png" alt="done patching!"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/developer-patch-complete.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>done patching!</p>
+      </figcaption>
+  </figure>
+</div>
+
+<h1 id="whats-in-the-dev-tools">What&rsquo;s in the dev tools?</h1>
+<p>
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/developer-apps.png" alt="the installed developer apps, in Workspace Manager"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/developer-apps.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>the installed developer apps, in Workspace Manager</p>
+      </figcaption>
+  </figure>
+</div>
+
+After going through the effort to install NeXTstep Developer, what do we get? A new directory in the filesystem root, <code>NextDeveloper</code> containing some apps, demos, examples, various bits of GPL-required source code, headers for system libraries, and documentation. The structure is (unsurprisingly) rather similar to older versions of the OSX developer tools&rsquo; <code>/Developer</code> directory. The similarities don&rsquo;t end there, though - <strong>several of the tools, like Interface Builder, will be rather familiar to modern Apple-ecosystem devs, like Interface Builder</strong>:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/developer-apps-ib.png" alt="interface builder"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/developer-apps-ib.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>interface builder</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>Other notable programs include:</p>
+<ul>
+<li><strong>ProjectBuilder</strong>, a tool for managing source files and dependencies.  that later grew in to an IDE and was eventually renamed XCode</li>
+<li><strong>HeaderViewer</strong>, for exploring what libraries were available and their documentation</li>
+<li><strong>ProcessMonitor</strong>, which seems to be a spiritual predecessor to the modern Activity Monitor.</li>
+</ul>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/developer-apps-project-builder.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/developer-apps-project-builder.png" alt="ProjectBuilder"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/developer-apps-project-builder.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>ProjectBuilder</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/developer-apps-headers.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/developer-apps-headers.png" alt="HeaderViewer"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/developer-apps-headers.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>HeaderViewer</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/developer-apps-activity.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/developer-apps-activity.png" alt="ProcessMonitor"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/developer-apps-activity.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>ProcessMonitor</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>I particularly love the demo apps - they&rsquo;re pre-built and ready for running in the <code>Demos</code> directory, but their source is also available as examples of how to develop for NeXTstep. <strong>The Chess game has survived in to modern OSX</strong>:
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/developer-demos-chess.png" alt="Chess.app"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/developer-demos-chess.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Chess.app</p>
+      </figcaption>
+  </figure>
+</div>
+
+Some demos that stood out to me were:</p>
+<ul>
+<li><strong>Sound</strong>, a sound editor program (I just love a good waveform visualization)</li>
+<li><strong>BoinkOut</strong>, a version of <a href="https://en.wikipedia.org/wiki/Breakout_(video_game)">Breakout</a>, the classic Atari arcade game that Steve Jobs had dubiously meaningful involvement with</li>
+<li><strong>FileMerge</strong>, a visual &ldquo;diff&rdquo; tool that survives today as part of Apple&rsquo;s dev tools.</li>
+</ul>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/developer-demos-snd.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/developer-demos-snd.png" alt="Sound editor"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/developer-demos-snd.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Sound editor</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/developer-demos-boinkout.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/developer-demos-boinkout.png" alt="BoinkOut"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/developer-demos-boinkout.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>BoinkOut</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/developer-demos-filemerge.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/developer-demos-filemerge.png" alt="FileMerge"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/developer-demos-filemerge.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>FileMerge</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>As a developer I really appreciate the depth of documentation and tooling included here - in 1995 there wasn&rsquo;t nearly the depth of reference and tutorial information available on the internet, so bundling it with the tooling was crucial. Then again, for the cost premium ($4999 for NeXTstep Developer, vs $799 for NeXTstep User, according to <a href="https://books.google.com/books?id=QoIvHQJpsLYC&amp;pg=PA28&amp;lpg=PA28&amp;dq=NEXTSTEP+Developer+Release+3.3+price&amp;source=bl&amp;ots=RJzsozvfli&amp;sig=ACfU3U2Qna6zb6yjMfcR_AHKvk1dMRMQIg&amp;hl=en&amp;sa=X&amp;ved=2ahUKEwi9r4-Z_IPpAhUglHIEHYfsDKwQ6AEwB3oECA4QAQ#v=onepage&amp;q=NEXTSTEP%20Developer%20Release%203.3%20price&amp;f=false">Computerworld</a>) it had better have been as deep as possible! <strong>I&rsquo;m excited to dive in and try to make some applications in the future</strong> to get a sense of what it was like to use at the time.</p>
+<h2 id="lighthouse-apps">Lighthouse apps</h2>
+<p>What else do I need to make a usable machine? How about some office productivity tools? One software house who focused on that sector for NeXTstep was <a href="https://en.wikipedia.org/wiki/Lighthouse_Design">Lighthouse Design</a>. Their wide range of software seems to have been popular at the time, and (mercifully) when they were acquired by Sun Microsystems in 1996, <strong>they released installers and product keys for all their NeXT software <a href="http://www.nextcomputers.org/NeXTfiles/Software/NEXTSTEP/Apps/Lighthouse_Design/LicenseStrings.txt">for free online</a></strong>. Yet again, the <a href="http://www.nextcomputers.org/NeXTfiles/Software/NEXTSTEP/Apps/Lighthouse_Design/">nextcomputers.org</a> site maintains a mirror of all the software, so I&rsquo;ve downloaded it to install on the HP 712!</p>
+<p>Somewhat importantly, they seem to have published their software as &ldquo;quad-fat&rdquo; - containing code for all four platforms that NeXTstep might run on. Since the PA-RISC platform was only supported by NeXTstep version 3.3, I suspect that much software for NeXTstep was never released for it. Not Lightstep&rsquo;s, though!</p>
+<p>This collection includes classic productivity suite apps like:</p>
+<ul>
+<li><strong>OpenWrite</strong>, a word-processing program</li>
+<li><strong>ParaSheet</strong>, for spreadsheets (Lighthouse calls it a &ldquo;traditional&rdquo; spreadsheet in comparison to their more powerful Quantrix software)</li>
+<li><strong>Concurrence</strong>, a presentation program (according to its docs, designed for producing both on-screen presentations and printing to 35mm slides))</li>
+</ul>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/lighthouse-openwrite.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/lighthouse-openwrite.png" alt="OpenWrite"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/lighthouse-openwrite.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>OpenWrite</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/lighthouse-parasheet.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/lighthouse-parasheet.png" alt="ParaSheet"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/lighthouse-parasheet.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>ParaSheet</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/lighthouse-concurrence.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/lighthouse-concurrence.png" alt="Concurrence"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/lighthouse-concurrence.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Concurrence</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>As well as more &ldquo;media-focused&rdquo; apps:</p>
+<ul>
+<li><strong>WetPaint</strong>, an image editor</li>
+<li><strong>OmniWeb</strong>, a web browser written by the <a href="https://en.wikipedia.org/wiki/The_Omni_Group">Omni Group</a>, <em>published</em> at the time by Lighthouse. Newer OSX versions are <a href="https://www.omnigroup.com/more">still available</a>.</li>
+<li><strong>EquationBuilder</strong>, for typesetting more complex mathematical expressions. NeXTstep includes TeX with the OS, but EquationBuilder is certainly more user-friendly.</li>
+</ul>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/lighthouse-wetpaint.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/lighthouse-wetpaint.png" alt="WetPaint"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/lighthouse-wetpaint.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>WetPaint</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/lighthouse-omniweb.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/lighthouse-omniweb.png" alt="OmniWeb"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/lighthouse-omniweb.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>OmniWeb</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/lighthouse-equation-builder.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/lighthouse-equation-builder.png" alt="EquationBuilder"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/lighthouse-equation-builder.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>EquationBuilder</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>Finally, there are some apps more appropriate for &ldquo;serious business&rdquo; use:</p>
+<ul>
+<li><strong>Diagram!</strong>, for making visually pleasing figures</li>
+<li><strong>TaskMaster</strong>, project planning (including Gant charts) for complex endeavors</li>
+<li><strong>VarioData</strong> / <strong>VarioBuilder</strong>, networked database-building tools (in the vein of FileMaker)</li>
+</ul>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/lighthouse-diagram.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/lighthouse-diagram.png" alt="Diagram!"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/lighthouse-diagram.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Diagram!</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/lighthouse-taskmaster.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/lighthouse-taskmaster.png" alt="TaskMaster"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/lighthouse-taskmaster.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>TaskMaster</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep-part-2/lighthouse-variodata.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep-part-2/lighthouse-variodata.png" alt="VarioData"/>
+    </div>
+    <a href="/img/hp712/nextstep-part-2/lighthouse-variodata.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>VarioData</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>As you can see, it&rsquo;s a quite wide range - Lighthouse&rsquo;s apps fill out my NeXTstep HP 712 nicely.</p>
+<h2 id="whats-next">What&rsquo;s next?</h2>
+<p>It&rsquo;s taken me a long time to get this post (and video) done, and I don&rsquo;t want to make any promises that the next one in this series will be any faster. My next goal with this setup is to write an application with the developer tools. In the mean time, though, I&rsquo;ll probably do some projects with other machines to inject a little variety.</p>
+<p>As ever, I&rsquo;d love to hear your stories about using these tools! Did you build apps using NeXT&rsquo;s developer tools? Or maybe run a business with Lighthouse&rsquo;s productivity apps? I&rsquo;d love to hear about it! Feel free to email me at <a href="mailto:sophie@pizzabox.computer">sophie@pizzabox.computer</a>!</p>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-91739270-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+
+
+
+  
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="/js/load-photoswipe.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+    
+  </body>
+</html>
