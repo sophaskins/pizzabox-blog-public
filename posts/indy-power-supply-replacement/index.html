@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Indy Power Supply Replacement &middot; Pizza Box Computer</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://blog.pizzabox.computer/"><h1>Pizza Box Computer</h1></a>
+      <p class="lead">
+       <a href="https://blog.sophaskins.net/">A Sophie Haskins Project</a> 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphastation/">AlphaStation 200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/aviion300/">AViiON AV/300D</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphaaxp/">DEC 3000 300X</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/decstation/">DECstation 5000/200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp425e/">HP 9000 Model 425e</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp712/">HP 9000 Model 712</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/multia/">Multia</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/nextstation/">NeXTstation</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powermac6100/">PowerMac 6100</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra605/">Quadra 605</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra610/">Quadra 610</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powerstation250/">RS/6000 Model 250</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/indy/">SGI Indy</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation/">SPARCstation 1&#43;</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation20/">SPARCstation 20</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sunblade150/">SunBlade 150</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/vaxstation/">VAXstation 4000 VLC</a></li></ul>
+    </nav>
+
+    <ul class="sidebar-nav">
+      <li><a href="/posts">Post Index</a></li>
+    </ul>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Indy Power Supply Replacement</h1>
+  <time datetime=2017-09-02T16:20:00-0400 class="post-date">Sat, Sep 2, 2017</time>
+  <p>When I first got the Indy, it <strong>seemed to work</strong>. When I pushed the power button,</p>
+<ul>
+<li>it played the <a href="https://twitter.com/sophaskins/status/895402604473323520">startup jingle</a></li>
+<li>when connected to a monitor, it gave output! (complaining about the lack of keyboard)</li>
+<li>the light on the front of the case would cycle between red and green, before stabilizing on green</li>
+</ul>
+<p>A few weeks later, I got the right serial cable to attach a console, and&hellip;it <em>no longer worked</em>:</p>
+<ul>
+<li>no jingle played - the speaker sometimes crackled or gave off a faint whimper</li>
+<li>something smelled funny (maybe the <a href="https://en.wikipedia.org/wiki/Magic_smoke">magic smoke</a> was escaping!)</li>
+<li>the light cycled between red and green somewhat erratically</li>
+<li>on my attached serial console, it appeared to be looping through startup - at that point, I might have considered a &ldquo;full&rdquo; startup to be text like:
+<pre><code>Data path test                             *FAILED*
+RTC path test                              *FAILED*
+
+Running power-on diagnostics...
+Starting up the system...
+
+To perform system maintenance instead, press &lt;Esc&gt;
+</code></pre></li>
+</ul>
+<p>but it wouldn&rsquo;t always make it to the <code>&lt;Esc&gt;</code> prompt - sometimes it just kept repeating the first two tests.</p>
+<p>That&rsquo;s pretty broken! I stoped trying to boot it (in case I was somehow damaging the electronics), and looked online for ideas. Apparently, a common problem with old Indys is  the <a href="http://www.nekochan.net/wiki/SGI_Indy#Continued_use">power supply failing</a>. My Indy had the brand of power supply that was affected (Nidec) - it seemed like a plausible explanation. To dig a little further, I broke out the multimeter and checked the voltage on the Molex connector that normally goes to the hard disks - when I turned on the juice, the voltage was jumping <em>all over the place</em>.</p>
+<p>I looked on eBay for replacement power supplies (a lot of old computers get parted out if something breaks), and found a Sony one - the brand that was supposed to be OK. Replacing the power supply once it arrived was super easy - there&rsquo;s only one screw holding it in place:</p>
+<p>![the screw holding power supply in place](/img/indy/one screw.jpeg)</p>
+<p>With that removed, you can slide the power supply apart from the rest of the chassis - it doesn&rsquo;t sit <em>inside</em> the chassis, it sits <em>next to it</em>:</p>
+<p>![power supply next to chassis](/img/indy/power supply.jpeg)</p>
+<p>In real life, I just popped the new power supply in and immediately tried it out, but in writing this post I checked out the voltages both power supplies put out. One thing that stood out to me was that the 12V rail (yellow wire) on the busted power supply&hellip;wasn&rsquo;t reading 12V! On the broken one, it was at about 6V:</p>
+<p>![bad power supply only reads 6V](/img/indy/bad psu.jpeg)</p>
+<p>On the good one, it read a much healthier 12V:</p>
+<p>![good power supply reads 12V](/img/indy/good psu.jpeg)</p>
+<p>The new power supply brought back the jingle and let me move on to the next thing: getting the OS booting! But what <em>specifically</em> was wrong with the power supply? I often see folks mention capacitors bursting as the cause of power supply failure. Though I&rsquo;d love to crack open the bad power supply and see what I can see (and maybe re-cap it!), I&rsquo;m not going to for now:</p>
+<ul>
+<li>its metal case seems to be riveted together, which is beyond my small-apartment tool collection</li>
+<li>POWER ELECTRONICS (A/C) CAN BE <strong>VERY DANGEROUS</strong>. Power supplies in particular shouldn&rsquo;t be opened until the capacitors inside have fully drained. I don&rsquo;t feel qualified to judge when things are safe, so I&rsquo;m gonna save that for another day.</li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-91739270-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+
+
+
+  
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="/js/load-photoswipe.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+    
+  </body>
+</html>

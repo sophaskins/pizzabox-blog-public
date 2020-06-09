@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Booting the SPARCstation &middot; Pizza Box Computer</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://blog.pizzabox.computer/"><h1>Pizza Box Computer</h1></a>
+      <p class="lead">
+       <a href="https://blog.sophaskins.net/">A Sophie Haskins Project</a> 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphastation/">AlphaStation 200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/aviion300/">AViiON AV/300D</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphaaxp/">DEC 3000 300X</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/decstation/">DECstation 5000/200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp425e/">HP 9000 Model 425e</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp712/">HP 9000 Model 712</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/multia/">Multia</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/nextstation/">NeXTstation</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powermac6100/">PowerMac 6100</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra605/">Quadra 605</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra610/">Quadra 610</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powerstation250/">RS/6000 Model 250</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/indy/">SGI Indy</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation/">SPARCstation 1&#43;</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation20/">SPARCstation 20</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sunblade150/">SunBlade 150</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/vaxstation/">VAXstation 4000 VLC</a></li></ul>
+    </nav>
+
+    <ul class="sidebar-nav">
+      <li><a href="/posts">Post Index</a></li>
+    </ul>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Booting the SPARCstation</h1>
+  <time datetime=2017-11-21T16:00:00-0500 class="post-date">Tue, Nov 21, 2017</time>
+  <p>The SPARCstation was the first pizzabox I was able to <strong>connect a serial cable to and turn on</strong>. As its self-tests scrolled by (first try!), I had high hopes&hellip;</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">y&#39;all <a href="https://t.co/jiEKOHn22l">pic.twitter.com/jiEKOHn22l</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/897541149459599360?ref_src=twsrc%5Etfw">August 15, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>&hellip;that were quickly dashed - <em>neither</em> of its two internal SCSI hard disks seemed to be able to boot. The SPARCstation went to the back burner for a while as I focused on <a href="/posts/booting-the-indy">booting the Indy</a>. Getting further meant booting from some other source - requiring tools I didn&rsquo;t have at hand:</p>
+<ul>
+<li>an <strong>ethernet connection</strong> and a way to netboot (the SPARCstation has an AUI connector, not 10Base-T, and I didn&rsquo;t have a transceiver)</li>
+<li>a <strong>bootable floppy disk</strong> - <a href="https://docs.oracle.com/cd/E19620-01/805-3408/preparecustom-55190/index.html">seems to require</a> an existing SPARC system</li>
+<li>an <strong>external SCSI CD drive</strong> to boot from an install disc</li>
+</ul>
+<p>A few weeks later I acquired an AUI -&gt; 10Base-T transceiver, so I dug in to netbooting. Solaris 7 (the most recent OS supporting the sun4c family) <a href="https://docs.oracle.com/cd/E19620-01/805-3408/6j38cta1j/index.html">has instructions</a> and scripts for setting up a netboot server, but they <strong>encode a lot of assumptions</strong> about running on Solaris. I tried running from a Solaris 10 <a href="http://www.oracle.com/technetwork/server-storage/solaris11/vmtemplates-vmvirtualbox-1949721.html">virtual machine</a>, but the scripts (written to target Solaris 7) were <em>incredibly</em> incompatible.</p>
+<p>Progress on booting stalled again&hellip;</p>
+<h2 id="a-wild-cd-rom-appears">A wild CD-ROM appears!</h2>
+<p>&hellip;until I procured a CD drive!</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">In the continuing saga of “oh no what have I done”, I bring you: a CD ROM drive <a href="https://t.co/VihjmIy0O0">pic.twitter.com/VihjmIy0O0</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/919256261539106816?ref_src=twsrc%5Etfw">October 14, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>Finding the right CD drive was <strong>quite a task</strong> - SCSI CD-ROM drives aren&rsquo;t exactly <em>prevalent</em> in 2017, nor are external enclosures that can provide a SCSI device with power and the right connectors. The pickings for original external CD drives on eBay were quite slim (including many that needed power adapters that weren&rsquo;t included 😢). In a stroke of luck, I eventually found one that wasn&rsquo;t an outrageous price, and a Sun-branded one to boot!</p>
+<p>When I bought it I didn&rsquo;t realize just how lucky this was: it turns out that older Sun computers (like mine) use an unusual CD-ROM <strong>block size of 512 bytes</strong> (typical sizes range from 2048 to 2352 bytes). Despite <a href="https://twitter.com/PaulStoffregen/status/919382583414112256">several</a> <a href="https://twitter.com/spackardwork/status/919349830077505536">people</a> <a href="https://twitter.com/dg7pc/status/919556260076441601">mentioning</a> to me that the one I had bought likely supported the 512 size, and a <a href="http://www.4bcad.com/doc/faq/cdrom/cdrom.html">quite detailed guide</a> available to explain <em>why</em> ending up with a Sun model was a <em>good</em> thing, I still managed to only get this one by chance. A happy accident!</p>
+<p>Naturally, the <em>first</em> thing I did with my new drive was try to boot the SPARCstation. Though it&rsquo;s not quite USB, setting up a SCSI drive is reasonably simple:</p>
+<ul>
+<li>plug in external <strong>power</strong> - the enclosure was large enough to have an internal power supply and use a standard computer power cable</li>
+<li>connect a <strong>SCSI cable</strong> to the drive and the SPARCstation</li>
+<li>make sure the drive is set to a &ldquo;reasonable&rdquo; non-conflicting <strong>SCSI address</strong> (apparently 6 is a common choice)</li>
+<li>attach a <strong>terminator</strong> to one of the drive&rsquo;s SCSI ports:
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Lol check out this totally unbranded terminator monoprice sold me <a href="https://t.co/9i7N3tuFo9">pic.twitter.com/9i7N3tuFo9</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/920002357353762817?ref_src=twsrc%5Etfw">October 16, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</li>
+</ul>
+<h2 id="investigate-the-existing-os">Investigate the existing OS</h2>
+<p>The first order of business was to boot from the OS install disk to a shell and see if the already installed OS was salvageable. The <a href="https://docs.oracle.com/cd/E19620-01/805-3408/6j38cta0f/index.html">installation docs</a> say that at the <code>ok</code> prompt you should be able to do</p>
+<pre><code>ok boot cdrom
+</code></pre><p>to get to the installer, and</p>
+<pre><code>ok boot cdrom -s
+</code></pre><p>to boot from the CD in to a single-user mode root shell. My SPARCstation 1+ is old enough that its firmware doesn&rsquo;t have a concept of <code>cdrom</code> as a valid boot target. A <a href="https://docs.oracle.com/cd/E19620-01/805-3408/6j38cta0f/index.html">footnote</a> thankfully informed me:</p>
+<blockquote>
+<p>For systems with older EEPROMs, replace cdrom with sd(0,6,2) to boot from the system&rsquo;s CD-ROM.</p>
+</blockquote>
+<p>That worked! The first thing I tried was mounting the internal drives, which <strong>immediately failed</strong> and asked me to run <code>fsck</code>. Of the partitions, <code>fsck</code> found plenty of errors and only managed to make a few of them mountable. None of it was interesting or useable stuff (I think I got like, a <code>/</code> partition? but no <code>/boot</code> or <code>/usr</code>), so I made the call to wipe it and re-install:</p>
+<pre><code>sparcstation# format
+Searching for disks...done
+
+AVAILABLE DISK SELECTIONS:
+       0. c0t3d0 &lt;SUN0424 cyl 1151 alt 2 hd 9 sec 80&gt;
+          /sbus@1,f8000000/esp@0,800000/sd@3,0
+Specify disk (enter its number): 0
+selecting c0t3d0
+[disk formatted]
+
+
+FORMAT MENU:
+        disk       - select a disk
+        type       - select (define) a disk type
+        partition  - select (define) a partition table
+        current    - describe the current disk
+        format     - format and analyze the disk
+        repair     - repair a defective sector
+        label      - write label to the disk
+        analyze    - surface analysis
+        defect     - defect list management
+        backup     - search for backup labels
+        verify     - read and display labels
+        save       - save new disk/partition definitions
+        inquiry    - show vendor, product and revision
+        volname    - set 8-character volume name
+        !&lt;cmd&gt;     - execute &lt;cmd&gt;, then return
+        quit
+format&gt; format
+Ready to format. Formatting cannot be interrupted
+and takes 16 minutes (estimated). Continue? y
+Beginning format. The current time is Tue Oct 17 16:21:55 2017
+
+Formatting...done
+Warning: no backup labels
+
+Verifying media...
+        pass 0 - pattern = 0xc6dec6de
+   1150/8/62
+
+        pass 1 - pattern = 0x6db6db6d
+   1150/8/62
+
+Warning: no backup labels
+Total of 0 defective blocks repaired.
+format&gt;
+</code></pre><p>time to reboot and do a real install!</p>
+<h2 id="installation">Installation</h2>
+<p>The Solaris install process starts with a few questions about your language, locale, and terminal type. It then launches a curses-style install program to get details about your networking situation and time-zone settings. Finally, it informs you:</p>
+<pre><code>System identification is completed.
+</code></pre><p>&hellip;and <strong>hangs for about 20 minutes</strong> without any more output. The first few times this happened I was <em>convinced</em> I had done something wrong - maybe the installer was angry about me not using the framebuffer for install, or a RAM chip was bad, or <em>something</em>. It turns out it was just&hellip;thinking about stuff. After the long wait, the curses-style installer comes back:</p>
+<pre><code>- Solaris Interactive Installation ---------------------------------
+
+  You'll be using the initial option for installing Solaris software
+  on the system. The initial option overwrites the system disks when
+  the new Solaris software is installed.
+
+  On the following screens, you can accept the defaults or you can
+  customize how Solaris software will be installed by:
+
+- Allocating space for diskless clients or AutoClient systems
+- Selecting the type of Solaris software to install
+- Selecting disks to hold software you've selected
+- Specifying how file systems are laid out on the disks
+
+  After completing these tasks, a summary of your selections (called
+  a profile) will be displayed.
+
+--------------------------------------------------------------------
+     F2_Continue    F5_Exit    F6_Help
+</code></pre><p>I went with the default partitioning and the basic set of packages that would fit on the small hard drive. The install proper took around two hours - a big reminder that this tech isn&rsquo;t from 2017! At completion, the installer installed a handful of patches and rebooted the machine.</p>
+<h2 id="first-boot">First boot</h2>
+<p>Post-install, things came up pretty smoothly (except for a bunch of network errors - I didn&rsquo;t have the ethernet cable plugged in)</p>
+<pre><code>SPARCstation 1+, No keyboard.
+ROM Rev. 1.3, 64 MB memory installed, Serial #12648430.
+Ethernet address 8:0:20:c0:ff:ee, Host ID: 53c0ffee.
+
+Testing
+Booting from: sd(0,0,0)vmunix
+SunOS Release 5.7 Version Generic_106541-08 [UNIX(R) System V Release 4.0]
+Copyright (c) 1983-1999, Sun Microsystems, Inc.
+configuring network interfaces:le0: No carrier - transceiver cable problem?
+ le0.
+Hostname: sparcstation
+Warning: failed to open /dev/dump (No such file or directory):
+run dumpadm(1M) to verify dump configuration
+Configuring /dev and /devices
+Configuring the /dev directory (compatibility devices)
+The system is coming up. Please wait.
+Configuring network interface addresses: le0.
+RPC: Timed out
+starting routing daemon.
+starting rpc services: rpcbindkeyserv: failed to generate host's netname when establishing root's key.
+ keyserv done.
+</code></pre><p>This being the first boot, I was prompted to make a root password:</p>
+<pre><code>On this screen you can create a root password.
+
+A root password can contain any number of characters, but only the
+first eight characters in the password are significant. (For
+example, if you create `a1b2c3d4e5f6' as your root password, you
+can use `a1b2c3d4' to gain root access.)
+
+You wil be prompted to type the root password twice; for security,
+the password will not be displayed on the screen as you type it.
+
+&gt; If you do not want a root password, press RETURN twice.
+
+Root password: _
+
+
+Press Return to continue.
+</code></pre><p>Finally, I made it to a shell!</p>
+<pre><code>System identification is completed.
+Setting netmask of le0 to 255.255.255.0
+Setting default interface for multicast: add net 224.0.0.0: gateway SPARCstation
+syslog service starting.
+Print services started.
+volume management starting.
+The system is ready.
+
+sparcstation console login: root
+Password:
+Sun Microsystems Inc.   SunOS 5.7        Generic October 1998
+# hostname
+sparcstation
+#
+</code></pre><h2 id="from-shell-to-desktop">From shell to desktop</h2>
+<p>From here, setting up X and connecting a remote X session was pretty simple (in no small part because of the <a href="https://docs.oracle.com/cd/E19620-01/805-3900/6j3n23uoa/index.html">helpful manual</a>):</p>
+<ul>
+<li>I enabled the login manager to start at boot time with <code>/usr/dt/bin/dtconfig -e</code></li>
+<li>enabled the font server to start at boot time with <code>fsadmin -e</code></li>
+<li>rebooted to let those take effect (and to clear any gremlins from first boot, because I&rsquo;m superstitious)</li>
+<li>point my remote X session at the SPARCstation!</li>
+</ul>
+
+<link rel="stylesheet" href="/css/hugo-easy-gallery.css" />
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/sparcstation/boot_login_manager.jpg" alt="solaris login manager"/>
+    </div>
+    <a href="/img/sparcstation/boot_login_manager.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>solaris login manager</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>Logging in as root gave me a pretty rad splash screen:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/sparcstation/boot_splash_screen.png" alt="solaris cde splash screen"/>
+    </div>
+    <a href="/img/sparcstation/boot_splash_screen.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>solaris cde splash screen</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>and eventually a pretty standard CDE desktop:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/sparcstation/boot_desktop.jpg" alt="solaris cde desktop"/>
+    </div>
+    <a href="/img/sparcstation/boot_desktop.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>solaris cde desktop</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>I haven&rsquo;t dug too deeply in to what sorts of things are installed by default, but one notable application was the Sun Hot Java web browser:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/sparcstation/boot_hot_java.png" alt="solaris hot java browser"/>
+    </div>
+    <a href="/img/sparcstation/boot_hot_java.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>solaris hot java browser</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>A pretty satisfying reward for the effort of installing! Since I did this install (about a month ago!), I&rsquo;ve re-installed an older version of Solaris (it was <em>quite</em> bogged down running 7 - I&rsquo;m now trying out 2.4) and started using <em>both</em> hard disks installed (so I don&rsquo;t have to skimp on installed packages). I&rsquo;m hopeful to get a development setup working soon!</p>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-91739270-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+
+
+
+  
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="/js/load-photoswipe.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+    
+  </body>
+</html>

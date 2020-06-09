@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Installing A/UX on the Quadra 610 &middot; Pizza Box Computer</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://blog.pizzabox.computer/"><h1>Pizza Box Computer</h1></a>
+      <p class="lead">
+       <a href="https://blog.sophaskins.net/">A Sophie Haskins Project</a> 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphastation/">AlphaStation 200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/aviion300/">AViiON AV/300D</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphaaxp/">DEC 3000 300X</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/decstation/">DECstation 5000/200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp425e/">HP 9000 Model 425e</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp712/">HP 9000 Model 712</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/multia/">Multia</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/nextstation/">NeXTstation</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powermac6100/">PowerMac 6100</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra605/">Quadra 605</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra610/">Quadra 610</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powerstation250/">RS/6000 Model 250</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/indy/">SGI Indy</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation/">SPARCstation 1&#43;</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation20/">SPARCstation 20</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sunblade150/">SunBlade 150</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/vaxstation/">VAXstation 4000 VLC</a></li></ul>
+    </nav>
+
+    <ul class="sidebar-nav">
+      <li><a href="/posts">Post Index</a></li>
+    </ul>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Installing A/UX on the Quadra 610</h1>
+  <time datetime=2018-12-02T16:45:00-0500 class="post-date">Sun, Dec 2, 2018</time>
+  <p>In this post, I&rsquo;m going to go through the process of setting up Apple&rsquo;s A/UX on a Quadra 610. It&rsquo;s been a <em>long</em> time in the making - I think I had the hardware for nearly a year before I finally got A/UX running properly!</p>
+<h2 id="wait-what-is-aux">Wait, what is A/UX?</h2>
+<p>I&rsquo;m not misspelling <strong>AIX</strong>, the IBM Unix that ran on the Apple Network Server range. It <em>is</em> a hybrid of Unix and the classic Mac OS, but it <em>isn&rsquo;t</em> related to the <strong>Mac OS X</strong> we use today. A/UX is:</p>
+<ul>
+<li>an <strong>operating system sold by Apple</strong> for their Motorola 68000 computers (while Apple was developing a version 4.0 that ran on their PowerPC computers, it was never released)</li>
+<li>built on <strong>Unix System V</strong></li>
+<li>capable of running a <strong>Mac OS environment on top of the Unix base</strong></li>
+</ul>
+<p>You can log in to and use A/UX in a few modes. The main one is a Macintosh Finder interface that can run normal Mac programs <em>and</em> Unix programs - both console ones (in the &ldquo;CommandShell&rdquo; terminal emulator) and X11 ones (via &ldquo;MacX&rdquo;, a rootless X client).</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+<link rel="stylesheet" href="/css/hugo-easy-gallery.css" />
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/session1.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/session1.png" alt="Console"/>
+    </div>
+    <a href="/img/quadra610/session1.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Console</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/session3.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/session3.png" alt="32-bit Finder"/>
+    </div>
+    <a href="/img/quadra610/session3.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>32-bit Finder</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/session4.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/session4.png" alt="X11"/>
+    </div>
+    <a href="/img/quadra610/session4.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>X11</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>The version of A/UX I&rsquo;m installing here is the final one - 3.1. A/UX 3.1 is based on System 7.0.1 (for the Mac parts) and an amalgam of Unix System V R2.2 with some backported bits from System V R3, R4, and BSD (for the Unix parts).</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/quadra610/uname.jpg" alt="the output of uname"/>
+    </div>
+    <a href="/img/quadra610/uname.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>the output of uname</p>
+      </figcaption>
+  </figure>
+</div>
+
+<h2 id="the-machine">The machine</h2>
+<p>While Apple made a few machines (in its Quadra line) that fit my definition of a pizzabox, they don&rsquo;t all run A/UX. An FPU is <strong>required</strong>, and there are only drivers for <em>some</em> models (<a href="https://support.apple.com/kb/TA31173?locale=en_US&amp;viewlocale=en_US">Apple&rsquo;s compatibility reference</a>).</p>
+<ul>
+<li>the <a href="/pizzaboxes/quadra605">Quadra 605</a> shipped without an FPU (it uses a 68LC040 processor), and even if you replace the CPU with a full 68040, the video isn&rsquo;t supported</li>
+<li>the <a href="/pizzaboxes/quadra610">Quadra 610</a> shipped without an FPU, but if you replace the processor, it <em>can</em> work</li>
+<li>the Quadra 660av <em>has</em> an FPU, but isn&rsquo;t compatible (I <em>believe</em> this is because of ROM differences?)</li>
+</ul>
+<p>So, a Quadra 610 it is, then!
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/quadra610/logo.jpg" alt="Quadra 610 nameplate (a bit scuffed up)"/>
+    </div>
+    <a href="/img/quadra610/logo.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Quadra 610 nameplate (a bit scuffed up)</p>
+      </figcaption>
+  </figure>
+</div>
+</p>
+<p>I am given to understand that Apple sold <em>some</em> Quadra 610s with the full 68040, but mine wasn&rsquo;t, so I had to hunt down a <strong>replacement CPU.</strong> Apple didn&rsquo;t use ZIF sockets for their CPUs, so I just had to pry out the old one:</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/old-cpu.jpg');">
+      <img itemprop="thumbnail" src="/img/quadra610/old-cpu.jpg" alt="old CPU"/>
+    </div>
+    <a href="/img/quadra610/old-cpu.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>old CPU</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/both-cpu.jpg');">
+      <img itemprop="thumbnail" src="/img/quadra610/both-cpu.jpg" alt="old and new CPUs, side-by-side"/>
+    </div>
+    <a href="/img/quadra610/both-cpu.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>old and new CPUs, side-by-side</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/new-cpu.jpg');">
+      <img itemprop="thumbnail" src="/img/quadra610/new-cpu.jpg" alt="installing the new CPU"/>
+    </div>
+    <a href="/img/quadra610/new-cpu.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>installing the new CPU</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>These older designs <strong>didn&rsquo;t produce enough heat to need a heat sink</strong>. Imagine running a modern higher-end computer (like an Intel Core i7) without any special cooling hardware!</p>
+<p>After replacement, I verified that the machine would still boot to the installed System 7 (it did!) and started prepping to install A/UX.</p>
+<h2 id="installation-woes">Installation woes</h2>
+<p>I had hoped that with the CPU in order, I was in for smooth sailing. I procured an install CD, made a boot floppy, booted in to the installer, partitioned my disk, and&hellip;realized that the built-in 80 MB hard drive was <strong>far too small to realistically run A/UX</strong>. Some guides suggest that it is theoretically possible to do a stripped-down setup under such tight constraints, but I wanted to explore all that A/UX has to offer, not the lowest common denominator.</p>
+<p>When I need to replace a broken, missing, or &ldquo;inadequate&rdquo; hard drive, <strong>the tool I reach for is the trusty <a href="http://www.codesrc.com/mediawiki/index.php/SCSI2SD">SCSI2SD</a></strong>. I started with the normal &ldquo;out of the box&rdquo; config, restarted the install process, went to partition the disk, and&hellip;the Apple HD SC Setup tool refused to deal with a drive whose model it doesn&rsquo;t recognize. Drat.</p>
+<p>There are <a href="http://lowendmac.com/2007/format-any-hard-drive-for-older-macs-with-patched-apple-tools/">patched versions</a> of HD SC Setup that allow it to format any drive, but having partitioned the Quadra 610&rsquo;s internal drive, wiping its former System 7 install, I no longer had a useful Mac test-bench. I decided to try <strong>preparing an A/UX partition layout from Linux</strong>, writing it directly to the SD card I&rsquo;d use in the SCSI2SD. This&hellip;wasn&rsquo;t a very good idea. I may have misused the tools, but trying to boot with the hacked-up drive <em>connected</em> caused the Quadra to boot to a &ldquo;Sad Mac&rdquo; screen (I believe because it had an <em>almost</em>, but not totally valid partition table on the normal boot drive).</p>
+<p>At the time, I didn&rsquo;t think that bad <em>data</em> on a drive could cause a &ldquo;Sad Mac&rdquo; error, so I dove in to a bunch of fruitless fixes, including trying various termination settings (at one point, I believe I installed the termination resistors backwards, which&hellip;probably didn&rsquo;t help). I tried to use third-party formatting tools from my Quadra 605, but it <em>also</em> wouldn&rsquo;t boot with the SCSI2SD connected. I ordered internal active terminators, I tried different SCSI ID layouts, nothing seemed to work.</p>
+<h2 id="installation-successes">Installation successes</h2>
+<p>Over the course of a couple of months, I tried several times to get the install rolling (often trying the same things that hadn&rsquo;t worked before, in the hope that something had &ldquo;magically&rdquo; changed). What finally worked was (some combination of):</p>
+<ul>
+<li>starting from a <em>blank</em> SD card, instead of one with my failed attempt to pre-create a partition table - I &ldquo;cleared&rdquo; my SD card by <code>dd</code>-ing <code>/dev/zero</code> to the first few MB of the card.</li>
+<li>not having the terminator resistor pack in backwards</li>
+</ul>
+<p>got the drive to not cause a &ldquo;Sad Mac&rdquo; error on boot. Partitioning it was also pretty easy - it turns out that if you <strong>set the manufacturer and model strings to magical values</strong> in the SCSI2SD Utility, the stock HD SC Setup will be OK with formatting it. My config ended up being:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;SCSITarget</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">&gt;</span>
+	<span style="color:#f92672">&lt;enabled&gt;</span>true<span style="color:#f92672">&lt;/enabled&gt;</span>
+	<span style="color:#f92672">&lt;quirks&gt;</span>apple<span style="color:#f92672">&lt;/quirks&gt;</span>
+	<span style="color:#f92672">&lt;deviceType&gt;</span>0x0<span style="color:#f92672">&lt;/deviceType&gt;</span>
+	<span style="color:#f92672">&lt;deviceTypeModifier&gt;</span>0x0<span style="color:#f92672">&lt;/deviceTypeModifier&gt;</span>
+
+    <span style="color:#75715e">&lt;!-- The size has to be less than 2GB total 
+</span><span style="color:#75715e">         for A/UX to boot from it --&gt;</span>
+	<span style="color:#f92672">&lt;sdSectorStart&gt;</span>0<span style="color:#f92672">&lt;/sdSectorStart&gt;</span>
+	<span style="color:#f92672">&lt;scsiSectors&gt;</span>3984589<span style="color:#f92672">&lt;/scsiSectors&gt;</span>
+	<span style="color:#f92672">&lt;bytesPerSector&gt;</span>512<span style="color:#f92672">&lt;/bytesPerSector&gt;</span>
+	<span style="color:#f92672">&lt;sectorsPerTrack&gt;</span>63<span style="color:#f92672">&lt;/sectorsPerTrack&gt;</span>
+	<span style="color:#f92672">&lt;headsPerCylinder&gt;</span>255<span style="color:#f92672">&lt;/headsPerCylinder&gt;</span>
+
+    <span style="color:#75715e">&lt;!-- These are the magical settings: --&gt;</span>
+	<span style="color:#f92672">&lt;vendor&gt;</span> SEAGATE<span style="color:#f92672">&lt;/vendor&gt;</span>
+	<span style="color:#f92672">&lt;prodId&gt;</span>          ST225N<span style="color:#f92672">&lt;/prodId&gt;</span>
+	<span style="color:#f92672">&lt;revision&gt;</span>1.0 <span style="color:#f92672">&lt;/revision&gt;</span>
+	<span style="color:#f92672">&lt;serial&gt;</span>1234567812345678<span style="color:#f92672">&lt;/serial&gt;</span>
+
+	<span style="color:#f92672">&lt;modePages&gt;</span>
+	<span style="color:#f92672">&lt;/modePages&gt;</span>
+	<span style="color:#f92672">&lt;vpd&gt;</span>
+	<span style="color:#f92672">&lt;/vpd&gt;</span>
+<span style="color:#f92672">&lt;/SCSITarget&gt;</span></code></pre></div>
+<p>For the installation process itself, I basically followed the instructions from <a href="http://www.aux-penelope.com/aux_3.0.htm">A/UX Penelope</a> pretty closely. I wont repeat their instructions, but here&rsquo;s some screenshots of my experience:</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/install1.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/install1.png" alt="starting the installation"/>
+    </div>
+    <a href="/img/quadra610/install1.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>starting the installation</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/install2.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/install2.png" alt="choosing what software to install"/>
+    </div>
+    <a href="/img/quadra610/install2.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>choosing what software to install</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/install3.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/install3.png" alt="Apple HD SC Setup"/>
+    </div>
+    <a href="/img/quadra610/install3.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Apple HD SC Setup</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/install4.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/install4.png" alt="Installing files"/>
+    </div>
+    <a href="/img/quadra610/install4.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Installing files</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/install5.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/install5.png" alt="Installation complete"/>
+    </div>
+    <a href="/img/quadra610/install5.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Installation complete</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/install6.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/install6.png" alt="First boot - needs the Enabler"/>
+    </div>
+    <a href="/img/quadra610/install6.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>First boot - needs the Enabler</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/install7.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/install7.png" alt="Installing the Enabler"/>
+    </div>
+    <a href="/img/quadra610/install7.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Installing the Enabler</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/install8.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/install8.png" alt="First boot - seems to be working"/>
+    </div>
+    <a href="/img/quadra610/install8.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>First boot - seems to be working</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/quadra610/install9.png');">
+      <img itemprop="thumbnail" src="/img/quadra610/install9.png" alt="Kernel has been reconfigured"/>
+    </div>
+    <a href="/img/quadra610/install9.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>Kernel has been reconfigured</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>Some notes from my experience:</p>
+<ul>
+<li>on the Quadra 610, A/UX wont boot after install until you boot from another disk and <strong>install the &ldquo;System Enabler 040&rdquo;</strong> (<a href="https://support.apple.com/kb/TA28948">https://support.apple.com/kb/TA28948</a>) by dragging it in to the &ldquo;MacPartition&rdquo; System Folder</li>
+<li>formatting the hard drive <strong>takes a long time</strong> - more than an hour for my ~1.9 GB disk!</li>
+<li>some sort of SCSI error appeared on screen, but didn&rsquo;t seem to actually impact the process. The error references <code>/dev/dsk/c104d0s6</code>, even though my actual disk is <code>c0d0s0</code>:</li>
+</ul>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/quadra610/scsi-error.png" alt="the SCSI error during install"/>
+    </div>
+    <a href="/img/quadra610/scsi-error.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>the SCSI error during install</p>
+      </figcaption>
+  </figure>
+</div>
+
+<h2 id="impressions-of-aux">Impressions of A/UX</h2>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/quadra610/macx.png" alt="An A/UX desktop"/>
+    </div>
+    <a href="/img/quadra610/macx.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>An A/UX desktop</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>There doesn&rsquo;t seem to be a ton of &ldquo;special&rdquo; configuration or tools on the Unix side - the Mac Control Panel only does things that apply to Mac programs, and the Unix parts can only really be configured by using unix utilities / config files. My understanding is that Apple marketed A/UX as <strong>a way to run your existing Unix software along side Mac productivity apps</strong> - it doesn&rsquo;t seem like there was any focus on unique A/UX-only possibilities.</p>
+<p>One exception to this was &ldquo;Commando&rdquo; - <strong>a Mac UI for launching Unix commandline tools</strong>. Commando allows you to choose options and input files using a dialog box (instead of memorizing options). Commando was also part of Apple&rsquo;s IDE for developing Mac apps, the Macintosh Programmers Workshop (some docs are <a href="http://mirror.informatimago.com/next/developer.apple.com/tools/mpw-tools/commandref/commando.html">here</a>). I like how Commando dialogs serve as interactive documentation - I&rsquo;m not sure I&rsquo;d use them every day (vs the commandline), but it&rsquo;s much nicer than manpages for exploring options.</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/quadra610/commando.png" alt="commando dialog for mount(1)"/>
+    </div>
+    <a href="/img/quadra610/commando.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>commando dialog for mount(1)</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>Booting A/UX is a little bit unusual - it first boots in to a normal System 7, then runs a program that switches control over to A/UX (which completely replaces the original Mac OS in memory). It reminds me a little bit of <a href="https://www.tldp.org/HOWTO/Linux+Win95/linload.html">LINLOAD</a>, a tool that let you start Linux from MS-DOS. <strong>Other pizzaboxes don&rsquo;t seem to have anything comparable</strong> about their booting process:</p>
+<ul>
+<li>first, because they are (mostly) running their native OSes rather than an alternate one</li>
+<li>second, because they largely have robust ROM Monitors</li>
+</ul>
+<p>The original Mac ROM was strictly tuned towards the Mac OS - it included Toolbox routines, for example. It seems like Apple more or less just kept going with a ROM similar to the original Macintosh until they moved to the <a href="https://en.wikipedia.org/wiki/Open_Firmware">OpenFirmware monitor</a> on PowerPC macs.</p>
+<h2 id="what-might-have-been">What might have been</h2>
+<p>It&rsquo;s impossible to use A/UX without thinking about its potential. Apple managed to release an OS that was nearly as usable as the Mac OS, but had the advantages of Unix! I&rsquo;m curious how viable a version of A/UX that doesn&rsquo;t have any Unix tools, just runs Mac programs in isolated Unix memory spaces and with pre-emptive multitasking, would have been. I&rsquo;m not sure if the Mac programs each ran in an isolated fashion or if they all were grouped together. Throughout the 1990s, Apple experimented with a bunch of paths to &ldquo;modernize&rdquo; the Mac OS: Pink/Taligent, Copeland, adopting BeOS, and the eventual plan of merging the Mac OS with OpenSTEP. Would the computing world be different if they had run with a consumer OS based on A/UX?</p>
+<h2 id="from-here">From here</h2>
+<p>As always, if you have any stories about using A/UX, a Quadra 610, or any other pizzaboxes, I&rsquo;d love to hear them! You can reach me via email at <a href="mailto:sophie@pizzabox.computer">sophie@pizzabox.computer</a>. I intend to one day work on writing some software on A/UX to have a deeper understanding of the experience. I&rsquo;d also love to do some benchmarking of using A/UX as an AppleShare server vs a more standard System 7 install on the same hardware - I believe this was one of the most popular uses of A/UX.</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/quadra610/install10.png" alt="You may now switch off your Macintosh safely"/>
+    </div>
+    <a href="/img/quadra610/install10.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>You may now switch off your Macintosh safely</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>I want to thank my friend Cameron who helped me with this project - we experimented with various ways to get the install going over the course of months, and I wouldn&rsquo;t have been able to get things working without them!</p>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-91739270-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+
+
+
+  
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="/js/load-photoswipe.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+    
+  </body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>A PowerMac Surprise! &middot; Pizza Box Computer</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://blog.pizzabox.computer/"><h1>Pizza Box Computer</h1></a>
+      <p class="lead">
+       <a href="https://blog.sophaskins.net/">A Sophie Haskins Project</a> 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphastation/">AlphaStation 200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/aviion300/">AViiON AV/300D</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphaaxp/">DEC 3000 300X</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/decstation/">DECstation 5000/200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp425e/">HP 9000 Model 425e</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp712/">HP 9000 Model 712</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/multia/">Multia</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/nextstation/">NeXTstation</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powermac6100/">PowerMac 6100</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra605/">Quadra 605</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra610/">Quadra 610</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powerstation250/">RS/6000 Model 250</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/indy/">SGI Indy</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation/">SPARCstation 1&#43;</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation20/">SPARCstation 20</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sunblade150/">SunBlade 150</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/vaxstation/">VAXstation 4000 VLC</a></li></ul>
+    </nav>
+
+    <ul class="sidebar-nav">
+      <li><a href="/posts">Post Index</a></li>
+    </ul>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>A PowerMac Surprise!</h1>
+  <time datetime=2018-02-13T21:00:00-0500 class="post-date">Tue, Feb 13, 2018</time>
+  <p>There&rsquo;s been a lot of great stuff happening on my Pizza Box projects the past few weeks - not a ton that&rsquo;s complete enough to share yet, but stay tuned. This evening, though, I ran in to something surprising that I couldn&rsquo;t wait to tell y&rsquo;all - here goes!</p>
+<h2 id="powermac-video-woes">PowerMac video woes</h2>
+<p>When I first got my PowerMac 6100, I realized <a href="/posts/two-macs-and-an-hp/">I didn&rsquo;t have the right adapter</a> to hook it up to a monitor. I did order one, but didn&rsquo;t immediately test it. About a week ago, I decided to see try it out.</p>
+<p>I attached the HDI-45 to DA-15 adapter, turned on the PowerMac, and&hellip;nothing. <strong>No video appeared on the monitor</strong>. My DA-15 to VGA adapter (which has worked with my Quadras) has some DIP switches for pretending to be various kinds of monitors, so I tried a ton of configurations to no avail. I assumed the HDI-45 adapter was bad, and ordered another one. It came in today, I tried it out too, and nothing. <strong>Something must be wrong with the computer!</strong></p>
+<p>Since I&rsquo;m basically a professional &ldquo;Google to see if other people have similar problems&rdquo; person, I used my skills and found a <em>very</em> promising lead: apparently <strong>older Macs can <a href="https://support.apple.com/kb/TA35928?locale=en_US">refuse to show video</a> when their PRAM battery is dead.</strong> Dead batteries are par for the course with two-decade-old computers (I already have <a href="/posts/dead-vram/">replaced one</a> in my SPARCstation). I also saw reference on a few forums to a &ldquo;<a href="https://www.thinkclassic.org/viewtopic.php?id=72">flick trick</a>&rdquo; - where if your PRAM is dead, you can trick the computer in to booting anyway by rapidly cycling the power when you boot it up.</p>
+<h2 id="first-boot">First boot</h2>
+<p>I tried the &ldquo;flick trick&rdquo;, and the results were awesome:</p>
+
+<link rel="stylesheet" href="/css/hugo-easy-gallery.css" />
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/powermac6100/surprise-firstboot.jpeg" alt="mac os 9.1 boot screen"/>
+    </div>
+    <a href="/img/powermac6100/surprise-firstboot.jpeg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>mac os 9.1 boot screen</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>I have to admit - <strong>my first thoughts</strong> on seeing MacOS 9.1 booting up were that <strong>someone had pushed the little machine farther than made sense</strong> - it would be wicked slow and I&rsquo;d have to downgrade to something nice like System 7.5. The <em>next</em> screen is what threw me for a loop, though:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/powermac6100/surprise-starting-up.jpeg" alt="mac os boot...with an accelerator?"/>
+    </div>
+    <a href="/img/powermac6100/surprise-starting-up.jpeg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>mac os boot...with an accelerator?</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>&ldquo;MAXpower G3&rdquo;&hellip;this machine doesn&rsquo;t have a G3 accelerator card&hellip;<em>does it</em>? I had opened up the case when I first got it, and I feel like that&rsquo;s the kind of thing I&rsquo;d <em>notice</em>. <strong>Most processor upgrade cards loudly announce their presence</strong> with big logos and out-of-place heatsinks. I cracked open the case anyway, though - might as well double check.</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/powermac6100/surprise-inside.jpeg" alt="the inside of the 6100"/>
+    </div>
+    <a href="/img/powermac6100/surprise-inside.jpeg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>the inside of the 6100</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>Looks pretty standard to me! Where would an upgrade card even <em>go</em>? I guess they&rsquo;d plug in to the PDS slot (which lives on a riser card)? And my PDS slot is empty! Now that you mention it, though, the <em>riser board itself</em> has a heatsink on it&hellip;</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/powermac6100/surprise-whats-this.jpeg" alt="what is this? an accelerator?"/>
+    </div>
+    <a href="/img/powermac6100/surprise-whats-this.jpeg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>what is this? an accelerator?</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>I pulled out the riser and sure enough, it&rsquo;s a G3 upgrade card!</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/powermac6100/surprise-upgrade-front.jpeg');">
+      <img itemprop="thumbnail" src="/img/powermac6100/surprise-upgrade-front.jpeg" alt="front of accelerator"/>
+    </div>
+    <a href="/img/powermac6100/surprise-upgrade-front.jpeg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>front of accelerator</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/powermac6100/surprise-upgrade-back.jpeg');">
+      <img itemprop="thumbnail" src="/img/powermac6100/surprise-upgrade-back.jpeg" alt="back of accelerator"/>
+    </div>
+    <a href="/img/powermac6100/surprise-upgrade-back.jpeg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>back of accelerator</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>It&rsquo;s a NewerTechnology MAXpowr MXP6100 - designed specifically for this PowerMac. The riser board it replaced holds a PDS slot, and so because the upgrade card <em>also</em> passes through that slot (acting as the riser), I didn&rsquo;t notice it before! The eBay listing definitely didn&rsquo;t list this rad extra!</p>
+<p>I still can&rsquo;t explore what&rsquo;s on it, or the stats, etc, because I don&rsquo;t yet have an ADB input solution. Stay tuned, though - my work on adapting different kinds of input peripherals is starting to bear fruit!</p>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-91739270-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+
+
+
+  
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="/js/load-photoswipe.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+    
+  </body>
+</html>

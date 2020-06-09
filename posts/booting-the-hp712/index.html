@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Booting the HP 712 &middot; Pizza Box Computer</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://blog.pizzabox.computer/"><h1>Pizza Box Computer</h1></a>
+      <p class="lead">
+       <a href="https://blog.sophaskins.net/">A Sophie Haskins Project</a> 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphastation/">AlphaStation 200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/aviion300/">AViiON AV/300D</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphaaxp/">DEC 3000 300X</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/decstation/">DECstation 5000/200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp425e/">HP 9000 Model 425e</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp712/">HP 9000 Model 712</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/multia/">Multia</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/nextstation/">NeXTstation</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powermac6100/">PowerMac 6100</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra605/">Quadra 605</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra610/">Quadra 610</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powerstation250/">RS/6000 Model 250</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/indy/">SGI Indy</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation/">SPARCstation 1&#43;</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation20/">SPARCstation 20</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sunblade150/">SunBlade 150</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/vaxstation/">VAXstation 4000 VLC</a></li></ul>
+    </nav>
+
+    <ul class="sidebar-nav">
+      <li><a href="/posts">Post Index</a></li>
+    </ul>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Booting the HP 712</h1>
+  <time datetime=2018-04-28T18:00:00-0400 class="post-date">Sat, Apr 28, 2018</time>
+  <p>The HP 9000 workstations&rsquo; industrial design inspires me - the 300 series was on my mind the week before I bought my first pizzabox:
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">why did we stop making computers that looked like :( <a href="https://t.co/xBYUcnTaIe">pic.twitter.com/xBYUcnTaIe</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/884523284695588864?ref_src=twsrc%5Etfw">July 10, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</p>
+<p>There&rsquo;s just <em>something</em> about that densely lined grille - <strong>it&rsquo;s clear that a lot of effort went in to its construction</strong>. Contemporaneous PCs looked like a pile of parts, different shades of plastic clashing, chosen based on what was cheapest at the time. The 9000, on the other hand, had a whole system of peripherals that had similar ergonomics and design available from HP. The dense lines from <a href="http://www.hpmuseum.net/display_item.php?hw=120">1985&rsquo;s 310</a> were clearly still part of the design DNA in <a href="https://commons.wikimedia.org/wiki/File:HP-HP9000-C360-Workstation_01.jpg">1999&rsquo;s C360</a>.</p>
+
+<link rel="stylesheet" href="/css/hugo-easy-gallery.css" />
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/logo.jpeg" alt="hp712 badge"/>
+    </div>
+    <a href="/img/hp712/logo.jpeg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>hp712 badge</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>My <a href="http://localhost:1313/pizzaboxes/hp712/">HP 9000 Model 712</a> is from the early PA-RISC years. It&rsquo;s quite slim (70mm), extremely solid (the plastic has aged very well), and thoughtfully designed. That thoughtfulness shows in its clearly labeled rear:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/back.jpeg" alt="ports on the back of the hp712"/>
+    </div>
+    <a href="/img/hp712/back.jpeg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>ports on the back of the hp712</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>and even in the beautiful POST screen (even modern PCs don&rsquo;t look this good!):</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/post.png" alt="hp712 power-on self test"/>
+    </div>
+    <a href="/img/hp712/post.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>hp712 power-on self test</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>These subtle touches are part of what sets a <em>workstation</em> apart from a <em>powerful PC</em>. It was built to last and given attention in design that wouldn&rsquo;t be worthwhile for commodity electronics.</p>
+<h2 id="installation-requirements">Installation requirements</h2>
+<p>To get started using my HP 9000 Model 712, I needed:</p>
+<ul>
+<li><strong>a hard disk</strong> - my 712 came without a disk (and judging by how clean the bracket was, I think it <em>never</em> had one). Anything SCSI2 should probably work.</li>
+<li><strong>a CD-ROM drive</strong> - not only does my 712 not have a hard disk, but it <em>also</em> doesn&rsquo;t have a <em>floppy</em> disk drive. Theoretically I could netboot the installer, but I&rsquo;m pretty sure doing that without another working HP-UX computer is&hellip;non-trivial.</li>
+<li><strong>a copy of HP-UX</strong> - HP doesn&rsquo;t make HP-UX available for download without a support contract (which both requires money I don&rsquo;t have <em>and</em> isn&rsquo;t possible for 32-bit PA-RISC anymore). This seems kind of silly to me: you can only run HP-UX on HP hardware anyway (or <em>maybe</em> the small minority of PA-RISC and Itanium boxes that <em>weren&rsquo;t</em> made by HP). HP-UX isn&rsquo;t exactly the hottest ISO to seed on <a href="https://thepiratebay.org/">The Pirate Bay</a> either.</li>
+<li><strong>a keyboard</strong> - the serial console on the 712 is disabled by default - to enable it you need to have a PS/2 keyboard (at least temporarily).</li>
+</ul>
+<p>While I didn&rsquo;t have all the tools when my 712 first arrived from eBay, I eventually filled them (respectively) with:</p>
+<ul>
+<li><strong>a SCSI2SD v5</strong> (from <a href="http://www.codesrc.com/mediawiki/index.php/SCSI2SD">from codesrc</a>) with an 8GB microSD card. I&rsquo;m <em>very</em> pleased to be able to avoid scrounging for 20-year-old SCSI hard drives that haven&rsquo;t failed yet.</li>
+<li><strong>a Sun-branded external SCSI CD-ROM drive</strong>. Some of my other pizzaboxes have had trouble with it - I think this is because I&rsquo;ve been using a <em>passive</em> terminator. Thankfully, the 712 seems to have a tolerant SCSI bus and it worked perfectly.</li>
+<li><strong>a copy of HP-UX 10.20</strong> for 700 series machines. This was tricky to find! A friendly computer historian was willing to send me an ISO, but I&rsquo;m not aware of one that&rsquo;s publicly downloadable. <strong>Dear HP: please just post these.</strong></li>
+<li><strong>an IBM Space Saver Keyboard</strong> - I finally caved and picked up a PS/2 keyboard. I still intend to work on a USB-to-PS2 adapter (the &ldquo;modern peripherals&rdquo; part of <a href="https://blog.pizzabox.computer/posts/the-dream/">the dream</a>), but I really wanted to give the 712 a go.</li>
+</ul>
+<h2 id="install-process">Install process</h2>
+<ol>
+<li>
+<p><strong>Install the SCSI2SD</strong>: the default settings on the SCSI2SD seemed to work pretty well for the 712 - I only popped in a microSD card and updated the firmware. Because the 712&rsquo;s disk mounting brackets are just pieces of foam, I didn&rsquo;t need to worry about keeping the board away from conductive surfaces like I did for the <a href="http://localhost:1313/posts/getting-an-indy-desktop/">SGI Indy</a>. It just sits inside the foam clamshell.
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">So first off my HP 712 didn’t come with a disk, so the SCSI2SD is up to bat<br>This pizzabox has a clever / bizarre styrofoam disk bracket? So I don’t need to do weird shit w command strips like I did for the Indy <a href="https://t.co/n4OkX2oLZX">pic.twitter.com/n4OkX2oLZX</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/933760446368309250?ref_src=twsrc%5Etfw">November 23, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</p>
+</li>
+<li>
+<p><strong>Boot from the install CD</strong>: when presented with the unformatted SCSI2SD and an external SCSI CD drive, the 712 automatically picked to boot from CD.</p>
+</li>
+<li>
+<p><strong>Installation prep</strong>: Before the full installer, I was shown a dire <a href="https://twitter.com/sophaskins/status/933762682603401217">warning message</a> to <em>not install</em> a particular package (I guess that was easier than removing the package from the CD?) and presented with a simple menu to set up partitioning.</p>
+<p>HP-UX uses <a href="https://en.wikipedia.org/wiki/Veritas_File_System">VxFS</a> and logical volume groups - pretty advanced for an OS from 1996! Once I selected a layout, a bunch of scripts ran (it looked like shell scripts run with <code>set -x</code>) to perform the partitioning and set up the actual installer</p>
+</li>
+<li>
+<p><strong>Package selection</strong>: The package selection UI is&hellip;intense. With hindsight, it looks like a text-mode version of SAM (the HP-UX management tool). As a beginner, it took a bit to figure out how to inspect packages:
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Because it is.<br>It took me a sec to figure out the flow for figuring out what is IN a package: <a href="https://t.co/sk2C1Dwf5U">pic.twitter.com/sk2C1Dwf5U</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/933765631811481601?ref_src=twsrc%5Etfw">November 23, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</p>
+</li>
+<li>
+<p><strong>Copying files</strong>: with packages selected, the installer analyzed my choices and began to copy files&hellip;<strong>very slowly</strong>. The pizzaboxes have reminded me of how far software installation has come - these days if setting up an OS takes more than 10 minutes I look to see if something is wrong! For the 712, the process took several hours.</p>
+</li>
+<li>
+<p><strong>Post-install setup</strong>: after install, the computer reboots and eventually comes up in to an X Windows UI to choose timezone and root password.</p>
+</li>
+<li>
+<p><strong>First login</strong>: I thought at this point I was home free - time to dive in to HP-UX! Unfortunately, when I&rsquo;d log in, CDE would appear to initialize, die, and I&rsquo;d be kicked back out to the login screen.
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/hpux-login.png" alt="HP-UX login screen"/>
+    </div>
+    <a href="/img/hp712/hpux-login.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>HP-UX login screen</p>
+      </figcaption>
+  </figure>
+</div>
+</p>
+</li>
+<li>
+<p><strong>Remember to set DNS</strong>: after a bunch of fruitless debugging, the problem turned out to be that I had configured the 712 to believe that it had a real resolvable domain name. On my home network, those are configured by making a MAC address reservation in my router, which I hadn&rsquo;t done yet. Adding the reservation and registering the name got the ball rolling again, and I was able to log in. <strong>Success!</strong></p>
+</li>
+</ol>
+<h2 id="first-impressions">First impressions</h2>
+<p>I mentioned the surprisingly classy POST screen in the introduction, but the text-mode niceties don&rsquo;t stop there: the 712  displays some &ldquo;<strong>soft buttons</strong>&rdquo; whenever you&rsquo;re at a console.
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/hpux-init.png" alt="hp712 booting HP-UX 10.20 - going through the init process"/>
+    </div>
+    <a href="/img/hp712/hpux-init.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>hp712 booting HP-UX 10.20 - going through the init process</p>
+      </figcaption>
+  </figure>
+</div>
+
+This seems to be an HP-ism (I&rsquo;ve seen it on their block terminals as well) and while I can&rsquo;t see myself changing any of the settings while using HP-UX, it still seems pretty cool.</p>
+<p>By the time HP-UX 10.20 was released, the <a href="https://en.wikipedia.org/wiki/Unix_wars">Unix wars</a> had cooled down a bit and commercial Unixes had mostly settled on the same CDE desktop tools.
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/hpux-cde-desktop.png" alt="HP-UX 10.20 default CDE desktop"/>
+    </div>
+    <a href="/img/hp712/hpux-cde-desktop.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>HP-UX 10.20 default CDE desktop</p>
+      </figcaption>
+  </figure>
+</div>
+
+The only HP-UX specific tool of note that comes by default is <strong>SAM: the System Administration Manager</strong>. It&rsquo;s like a control panel, but with much deeper hooks in to the system than is typical. The configuration pages themselves seem to be made with a common toolkit, and the interface is <em>quite</em> similar to the text-mode package chooser I ran in to in the installer. My money is on them being related.
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/hpux-sam-splash.png');">
+      <img itemprop="thumbnail" src="/img/hp712/hpux-sam-splash.png" alt="HP-UX SAM splash screen"/>
+    </div>
+    <a href="/img/hp712/hpux-sam-splash.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>HP-UX SAM splash screen</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/hpux-sam-menu.png');">
+      <img itemprop="thumbnail" src="/img/hp712/hpux-sam-menu.png" alt="HP-UX SAM main menu"/>
+    </div>
+    <a href="/img/hp712/hpux-sam-menu.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>HP-UX SAM main menu</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/hpux-sam-disks.png');">
+      <img itemprop="thumbnail" src="/img/hp712/hpux-sam-disks.png" alt="HP-UX SAM volume groups configuration"/>
+    </div>
+    <a href="/img/hp712/hpux-sam-disks.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>HP-UX SAM volume groups configuration</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+</p>
+<p>I was able to (with no configuration!) access files on my NAS via NFS by just browsing to <code>/net/the.fqdn.of.the.nas/share.name/</code>, so I grabbed an HP-UX package of Netscape Navigator 4.0. Unfortunately (like with all of the pizzaboxes), its TLS ciphers are too old to load nearly anything on the 2018 internet.</p>
+<h2 id="where-to-go-from-here">Where to go from here</h2>
+<p>This is definitely only the beginning! As with all the pizzaboxes, I want to develop a GUI application for the 712 and also do a project using software that folks typically ran on HP-UX boxes. Have you ever used an HP-UX computer? Do you have memories or leads on where I could find software you think is important? I&rsquo;d love to hear about it via email: <a href="mailto:sophie@pizzabox.computer">sophie@pizzabox.computer</a>.</p>
+<p>Since the install chronicled in this post, I&rsquo;ve <em>also</em> experimented with running NeXTstep on the 712! Keep an eye out for a post about that in the future.</p>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-91739270-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+
+
+
+  
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="/js/load-photoswipe.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+    
+  </body>
+</html>

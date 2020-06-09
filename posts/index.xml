@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Pizza Box Computer</title>
+    <link>https://blog.pizzabox.computer/posts/</link>
+    <description>Recent content in Posts on Pizza Box Computer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Jan 2020 20:20:00 -0500</lastBuildDate>
+    
+	<atom:link href="https://blog.pizzabox.computer/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>NeXTstep on the HP 712 Part 1: Installation</title>
+      <link>https://blog.pizzabox.computer/posts/hp712-nextstep-part-1/</link>
+      <pubDate>Mon, 20 Jan 2020 20:20:00 -0500</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/hp712-nextstep-part-1/</guid>
+      <description>It&amp;rsquo;s been a long time since my last pizzabox post - over a year! There&amp;rsquo;s been a lot going on in my life but I&amp;rsquo;m excited that lately I&amp;rsquo;ve had a lot more free time, which means more time to explore the world of workstations and share with you!
+I&amp;rsquo;m also excited announce that I&amp;rsquo;m trying out YouTube videos - not instead of these posts, but in addition to them. This post has a sibling video, so if that&amp;rsquo;s more your jam, check it out.</description>
+    </item>
+    
+    <item>
+      <title>Installing A/UX on the Quadra 610</title>
+      <link>https://blog.pizzabox.computer/posts/installing-aux-quadra/</link>
+      <pubDate>Sun, 02 Dec 2018 16:45:00 -0500</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/installing-aux-quadra/</guid>
+      <description>In this post, I&amp;rsquo;m going to go through the process of setting up Apple&amp;rsquo;s A/UX on a Quadra 610. It&amp;rsquo;s been a long time in the making - I think I had the hardware for nearly a year before I finally got A/UX running properly!
+Wait, what is A/UX? I&amp;rsquo;m not misspelling AIX, the IBM Unix that ran on the Apple Network Server range. It is a hybrid of Unix and the classic Mac OS, but it isn&amp;rsquo;t related to the Mac OS X we use today.</description>
+    </item>
+    
+    <item>
+      <title>Filling in more cracks</title>
+      <link>https://blog.pizzabox.computer/posts/filling-in-more-cracks/</link>
+      <pubDate>Sat, 07 Jul 2018 14:00:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/filling-in-more-cracks/</guid>
+      <description>I haven&amp;rsquo;t been writing super frequently over the past few months, so I&amp;rsquo;ve missed introducing a couple of the newest additions to my collection. They&amp;rsquo;re all from manufacturers that I already have some boxes from, but represent different eras and technology than the boxes I already had.
+   a stack of pizzabox workstations
+   A couple of SPARCs The middle two pizzaboxes in the picture are SPARC boxes from Sun.</description>
+    </item>
+    
+    <item>
+      <title>A yak shave with SGI&#39;s EFS</title>
+      <link>https://blog.pizzabox.computer/posts/sgi-efs-yakshave/</link>
+      <pubDate>Wed, 04 Jul 2018 15:00:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/sgi-efs-yakshave/</guid>
+      <description>Over the past few weekends I&amp;rsquo;ve gone on a bit of an adventure with the SGI Indy. This yak-shave has everything - an OS install, lots of SCSI problems, a completely overkill golang utility, and a happy ending. Since it&amp;rsquo;s pretty long, I&amp;rsquo;m gonna dive right in.
+A disk upgrade It all started with a drive replacement - I got an order of SCS2SDs in and decided that I should allocate the faster SCSI2SDv6 I&amp;rsquo;d been saving to the Indy.</description>
+    </item>
+    
+    <item>
+      <title>Cleaning the VAXstation</title>
+      <link>https://blog.pizzabox.computer/posts/cleaning-vaxstation/</link>
+      <pubDate>Thu, 03 May 2018 22:40:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/cleaning-vaxstation/</guid>
+      <description>My VAXstation 4000 VLC seems to have lived a hard life - when I got it, the plastic was filthy and every groove in the case was caked with black grime. I wouldn&amp;rsquo;t be surprised if it once lived in some sort of industrial setting - wherever it lived must have been hot because it came with a decidedly non-standard cooling system:
+Well look at that! It even seems to have a hot-rod heat sink!</description>
+    </item>
+    
+    <item>
+      <title>Booting the HP 712</title>
+      <link>https://blog.pizzabox.computer/posts/booting-the-hp712/</link>
+      <pubDate>Sat, 28 Apr 2018 18:00:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/booting-the-hp712/</guid>
+      <description>The HP 9000 workstations&amp;rsquo; industrial design inspires me - the 300 series was on my mind the week before I bought my first pizzabox: why did we stop making computers that looked like :( pic.twitter.com/xBYUcnTaIe
+&amp;mdash; cron mom (@sophaskins) July 10, 2017  There&amp;rsquo;s just something about that densely lined grille - it&amp;rsquo;s clear that a lot of effort went in to its construction. Contemporaneous PCs looked like a pile of parts, different shades of plastic clashing, chosen based on what was cheapest at the time.</description>
+    </item>
+    
+    <item>
+      <title>Booting the Multia</title>
+      <link>https://blog.pizzabox.computer/posts/booting-the-multia/</link>
+      <pubDate>Sat, 17 Mar 2018 17:00:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/booting-the-multia/</guid>
+      <description>The Multia feels to me like Digital&amp;rsquo;s take on a high-end &amp;ldquo;legacy-free&amp;rdquo; (at introduction in late 1994) desktop. Its spec sheet includes features unheard of in its contemporaries:
+ a 64-bit RISC processor ECC memory Ethernet networking SCSI2 hard drive high-resolution (1280x1024) monitor support PCMCIA expansion slots  A RISC processor, powerful networking, and PCMCIA slots nearly sounds like a description of a Network Computer, but the Multia pre-dates the NC by more than a year.</description>
+    </item>
+    
+    <item>
+      <title>A PowerMac Surprise!</title>
+      <link>https://blog.pizzabox.computer/posts/powermac-surprise/</link>
+      <pubDate>Tue, 13 Feb 2018 21:00:00 -0500</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/powermac-surprise/</guid>
+      <description>There&amp;rsquo;s been a lot of great stuff happening on my Pizza Box projects the past few weeks - not a ton that&amp;rsquo;s complete enough to share yet, but stay tuned. This evening, though, I ran in to something surprising that I couldn&amp;rsquo;t wait to tell y&amp;rsquo;all - here goes!
+PowerMac video woes When I first got my PowerMac 6100, I realized I didn&amp;rsquo;t have the right adapter to hook it up to a monitor.</description>
+    </item>
+    
+    <item>
+      <title>Booting the SPARCstation</title>
+      <link>https://blog.pizzabox.computer/posts/booting-sparcstation/</link>
+      <pubDate>Tue, 21 Nov 2017 16:00:00 -0500</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/booting-sparcstation/</guid>
+      <description>The SPARCstation was the first pizzabox I was able to connect a serial cable to and turn on. As its self-tests scrolled by (first try!), I had high hopes&amp;hellip;
+y&amp;#39;all pic.twitter.com/jiEKOHn22l
+&amp;mdash; cron mom (@sophaskins) August 15, 2017  &amp;hellip;that were quickly dashed - neither of its two internal SCSI hard disks seemed to be able to boot. The SPARCstation went to the back burner for a while as I focused on booting the Indy.</description>
+    </item>
+    
+    <item>
+      <title>Three new RISC boxes</title>
+      <link>https://blog.pizzabox.computer/posts/three-new-risc-boxes/</link>
+      <pubDate>Tue, 21 Nov 2017 16:00:00 -0500</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/three-new-risc-boxes/</guid>
+      <description>The collection has grown again! My inability to ignore eBay has resulted in three new additions.
+IBM RS/6000 Model 250 The IBM RS/6000 lines is one of the few RISC computer lines to survive well in to the 21st century - IBM&amp;rsquo;s POWER Systems are still available and still the biggest beneficiary of IBM&amp;rsquo;s chip research. The Model 250 is the last of the 200 series pizzaboxes - it has a 66 MHz PowerPC 601 processor (similar to the Power Macintosh 6100).</description>
+    </item>
+    
+    <item>
+      <title>Replacing a dead NVRAM chip</title>
+      <link>https://blog.pizzabox.computer/posts/dead-vram/</link>
+      <pubDate>Sat, 28 Oct 2017 20:00:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/dead-vram/</guid>
+      <description>My SPARCstation 1+ was manufactured in 1989. Over a nearly 30 year lifetime, any number of components could have gone bad: capacitors burst, hard disk motors fail, sometimes the wrong voltage gets attached, etc. A problem that notoriously affects older Sun workstations (including mine!) is NVRAM failure.
+The NVRAM chips in Sun workstations contain:
+ a clock, to keep time when the computer is off memory to store boot device order, serial console modes, etc (in a PC you&amp;rsquo;d call that the BIOS settings) details about the machine itself: its &amp;ldquo;hostid&amp;rdquo;, what model it is, an Ethernet MAC address.</description>
+    </item>
+    
+    <item>
+      <title>Getting an Indy Desktop</title>
+      <link>https://blog.pizzabox.computer/posts/getting-an-indy-desktop/</link>
+      <pubDate>Mon, 25 Sep 2017 21:00:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/getting-an-indy-desktop/</guid>
+      <description>My last post about the Indy was a bit of a downer - I may have learned a lot, but I didn&amp;rsquo;t get much closer to a usable IRIX desktop. In contrast, this post does end happily. I hope that the screenshots at the end make up for how incredibly long it is.
+Replacing the hard disk with a microSD card The working disk in my Indy has an OS installed, but I&amp;rsquo;ve had trouble logging in.</description>
+    </item>
+    
+    <item>
+      <title>Two Macs and an HP</title>
+      <link>https://blog.pizzabox.computer/posts/two-macs-and-an-hp/</link>
+      <pubDate>Mon, 18 Sep 2017 21:00:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/two-macs-and-an-hp/</guid>
+      <description>The pizza delivery folks have been stopping by my house a lot lately, and not just with pineapple and ham!
+Do Macs really belong here? In &amp;ldquo;What is a Workstation?&amp;rdquo;, I declared that &amp;ldquo;a workstation is a computer system designed to be used by a professional&amp;rdquo;. In the classic Mac era, Apple targeted three markets: home users, education, and &amp;ldquo;creatives&amp;rdquo; - desktop publishing, image processing, video editing, and sound recording. The final category certainly fit in to my definition of &amp;ldquo;professional&amp;rdquo;, even if the first two don&amp;rsquo;t.</description>
+    </item>
+    
+    <item>
+      <title>Booting the Indy</title>
+      <link>https://blog.pizzabox.computer/posts/booting-the-indy/</link>
+      <pubDate>Sat, 09 Sep 2017 22:20:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/booting-the-indy/</guid>
+      <description>Once the power supply was in order, my next focus was booting it to a usable state. I ran into quite a few stumbling blocks along the way - this post doesn&amp;rsquo;t end with a 4Dwm desktop (though a future one will!).
+Broken hard drive The first issue was the scraping and grinding sound coming from one of the hard drives! On boot, it sounded like one of the disks was trying to spin up, encountering some&amp;hellip;resistance&amp;hellip;spinning down, and trying again.</description>
+    </item>
+    
+    <item>
+      <title>Indy Power Supply Replacement</title>
+      <link>https://blog.pizzabox.computer/posts/indy-power-supply-replacement/</link>
+      <pubDate>Sat, 02 Sep 2017 16:20:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/indy-power-supply-replacement/</guid>
+      <description>When I first got the Indy, it seemed to work. When I pushed the power button,
+ it played the startup jingle when connected to a monitor, it gave output! (complaining about the lack of keyboard) the light on the front of the case would cycle between red and green, before stabilizing on green  A few weeks later, I got the right serial cable to attach a console, and&amp;hellip;it no longer worked:</description>
+    </item>
+    
+    <item>
+      <title>The First Four Pizzaboxes</title>
+      <link>https://blog.pizzabox.computer/posts/the-first-four/</link>
+      <pubDate>Wed, 23 Aug 2017 20:30:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/the-first-four/</guid>
+      <description>Just over a month ago, late at night I was engaging in one of my favorite hobbies, &amp;ldquo;reread computing history articles on Wikipedia&amp;rdquo;.
+omg I think my calling in life might be to collect a wide array of &amp;quot;pizza box&amp;quot; workstations
+&amp;mdash; cron mom (@sophaskins) July 18, 2017  I&amp;rsquo;m&amp;hellip;perhaps not known for having incredibly good self control, so some eBay browsing later, I&amp;rsquo;d found a NeXTstation on eBay that seemed like a good starting point.</description>
+    </item>
+    
+    <item>
+      <title>The Dream</title>
+      <link>https://blog.pizzabox.computer/posts/the-dream/</link>
+      <pubDate>Sun, 20 Aug 2017 14:52:04 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/the-dream/</guid>
+      <description>I know I&amp;rsquo;ve been stringing you all along for a bit - I&amp;rsquo;ve acquired a handful of workstations, some electronic components, some adapter cables, and I&amp;rsquo;m excited to get my hands dirty and show y&amp;rsquo;all the restoration process. Before we get to that, I want to explain one of my goals from the welcome post a bit more in depth.
+Restoration Most of the machine&amp;rsquo;s I&amp;rsquo;ve got my eye on are nearly 30 years old, and might not have been earnestly used for 20 years.</description>
+    </item>
+    
+    <item>
+      <title>What Is a Workstation</title>
+      <link>https://blog.pizzabox.computer/posts/what-is-a-workstation/</link>
+      <pubDate>Thu, 17 Aug 2017 21:30:00 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/what-is-a-workstation/</guid>
+      <description>If this project is about restoring pizzabox workstations, I have some defining of terms to do. A workstation sometimes means the desk where you work; a pizzabox normally contains a delicious tomato, crust, and cheese combination. For my project, though:
+A workstation is a computer system designed to be used by a professional. It runs specialized software for purposes like CAD/CAM, video editing, desktop publishing, 3D modeling, scientific simulation, manufacturing control, or software engineering.</description>
+    </item>
+    
+    <item>
+      <title>Welcome to pizzabox.computer</title>
+      <link>https://blog.pizzabox.computer/posts/welcome/</link>
+      <pubDate>Sun, 30 Jul 2017 21:01:38 -0400</pubDate>
+      
+      <guid>https://blog.pizzabox.computer/posts/welcome/</guid>
+      <description>Well hello! This is the pizzabox.computer project - my project to restore &amp;ldquo;pizzabox&amp;rdquo; workstations. My goals are to:
+ collect pizzabox workstations from a variety of manufacturers - if possible, from both before and after the move from Motorola 68000 series CPUs to RISC CPUs restore those workstations to be usable with modern peripherals (I don&amp;rsquo;t have the closet space for a dozen CRTs!) archive manuals, specifications, and sales data for workstations from the late 1980s to the mid 1990s write essays about workstation history and what we can learn from it in the present day  I&amp;rsquo;m looking forward to see where this project can go!</description>
+    </item>
+    
+  </channel>
+</rss>

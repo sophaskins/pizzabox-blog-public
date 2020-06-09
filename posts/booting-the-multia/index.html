@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Booting the Multia &middot; Pizza Box Computer</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://blog.pizzabox.computer/"><h1>Pizza Box Computer</h1></a>
+      <p class="lead">
+       <a href="https://blog.sophaskins.net/">A Sophie Haskins Project</a> 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphastation/">AlphaStation 200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/aviion300/">AViiON AV/300D</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphaaxp/">DEC 3000 300X</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/decstation/">DECstation 5000/200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp425e/">HP 9000 Model 425e</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp712/">HP 9000 Model 712</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/multia/">Multia</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/nextstation/">NeXTstation</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powermac6100/">PowerMac 6100</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra605/">Quadra 605</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra610/">Quadra 610</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powerstation250/">RS/6000 Model 250</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/indy/">SGI Indy</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation/">SPARCstation 1&#43;</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation20/">SPARCstation 20</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sunblade150/">SunBlade 150</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/vaxstation/">VAXstation 4000 VLC</a></li></ul>
+    </nav>
+
+    <ul class="sidebar-nav">
+      <li><a href="/posts">Post Index</a></li>
+    </ul>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Booting the Multia</h1>
+  <time datetime=2018-03-17T17:00:00-0400 class="post-date">Sat, Mar 17, 2018</time>
+  <p>The Multia feels to me like Digital&rsquo;s take on a high-end &ldquo;legacy-free&rdquo; (at introduction in late 1994) desktop. Its spec sheet includes features unheard of in its contemporaries:</p>
+<ul>
+<li>a 64-bit RISC processor</li>
+<li>ECC memory</li>
+<li>Ethernet networking</li>
+<li>SCSI2 hard drive</li>
+<li>high-resolution (1280x1024) monitor support</li>
+<li>PCMCIA expansion slots</li>
+</ul>
+<p>A RISC processor, powerful networking, and PCMCIA slots <em>nearly</em> sounds like a description of a <a href="https://en.m.wikipedia.org/wiki/Network_Computer">Network Computer</a>, but the Multia pre-dates the NC by more than a year. It was also <strong>ahead of its time</strong> in terms of its original OS: the fully 32-bit <strong>Windows NT 3.5</strong>. There wouldn&rsquo;t be a 32-bit capable consumer Windows for another year (Windows 95 came out in late 1995).</p>
+<p>Having an advanced-but-unfamiliar OS, expensive ECC memory and SCSI2 disks, and a non-Intel architecture <strong>didn&rsquo;t lead to consumer success</strong>. Its low-end Alpha processor was starved of on-chip cache, so it wasn&rsquo;t particularly attractive as a technical workstation. The Multia sold so poorly that later in its life Digital discounted the price heavily and sold it without an OS, targeting the nacent Linux desktop market.</p>
+<h2 id="a-little-alpha">A little Alpha</h2>
+<p>My Multia is the <a href="/pizzaboxes/multia">lowest-end model</a>: a VX40 with a non-upgradable 166 MHz CPU. When it first arrived, I didn&rsquo;t have a PS/2 keyboard and mouse to test with, so I was only able to verify that it came with Windows NT 4.0 Workstation pre-installed:</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">More motivation to get off my butt and write keyboard code: the Multia boots! <a href="https://t.co/8aoYFLZ05P">pic.twitter.com/8aoYFLZ05P</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/921543732771676160?ref_src=twsrc%5Etfw">October 21, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>It&rsquo;s mostly in good physical shape - the sliding floppy drive door isn&rsquo;t broken off, the case hasn&rsquo;t been roughed up, and nothing seems <em>missing</em>. The back panel <em>is</em> a bit corroded:</p>
+
+<link rel="stylesheet" href="/css/hugo-easy-gallery.css" />
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/multia/corrosion.jpg" alt="corrosion on the case"/>
+    </div>
+    <a href="/img/multia/corrosion.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>corrosion on the case</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>I&rsquo;ve seen similar corrosion on several Multias for sale on eBay - perhaps it&rsquo;s a design flaw rather than the result of living a hard life. The Multia has more than its fair share of design flaws - chief among them is its <strong>utterly inadequate cooling</strong>. Most guides strongly recommend running the Multia <strong>standing vertically</strong> (rather than pizzabox traditional horizontal) to expose more surface area to airflow - the <a href="http://www.netbsd.org/ports/alpha/multiafaq.html#heat-death">NetBSD FAQ</a> has a lot more detail.</p>
+<h2 id="first-login">First login</h2>
+<p>A few months later (once I had aquired peripherals) I was ready to log in. Since it&rsquo;s running Windows NT, I was expecting to have to use <a href="https://en.wikipedia.org/wiki/Rainbow_table">rainbow tables</a> to hack the Administrator password - the seller didn&rsquo;t note it down for me. My understanding of this procedure is that I would mount the hard drive on another computer and match the Administrator password hash to a known password.  First, though, I looked to see if there was a default post-install password.</p>
+<p>To my surprise, the <strong>default is to have no password</strong>, and that was how my Multia was configured! I was presented with a stock standard Windows NT 4.0 desktop - the previous owner must have done a fresh install before selling it to me.</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/multia/ntdesktop.png" alt="default windows nt 4.0 desktop"/>
+    </div>
+    <a href="/img/multia/ntdesktop.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>default windows nt 4.0 desktop</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>If you&rsquo;ve never used Windows NT 4.0 Workstation before, it&rsquo;s a <em>lot</em> like Windows 95. Most of the pre-installed applications are the same, the GUI is the same, even the desktop background is the same. There are certainly <em>some</em> differences (actually caring at all about user accounts, bits for integration with AD domains, and NTFS), but in terms of &ldquo;what is it like to use&rdquo;, it&rsquo;s nothing surprising.</p>
+<h2 id="connecting-to-my-network">Connecting to my network</h2>
+<p>Another telltale sign that the previous owner did a fresh re-install before selling it is that it was at a pretty <em>old</em> patchlevel: SP1. I downloaded the final Service Pack (SP6), put it on my NAS&rsquo;s &ldquo;public&rdquo; directory, and connected the Multia to my network. Some things don&rsquo;t change much - thankfully for my vintage pizzaboxes, among them are:</p>
+<ul>
+<li>10Base-T Ethernet</li>
+<li>DHCP</li>
+<li>unauthenticated SMB &amp; NFS</li>
+</ul>
+<p>Running the upgrade from a NAS more than 20 years newer than the Multia went smoothly. Once updated, the version of Internet Explorer is still elderly:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/multia/iesplash.png" alt="internet explorer splash page"/>
+    </div>
+    <a href="/img/multia/iesplash.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>internet explorer splash page</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>I tried to load up my <strong>favorite classic web site</strong>, the <a href="https://www.warnerbros.com/archive/spacejam/movie/jam.htm">Space Jam marketing page</a>. Unfortunately, though the page&rsquo;s <em>contents</em> haven&rsquo;t changed since 1996, it now is served via Cloudflare and doesn&rsquo;t work over plain HTTP (HTTPS would fail b/c of cipher mismatches, as well as no SNI support):</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/multia/spacejam.png" alt="space jam website wont load"/>
+    </div>
+    <a href="/img/multia/spacejam.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>space jam website wont load</p>
+      </figcaption>
+  </figure>
+</div>
+
+<h2 id="from-here">From here</h2>
+<p>Setting up the Multia was anticlimactic - <strong>it Just Worked™ out of the box</strong> and its OS feels rather pedestrian. Finding <em>software</em> written for Win32/Alpha, though, is likely to be a challenge. Most software I have heard of is linked to DEC&rsquo;s (dead) website. My hope is to find an IDE, some database software, and maybe a solid Telnet client or X server so I can experience the ways folks actually used them at the time.</p>
+<p>Did you use a Multia back in the 1990s? Or maybe have a lead on some Alpha software? Send me an email at <a href="mailto:sophie@pizzabox.computer">sophie@pizzabox.computer</a>!</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/multia/runningondesk.jpg" alt="multia set up on my desk"/>
+    </div>
+    <a href="/img/multia/runningondesk.jpg" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>multia set up on my desk</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-91739270-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+
+
+
+  
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="/js/load-photoswipe.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+    
+  </body>
+</html>

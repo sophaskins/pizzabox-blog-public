@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NeXTstep on the HP 712 Part 1: Installation &middot; Pizza Box Computer</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://blog.pizzabox.computer/"><h1>Pizza Box Computer</h1></a>
+      <p class="lead">
+       <a href="https://blog.sophaskins.net/">A Sophie Haskins Project</a> 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphastation/">AlphaStation 200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/aviion300/">AViiON AV/300D</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphaaxp/">DEC 3000 300X</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/decstation/">DECstation 5000/200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp425e/">HP 9000 Model 425e</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp712/">HP 9000 Model 712</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/multia/">Multia</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/nextstation/">NeXTstation</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powermac6100/">PowerMac 6100</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra605/">Quadra 605</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra610/">Quadra 610</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powerstation250/">RS/6000 Model 250</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/indy/">SGI Indy</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation/">SPARCstation 1&#43;</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation20/">SPARCstation 20</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sunblade150/">SunBlade 150</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/vaxstation/">VAXstation 4000 VLC</a></li></ul>
+    </nav>
+
+    <ul class="sidebar-nav">
+      <li><a href="/posts">Post Index</a></li>
+    </ul>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>NeXTstep on the HP 712 Part 1: Installation</h1>
+  <time datetime=2020-01-20T20:20:00-0500 class="post-date">Mon, Jan 20, 2020</time>
+  <p>It&rsquo;s been a long time since my <a href="/posts/installing-aux-quadra">last pizzabox post</a> - over a year! There&rsquo;s been <a href="https://www.vice.com/en_us/article/7x5an4/why-i-quit-github">a lot going on</a> in my life but I&rsquo;m excited that <strong>lately I&rsquo;ve had a lot more free time</strong>, which means more time to explore the world of workstations and share with you!</p>
+<p>I&rsquo;m also excited announce that I&rsquo;m <strong>trying out YouTube videos</strong> - not <em>instead</em> of these posts, but in <em>addition</em> to them. This post has a sibling video, so if that&rsquo;s more your jam, check it out.</p>
+<p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/WxsGMp_8w6Q" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<!-- raw HTML omitted --></p>
+<p>This post is part one of a multi-part series about <strong>running NeXTstep on the HP 712</strong>. Today I&rsquo;ll dive in to <strong>installation process</strong>.</p>
+<p>NeXTstep is a <strong>historically interesting OS</strong> (more on that in a bit) and while I <em>do</em> own some <a href="/pizzaboxes/nextstation">original NeXT hardware</a>, it&rsquo;s a difficult to actually <em>use</em> - one of my longer-term projects is to make adapters for the NeXTstation to use more common input devices. That doesn&rsquo;t stop me from playing with NeXTstep, though, because <strong>it also runs on one of my favorite pizzaboxes</strong>, the HP 712.</p>
+<h2 id="a-note-on-capitalization">A note on cAPitALIZAtion</h2>
+<p>NeXT used a variety of capitalizations of NeXTstep, including</p>
+<ul>
+<li>NeXTSTEP</li>
+<li>NEXTSTEP</li>
+<li>NeXTStep, and</li>
+<li>NeXTstep</li>
+</ul>
+<p>Regardless of historical accuracy, <strong>I think &ldquo;NeXTstep&rdquo; looks the coolest</strong>, so I&rsquo;m going to use that throughout</p>
+<h2 id="the-nextstep-in-computer-evolution">The NeXTstep in computer evolution</h2>
+<p>The OS I&rsquo;m installing is NeXT, inc&rsquo;s  NeXTstep. NeXTstep was made up of:</p>
+<ul>
+<li>the <strong><a href="https://www.cs.cmu.edu/afs/cs/project/mach/public/www/mach.html">Mach kernel</a></strong></li>
+<li>a Unix-like user-land from <strong>BSD</strong></li>
+</ul>
+
+<link rel="stylesheet" href="/css/hugo-easy-gallery.css" />
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/nextstep-logo.png" alt="nextstep logo, from Quick Start manual"/>
+    </div>
+    <a href="/img/hp712/nextstep/nextstep-logo.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>nextstep logo, from Quick Start manual</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>Those components make it sound like &ldquo;yet another boring 1980s-1990s commercial Unix&rdquo;. However, the NeXT few layers (NO APOLOGIES FOR PUNS) <strong>made it quite different</strong> from other Workstation OSes. It had:</p>
+<ul>
+<li>NeXT&rsquo;s <strong>Objective-C</strong> runtime for building applications (an ancestor of <a href="https://en.wikipedia.org/wiki/Cocoa_(API)">Cocoa</a>)</li>
+<li>the <strong><a href="https://en.wikipedia.org/wiki/Display_PostScript">Display PostScript</a></strong> graphics engine</li>
+<li>an <strong>incredible GUI</strong> built on top of them</li>
+</ul>
+<p>I&rsquo;ll dive deeper in to what features made NeXTstep special in a future post, but suffice to say: NeXTstep was <strong>incredibly important for the future of operating systems</strong>. While NeXT <em>themselves</em> didn&rsquo;t have much success selling their workstations (or their OS&hellip;or their toolkits&hellip;), their work <em>directly</em> forms the basis of MacOS X and indirectly influenced the development of other OSes.</p>
+<p>In the mid 1990s, NeXT&rsquo;s effort to replace their Motorola 68000-based workstation architecture with a RISC one fizzled out. When they stopped selling hardware, <strong>they started selling new ports of NeXTstep for other architectures</strong>: Intel&rsquo;s <a href="https://en.wikipedia.org/wiki/IA-32">IA-32</a>, Sun&rsquo;s <a href="https://en.wikipedia.org/wiki/SPARC">SPARC</a>, and HP&rsquo;s <a href="https://en.wikipedia.org/wiki/PA-RISC">PA-RISC</a>. The version I&rsquo;m installing is NeXTstep 3.3 - the first and final version for PA-RISC.</p>
+<h2 id="this-pizzabox-hewlett-packs-a-punch">This pizzabox Hewlett-Packs a punch!</h2>
+<p>The hardware I&rsquo;m using is the HP 9000 Model 712. I&rsquo;ve <a href="/posts/booting-the-hp712/">written about</a> setting it up to use its native HP-UX OS, but that&rsquo;s not the only trick up its sleeve. The 32-bit first-generation PA-RISC machines in HP&rsquo;s 9000 family <strong>can run NeXTstep and are <em>much</em> faster than NeXT&rsquo;s 68000 hardware</strong>. The 712 is a later model from that generation, packaging the power of earlier models in to a less expensive and smaller package.</p>
+<p>Important things to know about my 712 are that it has:</p>
+<ul>
+<li>64MB of RAM (midway between the min of 16MB and max 128MB)</li>
+<li>a 60 MHz processor (later models being 80 or 100 MHz)</li>
+<li>a VRAM expansion (so it supports all relevant resolutions)</li>
+<li>no hard disk (or at least, it didn&rsquo;t <em>ship</em> with one, though it <em>supports</em> one)</li>
+<li>also no floppy disk drive, though it also <em>can</em> (I&rsquo;m guessing this means it was netbooted in its former life?)</li>
+<li>IBM PC-style I/O: video comes via a VGA port, and peripherals are the PS/2 type</li>
+</ul>
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/back.jpeg" />
+    </div>
+    <a href="/img/hp712/back.jpeg" itemprop="contentUrl"></a>
+  </figure>
+</div>
+
+<p>Besides the computer, <strong>the other ingredients I&rsquo;ll need are:</strong></p>
+<ul>
+<li>a hard disk - as usual, <strong>I&rsquo;ll be using a <a href="http://www.codesrc.com/mediawiki/index.php/SCSI2SD">SCSI2SD</a></strong>, but as you&rsquo;ll see in a bit, the configuration is a bit non-standard</li>
+<li>installation CD - I <a href="https://archive.org/details/NextSTEP_3.3_RISC_Sun_SPARC-HP_PARISC">got mine</a> from the <strong>Internet Archive</strong></li>
+<li>a CD-ROM drive - at first I tried to use my physical drive, but it seems to be broken. I ended up using the SCSI2SD as a CD-ROM as well.</li>
+</ul>
+<h2 id="disk-configuration-mis-steps">Disk configuration mis-STEPs</h2>
+<p>Approaching this naively, I&rsquo;d expect the SCSI2SD&rsquo;s <em>default</em> settings to work. Out of the box, it&rsquo;s configured to have <strong>SCSI ID 0 be a 2GB hard disk</strong> - nothing fancy. I tried this, and the installation seems like it&rsquo;s going to work, but when it comes time to format the disk, it runs in to problems:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/geometry-failure.png" alt="disk initialization failed"/>
+    </div>
+    <a href="/img/hp712/nextstep/geometry-failure.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>disk initialization failed</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>Digging around on the internet a bit gave me a clue - <strong>NeXTstep is picky about drive geometry</strong>. Some fine folks on the &ldquo;NeXT Computers&rdquo; forum <a href="http://www.nextcomputers.org/forums/index.php?PHPSESSID=f229ce4453f6d99df2a45651686a0fc6&amp;msg=24806">geometry settings</a> that will work with NeXTstep on a SCSI2SD. Unfortunately, the <code>scsi2sd-util</code> software doesn&rsquo;t have a way to set the important <code>sectorsPerTrack</code> and <code>headsPerCylinder</code>. Instead, I had to save the configuration to an XML file, open it up and edit those settings, and re-import the config in the utility. The offending default geometry settings were:</p>
+<pre><code>&lt;sectorsPerTrack&gt;63&lt;/sectorsPerTrack&gt;
+&lt;headsPerCylinder&gt;255&lt;/headsPerCylinder&gt;
+</code></pre><p>I changed them to the recommended settings from the forum:</p>
+<pre><code>&lt;sectorsPerTrack&gt;139&lt;/sectorsPerTrack&gt;
+&lt;headsPerCylinder&gt;4&lt;/headsPerCylinder&gt;
+</code></pre><p>This is good enough to get all the way through the install and software installation process, but <strong>it will just hang on the first true post-installation boot</strong>:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/post-install-wrong-ids.png" alt="hanging after installation"/>
+    </div>
+    <a href="/img/hp712/nextstep/post-install-wrong-ids.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>hanging after installation</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>There&rsquo;s a lot going on here, and it doesn&rsquo;t <em>explicitly</em> tell you what&rsquo;s going on, but there are clues. The first interesting bit is:</p>
+<pre><code>Checking disks
+/dev/rsd0a file system clean: skipping check
+mountfs: illegal remount request
+mount: /dev/sd0a on /: Invalid argument
+mount: giving up
+</code></pre><p>In a <a href="https://en.wikipedia.org/wiki/Fsck#Use">typical</a> Unix boot sequence, the root filesystem is first mounted read-only, checked with <code>fsck</code>, then re-mounted read-write. <strong>It sounds like that re-mount didn&rsquo;t work</strong>! There&rsquo;s more indication that the root is still read-only further down when it attempts to start <code>syslogd</code>:</p>
+<pre><code>Starting early daemons: syslogdFeb 15 23:35:26 localhost syslogd: cannot create /dev/log: Read-only file system
+</code></pre><p>So, it seems like I&rsquo;m having trouble with <code>/dev/sd0a</code>, the root partition. In a normal world, I&rsquo;d expect that that corresponds to:</p>
+<ul>
+<li>the first partition (the <code>a</code>)</li>
+<li>on the first disk (the <code>0</code>)</li>
+<li>attached to the SCSI bus (the <code>sd</code>)</li>
+</ul>
+<p>Given that I have my hard disk at SCSI ID 0 and CD-ROM at ID 3, <strong>you&rsquo;d think that <code>sd0a</code> would be the hard disk. You would be wrong.</strong> If you read a little higher in this boot output, it says:</p>
+<pre><code>The following scsi disks have been found:
+  sd0 at target 3
+  sd1 at target 0
+</code></pre><p>Excuse me? <code>sd0</code> is SCSI ID 3? That&rsquo;s&hellip;my CD-ROM drive. I guess it makes sense that it can&rsquo;t be mounted read/write?! It took some digging, but I found an explanation as to why from an unlikely source - <strong>a NeXT knowledge-base article from 1997</strong>! <a href="https://www.nextop.de/NeXTAnswers/1684.html#scsidevicenumbering">NeXTAnswers #1684</a> explains:</p>
+<blockquote>
+<p>Q:	How are SCSI device numbers assigned on HP hardware?</p>
+<p>A:	Unlike NEXTSTEP on NeXT and Intel-based hardware, NEXTSTEP for PA-RISC assigns SCSI device numbers in order of decreasing SCSI ID numbers. In other words, NEXTSTEP scans down by SCSI ID, assigning device number 0 to the first device encountered, device number 1 to the second, etc.</p>
+<p>For example, a typical HP SCSI setup consists of a hard disk at SCSI ID 6 and a CD-ROM drive at SCSI ID 2. In this example, the hard disk is assigned SCSI device number 0, while the CD-ROM drive is assigned device number 1. A second hard disk added at ID 1 would then be assigned device number 2.</p>
+</blockquote>
+<p>Well that seems unusual! Why would NeXT number differently on PA-RISC than other platforms? It turns out&hellip;<strong>this is how HP does it</strong>. In the <a href="http://www.hpmuseum.net/exhibit.php?hwdoc=430">Owner&rsquo;s Guide</a> for the HP 712 on page C-13 it has a table to help you choose SCSI IDs, and it notes that your internal hard drive <strong>would normally be ID 6</strong> (the &ldquo;Winchester Disk&rdquo;). On page 6-2 (the beginning of the section about CD-ROM drives) it notes:</p>
+<blockquote>
+<p>The instructions in this chapter assume that your CD-ROM drive is set to the factory default address of SCSI ID 2.</p>
+</blockquote>
+<p>The boot disk being SCSI ID 6 and an external CD-ROM being ID 2 is <em>not</em> what I would typically expect. On a Mac (at least!), <strong>it&rsquo;s traditional to have the internal boot drive be ID 0 and a CD-ROM be ID 3</strong>. I can&rsquo;t say I know <em>why</em> HP numbers things differently from other manufacturers, but&hellip;it seems that they <em>do</em>.</p>
+<p>To bring this back around: what&rsquo;s happening here is the bootloader is starting up the kernel from the drive it&rsquo;s on, <em>then</em> telling it to proceed to mount <code>/dev/sd0a</code> as root. Because my IDs are set in a &ldquo;typical&rdquo; fashion, that <strong>results in it trying to mount the <em>CD-ROM</em> as root instead of the boot disk</strong>. Renumbering my SCSI drives to have the disk at a higher ID than the CD-ROM fixes the problem.</p>
+<p>My final SCSI2SD configuration had the hard disk at ID 6, and the CD-ROM drive at ID 3.</p>
+<h2 id="finally-doing-the-install">Finally doing the install</h2>
+<p>Now that we know that:</p>
+<ul>
+<li>NeXTstep is picky about disk geometry</li>
+<li>HP workstations are picky about about SCSI ID ordering</li>
+</ul>
+<p>and have the SCSI2SD set up correctly, it&rsquo;s <strong>time to actually start the installation</strong>! Booting from the CD-ROM brings up the NeXTstep bootloader, a language choice screen, and the installation main menu. Once I give my consent for beginning the installation, it goes through what looks like a pretty normal Unix boot.</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/bootloader.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/bootloader.png" alt="NeXTstep bootloader"/>
+    </div>
+    <a href="/img/hp712/nextstep/bootloader.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>NeXTstep bootloader</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/language-choice.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/language-choice.png" alt="language choice"/>
+    </div>
+    <a href="/img/hp712/nextstep/language-choice.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>language choice</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/main-menu.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/main-menu.png" alt="installer main menu"/>
+    </div>
+    <a href="/img/hp712/nextstep/main-menu.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>installer main menu</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>Once the system is up, the installer shows which disk it thinks it should install to. If I accept that choice of target disk, the installer gives me one last change to opt-out before the point of no return.</p>
+<p>As the main-menu warning indicates, <strong>the installer will entirely take over your hard disk</strong>. There are some notes online about it just being generally impossible to construct a disk with an HP-UX <em>and</em> NeXTstep partitions. I suspect that&rsquo;s why NeXTstep uses a bootloader, rather than passing kernel parameters from the firmware prompt like most of its contemporary workstations - the firmware isn&rsquo;t capable of reading deeply enough in to the disk.</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/installer-unix-boot.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/installer-unix-boot.png" alt="installer unix boot"/>
+    </div>
+    <a href="/img/hp712/nextstep/installer-unix-boot.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>installer unix boot</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/disk-choice.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/disk-choice.png" alt="boot disk choice"/>
+    </div>
+    <a href="/img/hp712/nextstep/disk-choice.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>boot disk choice</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/point-of-no-return.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/point-of-no-return.png" alt="point of no return"/>
+    </div>
+    <a href="/img/hp712/nextstep/point-of-no-return.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>point of no return</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>First the disk needs to be &ldquo;prepared&rdquo; - I&rsquo;m assuming that behind the scenes it&rsquo;s <strong>writing a partition table and formatting the disk</strong>. Then, files are copied from the CD-ROM. The formatting takes about 5 minutes; the copying takes about 12 minutes.</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/formatting.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/formatting.png" alt="formatting the disk"/>
+    </div>
+    <a href="/img/hp712/nextstep/formatting.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>formatting the disk</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/copying-files.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/copying-files.png" alt="copying files"/>
+    </div>
+    <a href="/img/hp712/nextstep/copying-files.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>copying files</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/copying-complete.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/copying-complete.png" alt="copying complete"/>
+    </div>
+    <a href="/img/hp712/nextstep/copying-complete.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>copying complete</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>After the copying stage, it&rsquo;s time to reboot from the the hard disk for software installation. This time, <strong>it&rsquo;s not in text mode anymore</strong>! My HP 712 isn&rsquo;t currently connected to a network, so the networking part of the boot process complains. A quick &ldquo;Control-C&rdquo; nudges the process alaong.</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/packages-boot.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/packages-boot.png" alt="booting from disk"/>
+    </div>
+    <a href="/img/hp712/nextstep/packages-boot.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>booting from disk</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/packages-network-fail.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/packages-network-fail.png" alt="oh no! no ethernet!"/>
+    </div>
+    <a href="/img/hp712/nextstep/packages-network-fail.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>oh no! no ethernet!</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>The first graphical step is to configure hardware. Since NeXT knows <em>exactly</em> which components are in this workstation (since it&rsquo;s a specific HP model, instead of an arbitrary PC), <strong>I can just proceed with the defaults</strong>. After configuration, I get to select software I want to install (on top of the base system). The options are:</p>
+<ul>
+<li>non-English <strong>language support</strong> (Swedish, Spanish, Italian, German, and French)</li>
+<li><strong>documentation and on-line help</strong> (which sound an awful lot like they&rsquo;re the same thing)</li>
+<li><strong>demo programs</strong>, the <strong>Webster English Dictionary</strong> program, and the dictionary&rsquo;s supporting images</li>
+<li><strong>PPDs</strong> (Postscript Printer Descriptions) for various printers and imagesetters (for serious publishing)</li>
+<li><strong>emacs and TeX</strong> (for serious nerdery)</li>
+</ul>
+<p>I&rsquo;m going to install everything - the process takes about 35 minutes.</p>
+
+
+
+<div class="gallery caption-position-bottom caption-effect-none hover-effect-none hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
+	  
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/packages-device-config.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/packages-device-config.png" alt="device config"/>
+    </div>
+    <a href="/img/hp712/nextstep/packages-device-config.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>device config</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/packages-choose-extras.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/packages-choose-extras.png" alt="which software?"/>
+    </div>
+    <a href="/img/hp712/nextstep/packages-choose-extras.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>which software?</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+
+<div class="box" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img" style="background-image: url('/img/hp712/nextstep/packages-complete.png');">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/packages-complete.png" alt="all done!"/>
+    </div>
+    <a href="/img/hp712/nextstep/packages-complete.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>all done!</p>
+      </figcaption>
+  </figure>
+</div>
+
+
+</div>
+
+<p>After a post-installation reboot, I get a chance to select which language to <em>use</em>. Folks who&rsquo;ve installed Mac OS X may find this screen <a href="https://www.youtube.com/watch?v=H2uzNyiODsw">rather familiar</a>:</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/keyboard-choice.png" alt="keyboard and language choice"/>
+    </div>
+    <a href="/img/hp712/nextstep/keyboard-choice.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>keyboard and language choice</p>
+      </figcaption>
+  </figure>
+</div>
+
+<p>and that&rsquo;s it! <strong>I&rsquo;ve successfully installed NeXTstep 3.3 on an HP PA-RISC workstation</strong> and I get my reward: the NeXTstep desktop.</p>
+
+
+<div class="box fancy-figure caption-position-none" >
+  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+    <div class="img">
+      <img itemprop="thumbnail" src="/img/hp712/nextstep/first-desktop.png" alt="first boot - clean desktop"/>
+    </div>
+    <a href="/img/hp712/nextstep/first-desktop.png" itemprop="contentUrl"></a>
+      <figcaption>
+          <p>first boot - clean desktop</p>
+      </figcaption>
+  </figure>
+</div>
+
+<h2 id="whats-the-next-step-see-what-i-did-there">What&rsquo;s the NeXT step? (SEE WHAT I DID THERE?!?!)</h2>
+<p>This post is <strong>only the first part</strong> of my NeXTstep on PA-RISC project. I&rsquo;m planning on there at least being a Part 2 on setting up networking and finding and installing useful software (like the developer tools!) and a Part 3 of reflections on the experience, its similarity to (and differences from!) the modern Mac OS. Further in the future, I&rsquo;d love to do a Part 4 about developing a full application on NeXTstep.</p>
+<p>This is the part where you come in - <strong>do you have any stories about using NeXTstep?</strong> I&rsquo;d love for you to send them to me via email to <a href="mailto:sophie@pizzabox.computer">sophie@pizzabox.computer</a>! Also, please let me know if you&rsquo;d be willing for me to include quotes from your stories in part 3 of this series (and how you&rsquo;d like to be cited).</p>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-91739270-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+
+
+
+  
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="/js/load-photoswipe.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+    
+  </body>
+</html>

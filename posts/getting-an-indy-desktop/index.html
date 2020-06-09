@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Getting an Indy Desktop &middot; Pizza Box Computer</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://blog.pizzabox.computer/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://blog.pizzabox.computer/"><h1>Pizza Box Computer</h1></a>
+      <p class="lead">
+       <a href="https://blog.sophaskins.net/">A Sophie Haskins Project</a> 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphastation/">AlphaStation 200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/aviion300/">AViiON AV/300D</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/alphaaxp/">DEC 3000 300X</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/decstation/">DECstation 5000/200</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp425e/">HP 9000 Model 425e</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/hp712/">HP 9000 Model 712</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/multia/">Multia</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/nextstation/">NeXTstation</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powermac6100/">PowerMac 6100</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra605/">Quadra 605</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/quadra610/">Quadra 610</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/powerstation250/">RS/6000 Model 250</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/indy/">SGI Indy</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation/">SPARCstation 1&#43;</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sparcstation20/">SPARCstation 20</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/sunblade150/">SunBlade 150</a></li>
+          <li><a href="https://blog.pizzabox.computer/pizzaboxes/vaxstation/">VAXstation 4000 VLC</a></li></ul>
+    </nav>
+
+    <ul class="sidebar-nav">
+      <li><a href="/posts">Post Index</a></li>
+    </ul>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Getting an Indy Desktop</h1>
+  <time datetime=2017-09-25T21:00:00-0400 class="post-date">Mon, Sep 25, 2017</time>
+  <p>My last post about the Indy was a bit of a downer - I may have learned a lot, but I <em>didn&rsquo;t</em> get much closer to a usable IRIX desktop. In contrast, this post <em>does</em> end happily. I hope that the screenshots at the end make up for how incredibly long it is.</p>
+<h2 id="replacing-the-hard-disk-with-a-microsd-card">Replacing the hard disk with a microSD card</h2>
+<p>The working disk in my Indy has an OS installed, but I&rsquo;ve <a href="/posts/booting-the-indy/">had trouble</a> logging in. Rather than erase and re-install IRIX onto that disk (and lose whatever applications it might have!), I wanted to save it and use a new disk. While used SCSI hard disks are available (and from my reading, some <em>new</em> Ultra320 SCSI drives are capable of running in SCSI 2 mode), I&rsquo;ve decided to <strong>avoid spinning-rust disks</strong> in favor of the <a href="http://www.codesrc.com/mediawiki/index.php?title=SCSI2SD">SCSI2SD</a>.</p>
+<p>The SCSI2SD uses a microcontroller to emulate a SCSI device in software and stores data on a microSD card. It&rsquo;s not <em>quite</em> plug-and-play - to get it ready for use, I had to:</p>
+<ul>
+<li><strong>Insert a microSD card</strong>: I&rsquo;m using a pretty cheap 8GB SanDisk - I figure 8GB was a pretty large disk at the time, given the two that came with my Indy were 1GB and 500 MB</li>
+<li><strong>Download software</strong>: both the SCSI2SD firmware and <code>scsi2sd-util</code> - there are different versions for the <a href="http://www.codesrc.com/files/scsi2sd/latest/">SCSI2SD  v5</a> and <a href="http://www.codesrc.com/files/scsi2sd-v6/latest/">SCSI2SD v6</a> hardware revisions</li>
+<li><strong>Flash the firmware</strong>: This step threw me a bit - I had to open <code>scsi2sd-util</code>, go to the &ldquo;Upgrade Firmware&rdquo; window, and <em>then</em> plug the SCSI2SD in with USB. I spent a little time wondering why when I plugged mine in, <code>scsi2sd-util</code> didn&rsquo;t recognize it - the reason is you have to flash it before it works.</li>
+<li><strong>Upload settings</strong>: I grabbed settings from the <a href="http://www.nekochan.net/wiki/SCSI2SD#Things_you_need">Nekochan wiki</a>. The most important ones for the Indy are <strong>parity</strong> and <strong>SCSI2 Mode</strong>.</li>
+<li><strong>Remove the terminators</strong>: The SCSI2SD has built-in terminators, but so does the Indy&rsquo;s SCSI cable. The SCSI2SD terminators are in removable SIP packages, so I just pulled them out.</li>
+</ul>
+<p>With the SCSI2SD drive ready to go, it needed to be installed in the Indy. The SCSI2SD docs recommend <em>not</em> letting it rest directly on &ldquo;conductive material&rdquo; (like the metal floor of the case), so I had find a way to attach it to the drive mounting bracket. I didn&rsquo;t have any spacers to safely screw it on directly, so instead I got creative with Command Strips (something quite plentiful in my household):</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I’ll take “Unconventional Uses of Command Strips” for $300, Alex <a href="https://t.co/ra2cMLB6Fd">pic.twitter.com/ra2cMLB6Fd</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/902311099760041984?ref_src=twsrc%5Etfw">August 28, 2017</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<h2 id="netbooting-a-new-tool">Netbooting: a new tool</h2>
+<p>In <a href="/posts/booting-the-indy/">&ldquo;Booting the Indy&rdquo;</a>, I used the <a href="http://www.nekochan.net/wiki/Using_DINA_for_network_installation_of_IRIX">DINA</a> VM image for a netboot server. Since then, I&rsquo;ve had some trouble getting DINA running again, so I decided to give another tool a try: <code>irixboot</code>. The <a href="https://github.com/halfmanhalftaco/irixboot">project&rsquo;s README</a> has most of the instructions I needed. My install discs were:</p>
+<ul>
+<li><code>irix/6.5/inst/IRIX 6.5 Installation Tools.img</code> <a href="https://archive.org/details/sgi_IRIX_6.5_Installation_Tools_June_1998">download</a></li>
+<li><code>irix/6.5/foundation/IRIX 6.5 Foundation 1.img</code> <a href="https://archive.org/details/sgi_IRIX_6.5_Foundation_1">download</a></li>
+<li><code>irix/6.5/foundation/IRIX 6.5 Foundation 2.img</code> <a href="https://archive.org/details/sgi_IRIX_6.5_Foundation_2">download</a></li>
+<li><code>irix/6.5/applications/IRIX 6.5 Applications.img</code> <a href="https://archive.org/details/sgi_IRIX_6.5_Applications_June_1998">download</a></li>
+<li><code>irix/6.5/nfs/ONC3 NFS Version3.img</code> <a href="https://archive.org/details/sgi_ONC3-NFS_Version_3_for_IRIX_6.2__6.3__6.4_and_6.5">download</a></li>
+</ul>
+<p>from the images hosted on the <a href="https://archive.org/">Internet Archive</a>. Since I was running from Linux instead of Windows (what the <code>irixboot</code> author tested), the <code>bridgenic</code> param was just the name of my server&rsquo;s ethernet interface (<code>eno1</code>). From there, all I needed was a <code>vagrant up</code> and I was ready!</p>
+<h2 id="partitioning-the-disk">Partitioning the disk</h2>
+<p>In most modern OS installers, partitioning the disk is part of the install process. Not so on IRIX! The IRIX installer seems to use the disk to store temporary files during installation, so you have to have valid partitions set up separately. To do that, you must boot to the Command Monitor:</p>
+<pre><code>System Maintenance Menu
+
+1) Start System
+2) Install System Software
+3) Run Diagnostics
+4) Recover System
+5) Enter Command Monitor
+
+Option? 5
+Command Monitor.  Type &quot;exit&quot; to return to the menu.
+&gt;&gt;
+</code></pre><p>and boot in to the <code>fx</code> partitioner from the &ldquo;Installation Tools&rdquo; disk</p>
+<pre><code>&gt;&gt; bootp():/inst/stand/fx.ARCS
+Setting $netaddr to 192.168.1.242 (from server )
+Obtaining /inst/stand/fx.ARCS from server
+93664+25632+7056+2804464+48784d+5808+8832 entry: 0x8bd4b0f0
+Currently in safe read-only mode.
+</code></pre><p>In the command I entered.</p>
+<ul>
+<li><code>bootp():</code> says &ldquo;use whatever server BOOTP tells you to&rdquo;</li>
+<li><code>/inst</code> the path to the Installation Tools disc in <code>irixboot</code></li>
+<li><code>stand/fx.ARCS</code> is the path to the <code>fx</code> partitioning tool on that disc.</li>
+</ul>
+<p>I found <a href="http://www.futuretech.blinkenlights.nl/6.5inst.html">Future Technology&rsquo;s guide</a> valuable in figuring out <em>how</em> to set things up - I accepted the defaults at each prompt until I got to the menu:</p>
+<pre><code>----- please choose one (? for help, .. to quit this menu)-----
+[exi]t               [d]ebug/             [l]abel/
+[b]adblock/          [exe]rcise/          [r]epartition/
+fx&gt;
+</code></pre><p>chose &ldquo;repartition&rdquo; on the &ldquo;rootdrive&rdquo;, with the XFS filesystem:</p>
+<pre><code>fx&gt; r
+
+----- partitions-----
+part  type        blocks            Megabytes   (base+size)
+  0: xfs      266240 + 15201280     130 + 7422
+  1: raw        4096 + 262144         2 + 128
+  8: volhdr        0 + 4096           0 + 2
+ 10: volume        0 + 15467520       0 + 7552
+
+capacity is 15467520 blocks
+
+----- please choose one (? for help, .. to quit this menu)-----
+[ro]otdrive        [u]srrootdrive     [o]ptiondrive      [re]size
+fx/repartition&gt; ro
+
+fx/repartition/rootdrive: type of data partition = (xfs)
+Warning: you will need to re-install all software and restore user data
+from backups after changing the partition layout.  Changing partitions
+will cause all data on the drive to be lost.  Be sure you have the drive
+backed up if it contains any user data.  Continue? yes
+</code></pre><p>The Future Technology guide says you need to add a &ldquo;label&rdquo;, but that didn&rsquo;t seem to be an option for me, so I just proceeded to <code>/exit</code>.</p>
+<h2 id="netbooting-the-irix-installer">Netbooting the IRIX installer</h2>
+<p>That took me back to the &ldquo;System Maintenance Menu&rdquo; - this time choosing to &ldquo;Install System Software&rdquo;:</p>
+<pre><code>                         Installing System Software...
+
+                       Press &lt;Esc&gt; to return to the menu.
+
+
+
+1) Remote Tape  2) Remote Directory  X) Local CD-ROM  X) Local Tape
+
+Enter 1-4 to select source type, &lt;esc&gt; to quit,
+or &lt;enter&gt; to start:
+</code></pre><p>I used <code>2</code> for &ldquo;Remote Directory&rdquo;, entered in the IP address of my <code>irixboot</code> server and the path to the install tools disc:</p>
+<pre><code>Enter the name of the remote host: 192.168.1.10
+Enter the remote directory: /inst/dist
+</code></pre><p>This kicks you <em>back</em> to the &ldquo;Installing System Software&rdquo; menu - you press enter to use your chosen settings to kick off an install:</p>
+<pre><code>Setting $netaddr to 192.168.1.242 (from server )
+Copying installation program to disk.
+Setting $netaddr to 192.168.1.242 (from server )
+......... 10% ......... 20% ......... 30% ......... 40% ......... 50%
+......... 60% ......... 70% ......... 80% ......... 90% ......... 100%
+
+Copy complete
+Setting $netaddr to 192.168.1.242 (from server )
+Setting $netaddr to 192.168.1.242 (from server )
+IRIX Release 6.5 IP22 Version 05190108 System V
+Copyright 1987-1998 Silicon Graphics, Inc.
+All Rights Reserved.
+
+gfe1: missing
+gfe0: missing
+xpi0: missing from slot 1
+xpi0: missing from slot 0
+root on /hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/1/block ; boot swap file on /dev/swap swplo 57000
+Creating miniroot devices, please wait...
+/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/volume/char: [Alert] Illegal request: Illegal field in CDB (asc=0x24, asq=0x0), Block #0
+
+Current system date is Mon Dec 15 12:14:34 PST 2014
+</code></pre><p>(the clock in my machine is stuck in the past!).</p>
+<p>Since I just repartitioned the disk in <code>fx</code>, the installer needs to make a file system on it:</p>
+<pre><code>Mounting file systems:
+
+/dev/dsk/dks0d1s0: Invalid argument
+/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/volume/char: [Alert] Illegal request: Illegal field in CDB (asc=0x24, asq=0x0), Block #40601
+No valid file system found on: /dev/dsk/dks0d1s0
+This is your system disk: without it we have nothing
+on which to install software.
+Make new file system on /dev/dsk/dks0d1s0 [yes/no/sh/help]: yes
+
+About to remake (mkfs) file system on: /dev/dsk/dks0d1s0
+This will destroy all data on disk partition: /dev/dsk/dks0d1s0.
+
+        Are you sure? [y/n] (n): y
+
+        Block size of filesystem 512 or 4096 bytes? 4096
+
+Doing: mkfs -b size=4096 /dev/dsk/dks0d1s0
+meta-data=/dev/rdsk/dks0d1s0     isize=256    agcount=8, agsize=237520 blks
+data     =                       bsize=4096   blocks=1900160, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+log      =internal log           bsize=4096   blocks=1000
+realtime =none                   extsz=65536  blocks=0, rtextents=0
+unwritten flagging is enabled
+
+Trying again to mount /dev/dsk/dks0d1s0 on /root.
+
+/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/volume/char: [Alert] Illegal request: Illegal field in CDB (asc=0x24, asq=0x0), Block #0
+UX:make: INFO: `scsi' is up to date.
+    /dev/miniroot            on  /
+    /dev/dsk/dks0d1s0        on  /root
+
+</code></pre><h2 id="installing-irix">Installing IRIX</h2>
+<p>Now it&rsquo;s time for the <em>real</em> installing to begin.</p>
+<pre><code>Invoking software installation.
+
+What is the hostname (system name) of your machine? indy
+What is the network address of indy? 192.168.1.242
+What is the netmask for 192.168.1.242?
+Press Enter for the IP class default [0xffffff00]:
+Starting network with hostname: indy, at ip address: 192.168.1.242
+</code></pre><p>Man, it&rsquo;s asking <em>again</em> for an IP address - the Indy is from an time where ubiquitous reliable DHCP was not a thing. That final obstacle was all gated the main menu of the IRIX install tool (creatively named <code>inst</code>):</p>
+<pre><code>Default distribution to install from: 192.168.1.10:/inst/dist
+
+For help on inst commands, type &quot;help overview&quot;.
+
+
+Inst 3.3 Main Menu
+
+ 1. from [source ...]            Specify location of software to be installed
+ 2. open [source ...]            Specify additional software locations
+ 3. close [source ...]           Close a software distribution location
+ 4. list [keywords] [names]      Display information about software subsystems
+ 5. go                           Perform software installation and removal now
+ 6. install [keywords] [names]   Select subsystems to be installed
+ 7. remove [keywords] [names]    Select subsystems to be removed
+ 8. keep [keywords] [names]      Do not install or remove these subsystems
+ 9. step [keywords] [names]      Interactive mode for install/remove/keep
+10. conflicts [choice ...]       List or resolve installation conflicts
+11. help [topic]                 Get help in general or on a specific word
+12. view ...                     Go to the View Commands Menu
+13. admin ...                    Go to the Administrative Commands Menu
+14. quit                         Terminate software installation
+
+Inst&gt;
+</code></pre><p>The &ldquo;default distribution&rdquo; is a reminder that <code>inst</code> knows about the &ldquo;Installation Tools&rdquo; disc it booted from, but needs to be told about the other four CDs:</p>
+<pre><code>Inst&gt; open irixboot:foundation/dist
+What is the network address of irixboot? 192.168.1.10
+Reading product descriptions .. 100% Done.
+
+Inst&gt; open irixboot:apps/dist
+
+...
+there was a long readme about Netscape here
+...
+
+Inst&gt; open irixboot:nfs/dist
+Relocating distribution location irixboot:nfs/dist to irixboot:nfs/dist/dist6.5
+.
+Reading product descriptions .. 100% Done.
+
+Inst&gt;
+</code></pre><p>I went with the package sets Future Technology recommended, and started the installation:</p>
+<pre><code>Inst&gt; keep *
+
+Inst&gt; install standard
+
+Inst&gt; install prereqs
+No matches for &quot;prereqs&quot; were found
+
+Inst&gt; go
+</code></pre><p>This takes a <em>very</em> long time (the <a href="http://www.futuretech.blinkenlights.nl/6.5inst.html">Future Technology Guide</a> even has a table of how different workstations perform differently - apparently CPU has a lot to do with it). Mine took 130 minutes, from <code>go</code> to reboot:</p>
+<pre><code>Ready to restart the system.  Restart? { (y)es, (n)o, (sh)ell, (h)elp }:
+Preparing to restart system ...
+
+The system is being restarted.
+</code></pre><h2 id="postinstall">Postinstall</h2>
+<p>After install, the machine came up nicely:</p>
+<pre><code>IRIX Release 6.5 IP22 Version 05190003 System V
+Copyright 1987-1998 Silicon Graphics, Inc.
+All Rights Reserved.
+
+dksc0d1: [Alert] Illegal request: Illegal field in CDB (asc=0x24, asq=0x0), Block #0
+The system is coming up.
+Warning: Internet Gateway web server running as root.
+Use &quot;chkconfig webface off&quot; if you wish to disable.
+startup: listening to port 80 as nobody
+
+
+
+indy console login: root
+IRIX Release 6.5 IP22 indy
+Copyright 1987-1998 Silicon Graphics, Inc. All Rights Reserved.
+Last login: Mon Dec 15 14:46:00 PST 2014 on ttyd1
+TERM = (vt100)
+indy 1#
+</code></pre><p>Since I was still using a serial console, my first steps from here were to set up remote X sessions. Mine needed:</p>
+<ul>
+<li>
+<p>DNS to be configured in <code>/etc/resolv.conf</code>:</p>
+<pre><code>domain taketimetobesafe.biz
+nameserver 192.168.1.1
+</code></pre></li>
+<li>
+<p>a default route to be entered in <code>/etc/config/static-route.options</code>:</p>
+<pre><code>$ROUTE $QUIET add net default 192.168.1.1
+</code></pre></li>
+<li>
+<p>an X11 font server enabled (where would we be without fonts!):</p>
+<pre><code>indy # chkconfig fontserver on
+</code></pre></li>
+</ul>
+<p>Since I had just changed a bunch of network connections (and this machine was made in 1993) a reboot seemed in order. After it came back up, I connected a remote X session. In this case, I was using Xming on Windows (for some reason XQuartz just crashes when I try to connect). The effective Xnest command my options translates to is: <code>Xnest -query indy.taketimetobesafe.biz -screen 0 1024x768@1 -fp tcp/indy.taketimetobesafe.biz:7100</code>. This gave me a login window!</p>
+<p><img src="/img/indy/irix_login.png" alt="IRIX login window"></p>
+<h2 id="a-desktop">A desktop</h2>
+<p>My understanding is that on a new IRIX box, you&rsquo;re expected to log in as the EZsetup user, which launches a configuration wizard. For whatever reason, this doesn&rsquo;t seem to work at all over a remote session (it logs in, and just goes to a totally empty 4dwm session). No matter, though - I <em>can</em> log in as root:</p>
+<p><img src="/img/indy/irix_desktop.png" alt="IRIX desktop on first login"></p>
+<p>There you have it! I&rsquo;m rather pleased to get the first GUI desktop from one of my pizzaboxes. Though I haven&rsquo;t yet made input adapters to use it directly, a remote X session is still a heck of a lot of fun.</p>
+
+</div>
+
+
+    </main>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-91739270-2', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+    
+
+
+
+  
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="/js/load-photoswipe.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+    
+    
+  </body>
+</html>
