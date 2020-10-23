@@ -1,3 +1,15 @@
+==================================================================
+https://keybase.io/sophaskins
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://blog.pizzabox.computer
+  * I am sophaskins (https://keybase.io/sophaskins) on keybase.
+  * I have a public key ASBsuwvZeKC8NQSFlqnDQkT5VuDhiHRUI6ZWtk9_IImdQQo
+
+To do so, I am signing this object:
+
 {
   "body": {
     "key": {
@@ -8,13 +20,13 @@
       "username": "sophaskins"
     },
     "merkle_root": {
-      "ctime": 1603462916,
-      "hash": "8f29ff8756aff23dd1e563b5133825d35b30880cc42a62a0c565d629aa280b21558e76a389d9406f6b75c52d80717fc910914154bf8053a67f139fcd6090e7bd",
-      "hash_meta": "860287b1c41fc2bebbffcc2dc5196bf0217072d9fce8db9a33fa77091498c2ac",
-      "seqno": 17907830
+      "ctime": 1603474481,
+      "hash": "52152df9524914b55c73423c3ac1f154f5267f97c767f14ea57d2c5c5303c39de92400ced88be7cdc8a8d04c57c0c10e1079bd80dfefc18459f300b93178c968",
+      "hash_meta": "82535ac8812e38ae9ab7cc24505d732a1e78021b3b0b21e4e5784c9ea275600f",
+      "seqno": 17909532
     },
     "service": {
-      "entropy": "NEAixHDNAXO/so23/T+9hPtI",
+      "entropy": "J4gGNSk3D3MioXfq7GR9QKyV",
       "hostname": "blog.pizzabox.computer",
       "protocol": "https:"
     },
@@ -25,9 +37,20 @@
     "name": "keybase.io go client",
     "version": "5.5.0"
   },
-  "ctime": 1603462944,
+  "ctime": 1603474487,
   "expire_in": 504576000,
-  "prev": "ae90a17d7b279cbfecc9dcc04dd3f482ad617d13def35646945cddbbc2352b3f",
-  "seqno": 6,
+  "prev": "5093d664a800cbdd9ca488d385a7b474c2483693c268e8142c186e220263152b",
+  "seqno": 10,
   "tag": "signature"
 }
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgbLsL2XigvDUEhZapw0JE+Vbg4Yh0VCOmVrZPfyCJnUEKp3BheWxvYWTESpcCCsQgUJPWZKgAy92cpIjThae0dMJINpPCaOgULBhuIgJjFSvEIHGvaDSa1hHYencEoajqN5g977/hIR1J+xwAa5WGbmaqAgHCo3NpZ8RAvLKvQ3YBQq3MzTSDbXIyhrU93tNLlbeFUIrzgIb4G01ZIpl0rEi/KSt9nMkCzZcv5pWY2YeFQjlB2dPRFxJkBqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIKCQcQf3rsm2wpmADf8FHZBqYAFxGE0f3oOkHe+Um97qo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/sophaskins
+
+==================================================================
