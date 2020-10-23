@@ -1,0 +1,33 @@
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01206cbb0bd978a0bc35048596a9c34244f956e0e188745423a656b64f7f20899d410a",
+      "host": "keybase.io",
+      "kid": "01206cbb0bd978a0bc35048596a9c34244f956e0e188745423a656b64f7f20899d410a",
+      "uid": "154d02a4fe50277ad0a4c7ca5b450419",
+      "username": "sophaskins"
+    },
+    "merkle_root": {
+      "ctime": 1603462916,
+      "hash": "8f29ff8756aff23dd1e563b5133825d35b30880cc42a62a0c565d629aa280b21558e76a389d9406f6b75c52d80717fc910914154bf8053a67f139fcd6090e7bd",
+      "hash_meta": "860287b1c41fc2bebbffcc2dc5196bf0217072d9fce8db9a33fa77091498c2ac",
+      "seqno": 17907830
+    },
+    "service": {
+      "entropy": "NEAixHDNAXO/so23/T+9hPtI",
+      "hostname": "blog.pizzabox.computer",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.5.0"
+  },
+  "ctime": 1603462944,
+  "expire_in": 504576000,
+  "prev": "ae90a17d7b279cbfecc9dcc04dd3f482ad617d13def35646945cddbbc2352b3f",
+  "seqno": 6,
+  "tag": "signature"
+}
