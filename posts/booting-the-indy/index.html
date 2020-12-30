@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.73.0" />
+  <meta name="generator" content="Hugo 0.79.1" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -104,7 +104,7 @@ All Rights Reserved.
 <li><a href="https://tools.ietf.org/html/rfc1350">tftp</a> for fetching a boot loader over the network</li>
 <li><a href="https://tools.ietf.org/html/rfc1282">rsh</a> for the boot loader to fetch further parts of a root file system</li>
 </ul>
-<p>The first two might be familiar in a netbooting context - <code>bootp</code> evolved into <code>dhcp</code>, which along with <code>tftp</code>, are used in modern <a href="https://en.wikipedia.org/wiki/Preboot_Execution_Environment">PXE</a> netbooting of x86 computers. <code>rsh</code> is interesting though - where nowadays, a PXE bootloader usually grabs an OS image via HTTP, the Indy seems to use <code>ssh</code>'s completely insecure predecessor. I&rsquo;m not <em>completely</em> sure what it ends up running over <code>rsh</code> (perhaps the topic of a future blog post!), but my research indicates that whatever it does, it strongly expects the user it logs in as (<code>guest</code>, with no password) to use the Korn shell (some discussion <a href="http://techpubs.spinlocksolutions.com/irix/remote-irix-6.5-installation-from-linux.html">here</a>).</p>
+<p>The first two might be familiar in a netbooting context - <code>bootp</code> evolved into <code>dhcp</code>, which along with <code>tftp</code>, are used in modern <a href="https://en.wikipedia.org/wiki/Preboot_Execution_Environment">PXE</a> netbooting of x86 computers. <code>rsh</code> is interesting though - where nowadays, a PXE bootloader usually grabs an OS image via HTTP, the Indy seems to use <code>ssh</code>&rsquo;s completely insecure predecessor. I&rsquo;m not <em>completely</em> sure what it ends up running over <code>rsh</code> (perhaps the topic of a future blog post!), but my research indicates that whatever it does, it strongly expects the user it logs in as (<code>guest</code>, with no password) to use the Korn shell (some discussion <a href="http://techpubs.spinlocksolutions.com/irix/remote-irix-6.5-installation-from-linux.html">here</a>).</p>
 <p>My router handles <code>bootp</code> fine, and I can run <code>tftpd</code> easily on one of my home servers, but <code>rsh</code> felt like it crossed a bit of a line into &ldquo;what am I even doing&rdquo;. Thankfully, the SGI enthusiast community produced a virtual machine that is already set up - DINA (deBug&rsquo;s IRIX Netboot Appliance). I followed along with the guide on the <a href="http://www.nekochan.net/wiki/Using_DINA_for_network_installation_of_IRIX">Nekochan wiki</a>, bringing IRIX 6.5 install CD images that I got from the <a href="https://archive.org/search.php?query=irix%206.5">Internet Archive</a>.</p>
 <h2 id="getting-root-take-2">Getting root, take 2</h2>
 <p>Netbooted into the IRIX installer, I launched a shell and took stock. My Indy&rsquo;s root partition had been mounted for me (entertainingly at <code>/root</code>, since IRIX seems to make <code>/</code> the root <em>user</em>&rsquo;s home directory). Remember, my goal is to clear the root user&rsquo;s password by <a href="https://stackoverflow.com/a/11700775">editing <code>/etc/shadow</code></a>.</p>

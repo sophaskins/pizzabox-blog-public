@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.73.0" />
+  <meta name="generator" content="Hugo 0.79.1" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -134,7 +134,8 @@
 	<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">1024</span>)
 	<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">b</span>)
 	<span style="color:#a6e22e">spew</span>.<span style="color:#a6e22e">Dump</span>(<span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">512</span>:<span style="color:#ae81ff">1024</span>])
-}</code></pre></div>
+}
+</code></pre></div>
 <p>and got&hellip;nothing but zeros</p>
 <pre><code>&gt; go run .\cmd\where-is-the-superblock\main.go
 ([]uint8) (len=512 cap=512) {
@@ -186,7 +187,8 @@
 	<span style="color:#a6e22e">Partitions</span>       [<span style="color:#ae81ff">16</span>]<span style="color:#a6e22e">Partition</span>
 	<span style="color:#a6e22e">Checksum</span>         <span style="color:#66d9ef">int32</span>
 	<span style="color:#a6e22e">Padding</span>          <span style="color:#66d9ef">int32</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <p>The <code>VolumeDirectory</code> field is pretty neat - its an array of pointers to <strong>files that exist outside of any filesystem</strong>, directly in the volume header. Its apparently usually used for the bootloader and the SGI partitioning program, <code>fx</code> (this is apparently why partitioning happens outside of the OS install process).</p>
 <p>The <code>Partitions</code> field contains what block offset each partition starts at, how long it is, and its filesystem type. It was a surprise to me that the partitions can (and do!) overlap! Apparently it&rsquo;s typical for one of the partitions to represent the whole disk, another this header section, and another for the actual partition (the partitioning SunOS uses also has overlaps like this). The EFS partition for my image was number 7.</p>
 <h2 id="crawling-inodes">Crawling inodes</h2>
@@ -214,7 +216,8 @@
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">LastInode</span>    <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// last unallocated inode
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">_</span>            [<span style="color:#ae81ff">20</span>]<span style="color:#66d9ef">int8</span> <span style="color:#75715e">// padding
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Checksum</span>     <span style="color:#66d9ef">int32</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <p>Most of this data is irrelevant to my purposes - since I&rsquo;m not adding <em>new</em> data, I don&rsquo;t really care about the bitmap, where the next free inode is, etc. The offset of the first CylinderGroup <em>is</em> important, though. The <strong>filesystem is divided in to &ldquo;cylinder groups&rdquo;</strong> - contiguous groups of blocks where the first <code>CGInodeSize</code> blocks of the cylinder group contain inodes, and the rest is data. The <a href="https://github.com/NetBSD/src/blob/4b6bcd63f3d324191969bdbe86c815937969e874/sys/fs/efs/efs_dinode.h#L28-L31">NetBSD sources</a> note that the root inode is at <em>inode</em> index 2, so probably at index 2 in the inode portion of the first cylinder group.</p>
 <p>Each inode includes a bunch of data about the object it represents:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from efs/inode.go
@@ -235,7 +238,8 @@
 </span><span style="color:#75715e"></span>	<span style="color:#75715e">// it also can contain other stuff (like link targets and device
 </span><span style="color:#75715e"></span>	<span style="color:#75715e">// descriptors, which are not implemented here)
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Payload</span> [<span style="color:#ae81ff">96</span>]<span style="color:#66d9ef">byte</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <p>If we write up a quick program to dump this data, it looks something like:</p>
 <pre><code>&gt; go run .\cmd\rootinode\main.go
 (efs.Inode) {
@@ -278,7 +282,8 @@
 	<span style="color:#a6e22e">FirstUsed</span> <span style="color:#66d9ef">uint8</span>
 	<span style="color:#a6e22e">Slots</span>     <span style="color:#66d9ef">uint8</span>
 	<span style="color:#a6e22e">Data</span>      [<span style="color:#ae81ff">508</span>]<span style="color:#66d9ef">byte</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <p>At the &ldquo;bottom&rdquo; of <code>Data</code> (the low indexes) there are some pointers (<code>Slots</code> many of them) to directory entry offsets (offsets from the base of the struct). The entries live at the &ldquo;top&rdquo; of <code>Data</code> (the high indexes) and are of variable lenth (because they include filename strings!), so are made up of:</p>
 <ul>
 <li>the index of inode for the entry</li>
@@ -350,7 +355,8 @@
 	}
 
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">extents</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <p>With this in place, I was able to get the contents of files, large and small! Mixed with the golang <code>archive/tar</code> library, I was able to get the tarball I had hoped for.</p>
 <h2 id="harvesting-the-fruits-of-my-labor">Harvesting the fruits of my labor</h2>
 <p>I copied the (hopefully correct) tarball to my NAS and unpacked it. Despite the 25 years between the birth of my Indy and my <a href="https://www.qnap.com/en-us/product/ts-231p">NAS</a> they both speak computing&rsquo;s lingua franca, unauthenticated NFS. The IRIX Software Manager doesn&rsquo;t care about <em>where</em> the software lives - it just wants a directory:</p>

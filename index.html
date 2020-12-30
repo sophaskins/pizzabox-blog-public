@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.73.0" />
+  <meta name="generator" content="Hugo 0.79.1" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -670,7 +670,7 @@ System Administration Manual&rdquo; section on &ldquo;<a href="http://www.nextco
   </figure>
 </div>
 
-After going through the effort to install NeXTstep Developer, what do we get? A new directory in the filesystem root, <code>NextDeveloper</code> containing some apps, demos, examples, various bits of GPL-required source code, headers for system libraries, and documentation. The structure is (unsurprisingly) rather similar to older versions of the OSX developer tools&rsquo; <code>/Developer</code> directory. The similarities don&rsquo;t end there, though - <strong>several of the tools, like Interface Builder, will be rather familiar to modern Apple-ecosystem devs, like Interface Builder</strong>:</p>
+After going through the effort to install NeXTstep Developer, what do we get? A new directory in the filesystem root, <code>NextDeveloper</code> containing some apps, demos, examples, various bits of GPL-required source code, headers for system libraries, and documentation. The structure is (unsurprisingly) rather similar to older versions of the OSX developer tools' <code>/Developer</code> directory. The similarities don&rsquo;t end there, though - <strong>several of the tools, like Interface Builder, will be rather familiar to modern Apple-ecosystem devs, like Interface Builder</strong>:</p>
 
 
 <div class="box fancy-figure caption-position-none" >
@@ -1929,7 +1929,8 @@ mount: giving up
 	<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">1024</span>)
 	<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">b</span>)
 	<span style="color:#a6e22e">spew</span>.<span style="color:#a6e22e">Dump</span>(<span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">512</span>:<span style="color:#ae81ff">1024</span>])
-}</code></pre></div>
+}
+</code></pre></div>
 <p>and got&hellip;nothing but zeros</p>
 <pre><code>&gt; go run .\cmd\where-is-the-superblock\main.go
 ([]uint8) (len=512 cap=512) {
@@ -1981,7 +1982,8 @@ mount: giving up
 	<span style="color:#a6e22e">Partitions</span>       [<span style="color:#ae81ff">16</span>]<span style="color:#a6e22e">Partition</span>
 	<span style="color:#a6e22e">Checksum</span>         <span style="color:#66d9ef">int32</span>
 	<span style="color:#a6e22e">Padding</span>          <span style="color:#66d9ef">int32</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <p>The <code>VolumeDirectory</code> field is pretty neat - its an array of pointers to <strong>files that exist outside of any filesystem</strong>, directly in the volume header. Its apparently usually used for the bootloader and the SGI partitioning program, <code>fx</code> (this is apparently why partitioning happens outside of the OS install process).</p>
 <p>The <code>Partitions</code> field contains what block offset each partition starts at, how long it is, and its filesystem type. It was a surprise to me that the partitions can (and do!) overlap! Apparently it&rsquo;s typical for one of the partitions to represent the whole disk, another this header section, and another for the actual partition (the partitioning SunOS uses also has overlaps like this). The EFS partition for my image was number 7.</p>
 <h2 id="crawling-inodes">Crawling inodes</h2>
@@ -2009,7 +2011,8 @@ mount: giving up
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">LastInode</span>    <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// last unallocated inode
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">_</span>            [<span style="color:#ae81ff">20</span>]<span style="color:#66d9ef">int8</span> <span style="color:#75715e">// padding
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Checksum</span>     <span style="color:#66d9ef">int32</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <p>Most of this data is irrelevant to my purposes - since I&rsquo;m not adding <em>new</em> data, I don&rsquo;t really care about the bitmap, where the next free inode is, etc. The offset of the first CylinderGroup <em>is</em> important, though. The <strong>filesystem is divided in to &ldquo;cylinder groups&rdquo;</strong> - contiguous groups of blocks where the first <code>CGInodeSize</code> blocks of the cylinder group contain inodes, and the rest is data. The <a href="https://github.com/NetBSD/src/blob/4b6bcd63f3d324191969bdbe86c815937969e874/sys/fs/efs/efs_dinode.h#L28-L31">NetBSD sources</a> note that the root inode is at <em>inode</em> index 2, so probably at index 2 in the inode portion of the first cylinder group.</p>
 <p>Each inode includes a bunch of data about the object it represents:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from efs/inode.go
@@ -2030,7 +2033,8 @@ mount: giving up
 </span><span style="color:#75715e"></span>	<span style="color:#75715e">// it also can contain other stuff (like link targets and device
 </span><span style="color:#75715e"></span>	<span style="color:#75715e">// descriptors, which are not implemented here)
 </span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Payload</span> [<span style="color:#ae81ff">96</span>]<span style="color:#66d9ef">byte</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <p>If we write up a quick program to dump this data, it looks something like:</p>
 <pre><code>&gt; go run .\cmd\rootinode\main.go
 (efs.Inode) {
@@ -2073,7 +2077,8 @@ mount: giving up
 	<span style="color:#a6e22e">FirstUsed</span> <span style="color:#66d9ef">uint8</span>
 	<span style="color:#a6e22e">Slots</span>     <span style="color:#66d9ef">uint8</span>
 	<span style="color:#a6e22e">Data</span>      [<span style="color:#ae81ff">508</span>]<span style="color:#66d9ef">byte</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <p>At the &ldquo;bottom&rdquo; of <code>Data</code> (the low indexes) there are some pointers (<code>Slots</code> many of them) to directory entry offsets (offsets from the base of the struct). The entries live at the &ldquo;top&rdquo; of <code>Data</code> (the high indexes) and are of variable lenth (because they include filename strings!), so are made up of:</p>
 <ul>
 <li>the index of inode for the entry</li>
@@ -2145,7 +2150,8 @@ mount: giving up
 	}
 
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">extents</span>
-}</code></pre></div>
+}
+</code></pre></div>
 <p>With this in place, I was able to get the contents of files, large and small! Mixed with the golang <code>archive/tar</code> library, I was able to get the tarball I had hoped for.</p>
 <h2 id="harvesting-the-fruits-of-my-labor">Harvesting the fruits of my labor</h2>
 <p>I copied the (hopefully correct) tarball to my NAS and unpacked it. Despite the 25 years between the birth of my Indy and my <a href="https://www.qnap.com/en-us/product/ts-231p">NAS</a> they both speak computing&rsquo;s lingua franca, unauthenticated NFS. The IRIX Software Manager doesn&rsquo;t care about <em>where</em> the software lives - it just wants a directory:</p>
@@ -2261,7 +2267,7 @@ mount: giving up
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">vaxstation reassembly progress <a href="https://t.co/KSgnz2Q2Rh">pic.twitter.com/KSgnz2Q2Rh</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/992196800458252288?ref_src=twsrc%5Etfw">May 4, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </p>
-<p>Not too bad for a few evenings&rsquo; work! One day I&rsquo;ll have to try out <a href="http://www.retr0bright.com/">Retrobriting</a> the case since the plastic has yellowed quite a bit, but at least now it&rsquo;s not hiding tons of dirt.</p>
+<p>Not too bad for a few evenings' work! One day I&rsquo;ll have to try out <a href="http://www.retr0bright.com/">Retrobriting</a> the case since the plastic has yellowed quite a bit, but at least now it&rsquo;s not hiding tons of dirt.</p>
 
 
 <div class="box fancy-figure caption-position-none" >
@@ -2282,7 +2288,7 @@ mount: giving up
     <a href="https://blog.pizzabox.computer/posts/booting-the-hp712/">Booting the HP 712</a>
   </h1>
   <time datetime="2018-04-28T18:00:00-0400" class="post-date">Sat, Apr 28, 2018</time>
-  <p>The HP 9000 workstations&rsquo; industrial design inspires me - the 300 series was on my mind the week before I bought my first pizzabox:
+  <p>The HP 9000 workstations' industrial design inspires me - the 300 series was on my mind the week before I bought my first pizzabox:
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">why did we stop making computers that looked like :( <a href="https://t.co/xBYUcnTaIe">pic.twitter.com/xBYUcnTaIe</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/884523284695588864?ref_src=twsrc%5Etfw">July 10, 2017</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </p>
@@ -3435,7 +3441,7 @@ All Rights Reserved.
 <li><a href="https://tools.ietf.org/html/rfc1350">tftp</a> for fetching a boot loader over the network</li>
 <li><a href="https://tools.ietf.org/html/rfc1282">rsh</a> for the boot loader to fetch further parts of a root file system</li>
 </ul>
-<p>The first two might be familiar in a netbooting context - <code>bootp</code> evolved into <code>dhcp</code>, which along with <code>tftp</code>, are used in modern <a href="https://en.wikipedia.org/wiki/Preboot_Execution_Environment">PXE</a> netbooting of x86 computers. <code>rsh</code> is interesting though - where nowadays, a PXE bootloader usually grabs an OS image via HTTP, the Indy seems to use <code>ssh</code>'s completely insecure predecessor. I&rsquo;m not <em>completely</em> sure what it ends up running over <code>rsh</code> (perhaps the topic of a future blog post!), but my research indicates that whatever it does, it strongly expects the user it logs in as (<code>guest</code>, with no password) to use the Korn shell (some discussion <a href="http://techpubs.spinlocksolutions.com/irix/remote-irix-6.5-installation-from-linux.html">here</a>).</p>
+<p>The first two might be familiar in a netbooting context - <code>bootp</code> evolved into <code>dhcp</code>, which along with <code>tftp</code>, are used in modern <a href="https://en.wikipedia.org/wiki/Preboot_Execution_Environment">PXE</a> netbooting of x86 computers. <code>rsh</code> is interesting though - where nowadays, a PXE bootloader usually grabs an OS image via HTTP, the Indy seems to use <code>ssh</code>&rsquo;s completely insecure predecessor. I&rsquo;m not <em>completely</em> sure what it ends up running over <code>rsh</code> (perhaps the topic of a future blog post!), but my research indicates that whatever it does, it strongly expects the user it logs in as (<code>guest</code>, with no password) to use the Korn shell (some discussion <a href="http://techpubs.spinlocksolutions.com/irix/remote-irix-6.5-installation-from-linux.html">here</a>).</p>
 <p>My router handles <code>bootp</code> fine, and I can run <code>tftpd</code> easily on one of my home servers, but <code>rsh</code> felt like it crossed a bit of a line into &ldquo;what am I even doing&rdquo;. Thankfully, the SGI enthusiast community produced a virtual machine that is already set up - DINA (deBug&rsquo;s IRIX Netboot Appliance). I followed along with the guide on the <a href="http://www.nekochan.net/wiki/Using_DINA_for_network_installation_of_IRIX">Nekochan wiki</a>, bringing IRIX 6.5 install CD images that I got from the <a href="https://archive.org/search.php?query=irix%206.5">Internet Archive</a>.</p>
 <h2 id="getting-root-take-2">Getting root, take 2</h2>
 <p>Netbooted into the IRIX installer, I launched a shell and took stock. My Indy&rsquo;s root partition had been mounted for me (entertainingly at <code>/root</code>, since IRIX seems to make <code>/</code> the root <em>user</em>&rsquo;s home directory). Remember, my goal is to clear the root user&rsquo;s password by <a href="https://stackoverflow.com/a/11700775">editing <code>/etc/shadow</code></a>.</p>
