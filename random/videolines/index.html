@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <title>Oscilloscoping Video Signals</title>
+    <style>
+        input#line {
+            writing-mode: bt-lr;
+            -webkit-appearance: slider-vertical;
+            height: 480;
+            margin: 0;
+        }
+
+        .container {
+            display: inline-block;
+        }
+        #highlight {
+            display:inline-block;
+            position: absolute;
+            background-color: red;
+            opacity: 0.5;
+            width: 720;
+            height: 2;
+            z-index: 2;
+            left: 8;
+            top: 152;
+        }
+        #highlight p {
+            margin: 0;
+            padding: 0;
+            display:inline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Oscilloscoping Video Signals</h1>
+
+    <p>The image on the left is a simple static image that I was able to output as a video signal (NTSC-M). I attached an oscilloscope to the video output, and recorded an image for each line in the picture area (for my oscilloscope's video trigger, that's line 21 through 262). I only took screengrabs of the lines in field 1.</p>
+    <p>By moving the slider, you can look at the trace of each video line.</p>
+    
+    <div>
+
+            <img src="white-on-black.png">
+            <div id="highlight"><p>&nbsp;</p></div> 
+            <input type="range" id="line" min="1" max="241" step="1" value="241" orient="vertical">
+            <img src="lines/21.png" id="scope"  width="720" height="480">
+
+    </div>
+    
+    
+    
+    
+    <script>
+        var slider = document.getElementById("line");
+        var scope = document.getElementById("scope");
+        var highlight = document.getElementById("highlight");
+
+        slider.oninput = function() {
+            var newPicture = 262 - this.value;
+            var newHighlightTop = 150 + 2 * (241 - this.value);
+            scope.src = "lines/" + newPicture + ".png";
+            highlight.style.top = newHighlightTop;
+        };
+    </script>
+</body>
+</html>
