@@ -254,7 +254,7 @@ System Administration Manual&rdquo; section on &ldquo;<a href="http://www.nextco
 </div>
 
 <p>and there it was:</p>
-<pre><code>autonfsmount: Can't get my address
+<pre tabindex="0"><code>autonfsmount: Can&#39;t get my address
 </code></pre><p>Can&rsquo;t get&hellip;<em>my</em> address? Doesn&rsquo;t the computer know its own address? While I don&rsquo;t know <em>why</em> it has to do this (googling has provided me a couple of <a href="https://rute.gerdesas.com/node31.html">quick asides</a> mentioning it, but not much detail), <strong>mounting an NFS server requires working <em>reverse</em> DNS for your IP</strong>.</p>
 <p>I do have a real-ish DNS server for my home network, and it populates based on DHCP leases and IP reservations. This workstation, though, was just <strong>using an IP that I habitually hardcode for pizzaboxes (192.168.1.200)</strong>. I double-checked the DHCP server config, and it was indeed set up with a different host for that IP, and not set up at all for this hostname. I replaced that entry with one for <code>hp712</code> at <code>192.168.1.200</code> for the MAC address of my workstation, and crossed my fingers.</p>
 <p>It worked! I could browse my NAS from the file-browser.</p>
@@ -493,7 +493,7 @@ System Administration Manual&rdquo; section on &ldquo;<a href="http://www.nextco
 <h2 id="getting-access-to-dev-tools">Getting access to dev tools</h2>
 <p>What&rsquo;s next for making a usable system? Developer tools! <strong>NeXTstep came on two sets of discs - &ldquo;User&rdquo; for the main operating system, and the optional &ldquo;Developer&rdquo; disc</strong> with compilers, GUI building tools, libraries, and documentation. While there were separate versions of NeXTstep User for CISC (m68k and i386) and RISC (PA-RISC and SPARC) platforms, the Developer disc is &ldquo;quad-fat&rdquo; - it contains binaries for all four platforms. I grabbed the Developer disc image from <a href="https://archive.org/details/nextstep3-3dev">the Internet Archive</a>.</p>
 <p>Were this been an actual ISO image, I might have mounted it on my laptop and copied the files to my NAS to make the installer available to the workstation; unfortunately, it&rsquo;s not. What format is it? The first few bytes of a disk image usually can help figure that out:</p>
-<pre><code>head -c 16 nextstepdeveloper3.3.iso | hexdump
+<pre tabindex="0"><code>head -c 16 nextstepdeveloper3.3.iso | hexdump
 0000000 64 6c 56 33 00 00 00 00 00 00 00 00 4e 45 58 54
 0000010
 </code></pre><p>When trying to find &ldquo;magic numbers&rdquo; like this, I usually check out the <a href="https://github.com/NetBSD/src">NetBSD sources</a>. Since NetBSD focuses on compatibility with the widest possible set of hardware, they often have compatibility for far-out things. As luck would have it, those bytes <em>do</em> show up in <a href="https://github.com/NetBSD/src/blob/trunk/sys/sys/bootblock.h#L1238"><code>sys/sys/bootblock.h</code></a>: <code>0x646c5633</code> is <code>NEXT68K_LABEL_CD_V3</code>. <strong>So, this is a non-standard format specific to NeXT</strong>. There&rsquo;s <a href="https://github.com/NetBSD/src/blob/trunk/sys/arch/next68k/next68k/disksubr.c">some code</a> that shows how to interact with this kind of disc label - maybe in the future I could put together some code to read the CD like I did for <a href="/posts/sgi-efs-yakshave/">SGI EFS</a>? For now, though, I&rsquo;m going to try loading the disc image in to my SCSI2SD &ldquo;fake&rdquo; CD-ROM drive.</p>
@@ -666,7 +666,7 @@ System Administration Manual&rdquo; section on &ldquo;<a href="http://www.nextco
   </figure>
 </div>
 
-After going through the effort to install NeXTstep Developer, what do we get? A new directory in the filesystem root, <code>NextDeveloper</code> containing some apps, demos, examples, various bits of GPL-required source code, headers for system libraries, and documentation. The structure is (unsurprisingly) rather similar to older versions of the OSX developer tools' <code>/Developer</code> directory. The similarities don&rsquo;t end there, though - <strong>several of the tools, like Interface Builder, will be rather familiar to modern Apple-ecosystem devs, like Interface Builder</strong>:</p>
+After going through the effort to install NeXTstep Developer, what do we get? A new directory in the filesystem root, <code>NextDeveloper</code> containing some apps, demos, examples, various bits of GPL-required source code, headers for system libraries, and documentation. The structure is (unsurprisingly) rather similar to older versions of the OSX developer tools&rsquo; <code>/Developer</code> directory. The similarities don&rsquo;t end there, though - <strong>several of the tools, like Interface Builder, will be rather familiar to modern Apple-ecosystem devs, like Interface Builder</strong>:</p>
 
 
 <div class="box fancy-figure caption-position-none" >

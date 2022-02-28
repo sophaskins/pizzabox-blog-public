@@ -229,31 +229,31 @@
 <li>not having the terminator resistor pack in backwards</li>
 </ul>
 <p>got the drive to not cause a &ldquo;Sad Mac&rdquo; error on boot. Partitioning it was also pretty easy - it turns out that if you <strong>set the manufacturer and model strings to magical values</strong> in the SCSI2SD Utility, the stock HD SC Setup will be OK with formatting it. My config ended up being:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;SCSITarget</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">&gt;</span>
-	<span style="color:#f92672">&lt;enabled&gt;</span>true<span style="color:#f92672">&lt;/enabled&gt;</span>
-	<span style="color:#f92672">&lt;quirks&gt;</span>apple<span style="color:#f92672">&lt;/quirks&gt;</span>
-	<span style="color:#f92672">&lt;deviceType&gt;</span>0x0<span style="color:#f92672">&lt;/deviceType&gt;</span>
-	<span style="color:#f92672">&lt;deviceTypeModifier&gt;</span>0x0<span style="color:#f92672">&lt;/deviceTypeModifier&gt;</span>
-
-    <span style="color:#75715e">&lt;!-- The size has to be less than 2GB total 
-</span><span style="color:#75715e">         for A/UX to boot from it --&gt;</span>
-	<span style="color:#f92672">&lt;sdSectorStart&gt;</span>0<span style="color:#f92672">&lt;/sdSectorStart&gt;</span>
-	<span style="color:#f92672">&lt;scsiSectors&gt;</span>3984589<span style="color:#f92672">&lt;/scsiSectors&gt;</span>
-	<span style="color:#f92672">&lt;bytesPerSector&gt;</span>512<span style="color:#f92672">&lt;/bytesPerSector&gt;</span>
-	<span style="color:#f92672">&lt;sectorsPerTrack&gt;</span>63<span style="color:#f92672">&lt;/sectorsPerTrack&gt;</span>
-	<span style="color:#f92672">&lt;headsPerCylinder&gt;</span>255<span style="color:#f92672">&lt;/headsPerCylinder&gt;</span>
-
-    <span style="color:#75715e">&lt;!-- These are the magical settings: --&gt;</span>
-	<span style="color:#f92672">&lt;vendor&gt;</span> SEAGATE<span style="color:#f92672">&lt;/vendor&gt;</span>
-	<span style="color:#f92672">&lt;prodId&gt;</span>          ST225N<span style="color:#f92672">&lt;/prodId&gt;</span>
-	<span style="color:#f92672">&lt;revision&gt;</span>1.0 <span style="color:#f92672">&lt;/revision&gt;</span>
-	<span style="color:#f92672">&lt;serial&gt;</span>1234567812345678<span style="color:#f92672">&lt;/serial&gt;</span>
-
-	<span style="color:#f92672">&lt;modePages&gt;</span>
-	<span style="color:#f92672">&lt;/modePages&gt;</span>
-	<span style="color:#f92672">&lt;vpd&gt;</span>
-	<span style="color:#f92672">&lt;/vpd&gt;</span>
-<span style="color:#f92672">&lt;/SCSITarget&gt;</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;SCSITarget</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;enabled&gt;</span>true<span style="color:#f92672">&lt;/enabled&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;quirks&gt;</span>apple<span style="color:#f92672">&lt;/quirks&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;deviceType&gt;</span>0x0<span style="color:#f92672">&lt;/deviceType&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;deviceTypeModifier&gt;</span>0x0<span style="color:#f92672">&lt;/deviceTypeModifier&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- The size has to be less than 2GB total 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">         for A/UX to boot from it --&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;sdSectorStart&gt;</span>0<span style="color:#f92672">&lt;/sdSectorStart&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;scsiSectors&gt;</span>3984589<span style="color:#f92672">&lt;/scsiSectors&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;bytesPerSector&gt;</span>512<span style="color:#f92672">&lt;/bytesPerSector&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;sectorsPerTrack&gt;</span>63<span style="color:#f92672">&lt;/sectorsPerTrack&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;headsPerCylinder&gt;</span>255<span style="color:#f92672">&lt;/headsPerCylinder&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- These are the magical settings: --&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;vendor&gt;</span> SEAGATE<span style="color:#f92672">&lt;/vendor&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;prodId&gt;</span>          ST225N<span style="color:#f92672">&lt;/prodId&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;revision&gt;</span>1.0 <span style="color:#f92672">&lt;/revision&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;serial&gt;</span>1234567812345678<span style="color:#f92672">&lt;/serial&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;modePages&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;/modePages&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;vpd&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;/vpd&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/SCSITarget&gt;</span></span></span></code></pre></div>
 <p>For the installation process itself, I basically followed the instructions from <a href="http://www.aux-penelope.com/aux_3.0.htm">A/UX Penelope</a> pretty closely. I wont repeat their instructions, but here&rsquo;s some screenshots of my experience:</p>
 
 

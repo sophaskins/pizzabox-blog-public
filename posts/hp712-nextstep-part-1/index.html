@@ -160,10 +160,10 @@
 </div>
 
 <p>Digging around on the internet a bit gave me a clue - <strong>NeXTstep is picky about drive geometry</strong>. Some fine folks on the &ldquo;NeXT Computers&rdquo; forum <a href="http://www.nextcomputers.org/forums/index.php?PHPSESSID=f229ce4453f6d99df2a45651686a0fc6&amp;msg=24806">geometry settings</a> that will work with NeXTstep on a SCSI2SD. Unfortunately, the <code>scsi2sd-util</code> software doesn&rsquo;t have a way to set the important <code>sectorsPerTrack</code> and <code>headsPerCylinder</code>. Instead, I had to save the configuration to an XML file, open it up and edit those settings, and re-import the config in the utility. The offending default geometry settings were:</p>
-<pre><code>&lt;sectorsPerTrack&gt;63&lt;/sectorsPerTrack&gt;
+<pre tabindex="0"><code>&lt;sectorsPerTrack&gt;63&lt;/sectorsPerTrack&gt;
 &lt;headsPerCylinder&gt;255&lt;/headsPerCylinder&gt;
 </code></pre><p>I changed them to the recommended settings from the forum:</p>
-<pre><code>&lt;sectorsPerTrack&gt;139&lt;/sectorsPerTrack&gt;
+<pre tabindex="0"><code>&lt;sectorsPerTrack&gt;139&lt;/sectorsPerTrack&gt;
 &lt;headsPerCylinder&gt;4&lt;/headsPerCylinder&gt;
 </code></pre><p>This is good enough to get all the way through the install and software installation process, but <strong>it will just hang on the first true post-installation boot</strong>:</p>
 
@@ -181,13 +181,13 @@
 </div>
 
 <p>There&rsquo;s a lot going on here, and it doesn&rsquo;t <em>explicitly</em> tell you what&rsquo;s going on, but there are clues. The first interesting bit is:</p>
-<pre><code>Checking disks
+<pre tabindex="0"><code>Checking disks
 /dev/rsd0a file system clean: skipping check
 mountfs: illegal remount request
 mount: /dev/sd0a on /: Invalid argument
 mount: giving up
 </code></pre><p>In a <a href="https://en.wikipedia.org/wiki/Fsck#Use">typical</a> Unix boot sequence, the root filesystem is first mounted read-only, checked with <code>fsck</code>, then re-mounted read-write. <strong>It sounds like that re-mount didn&rsquo;t work</strong>! There&rsquo;s more indication that the root is still read-only further down when it attempts to start <code>syslogd</code>:</p>
-<pre><code>Starting early daemons: syslogdFeb 15 23:35:26 localhost syslogd: cannot create /dev/log: Read-only file system
+<pre tabindex="0"><code>Starting early daemons: syslogdFeb 15 23:35:26 localhost syslogd: cannot create /dev/log: Read-only file system
 </code></pre><p>So, it seems like I&rsquo;m having trouble with <code>/dev/sd0a</code>, the root partition. In a normal world, I&rsquo;d expect that that corresponds to:</p>
 <ul>
 <li>the first partition (the <code>a</code>)</li>
@@ -195,7 +195,7 @@ mount: giving up
 <li>attached to the SCSI bus (the <code>sd</code>)</li>
 </ul>
 <p>Given that I have my hard disk at SCSI ID 0 and CD-ROM at ID 3, <strong>you&rsquo;d think that <code>sd0a</code> would be the hard disk. You would be wrong.</strong> If you read a little higher in this boot output, it says:</p>
-<pre><code>The following scsi disks have been found:
+<pre tabindex="0"><code>The following scsi disks have been found:
   sd0 at target 3
   sd1 at target 0
 </code></pre><p>Excuse me? <code>sd0</code> is SCSI ID 3? That&rsquo;s&hellip;my CD-ROM drive. I guess it makes sense that it can&rsquo;t be mounted read/write?! It took some digging, but I found an explanation as to why from an unlikely source - <strong>a NeXT knowledge-base article from 1997</strong>! <a href="https://www.nextop.de/NeXTAnswers/1684.html#scsidevicenumbering">NeXTAnswers #1684</a> explains:</p>

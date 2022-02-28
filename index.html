@@ -258,7 +258,7 @@ System Administration Manual&rdquo; section on &ldquo;<a href="http://www.nextco
 </div>
 
 <p>and there it was:</p>
-<pre><code>autonfsmount: Can't get my address
+<pre tabindex="0"><code>autonfsmount: Can&#39;t get my address
 </code></pre><p>Can&rsquo;t get&hellip;<em>my</em> address? Doesn&rsquo;t the computer know its own address? While I don&rsquo;t know <em>why</em> it has to do this (googling has provided me a couple of <a href="https://rute.gerdesas.com/node31.html">quick asides</a> mentioning it, but not much detail), <strong>mounting an NFS server requires working <em>reverse</em> DNS for your IP</strong>.</p>
 <p>I do have a real-ish DNS server for my home network, and it populates based on DHCP leases and IP reservations. This workstation, though, was just <strong>using an IP that I habitually hardcode for pizzaboxes (192.168.1.200)</strong>. I double-checked the DHCP server config, and it was indeed set up with a different host for that IP, and not set up at all for this hostname. I replaced that entry with one for <code>hp712</code> at <code>192.168.1.200</code> for the MAC address of my workstation, and crossed my fingers.</p>
 <p>It worked! I could browse my NAS from the file-browser.</p>
@@ -497,7 +497,7 @@ System Administration Manual&rdquo; section on &ldquo;<a href="http://www.nextco
 <h2 id="getting-access-to-dev-tools">Getting access to dev tools</h2>
 <p>What&rsquo;s next for making a usable system? Developer tools! <strong>NeXTstep came on two sets of discs - &ldquo;User&rdquo; for the main operating system, and the optional &ldquo;Developer&rdquo; disc</strong> with compilers, GUI building tools, libraries, and documentation. While there were separate versions of NeXTstep User for CISC (m68k and i386) and RISC (PA-RISC and SPARC) platforms, the Developer disc is &ldquo;quad-fat&rdquo; - it contains binaries for all four platforms. I grabbed the Developer disc image from <a href="https://archive.org/details/nextstep3-3dev">the Internet Archive</a>.</p>
 <p>Were this been an actual ISO image, I might have mounted it on my laptop and copied the files to my NAS to make the installer available to the workstation; unfortunately, it&rsquo;s not. What format is it? The first few bytes of a disk image usually can help figure that out:</p>
-<pre><code>head -c 16 nextstepdeveloper3.3.iso | hexdump
+<pre tabindex="0"><code>head -c 16 nextstepdeveloper3.3.iso | hexdump
 0000000 64 6c 56 33 00 00 00 00 00 00 00 00 4e 45 58 54
 0000010
 </code></pre><p>When trying to find &ldquo;magic numbers&rdquo; like this, I usually check out the <a href="https://github.com/NetBSD/src">NetBSD sources</a>. Since NetBSD focuses on compatibility with the widest possible set of hardware, they often have compatibility for far-out things. As luck would have it, those bytes <em>do</em> show up in <a href="https://github.com/NetBSD/src/blob/trunk/sys/sys/bootblock.h#L1238"><code>sys/sys/bootblock.h</code></a>: <code>0x646c5633</code> is <code>NEXT68K_LABEL_CD_V3</code>. <strong>So, this is a non-standard format specific to NeXT</strong>. There&rsquo;s <a href="https://github.com/NetBSD/src/blob/trunk/sys/arch/next68k/next68k/disksubr.c">some code</a> that shows how to interact with this kind of disc label - maybe in the future I could put together some code to read the CD like I did for <a href="/posts/sgi-efs-yakshave/">SGI EFS</a>? For now, though, I&rsquo;m going to try loading the disc image in to my SCSI2SD &ldquo;fake&rdquo; CD-ROM drive.</p>
@@ -670,7 +670,7 @@ System Administration Manual&rdquo; section on &ldquo;<a href="http://www.nextco
   </figure>
 </div>
 
-After going through the effort to install NeXTstep Developer, what do we get? A new directory in the filesystem root, <code>NextDeveloper</code> containing some apps, demos, examples, various bits of GPL-required source code, headers for system libraries, and documentation. The structure is (unsurprisingly) rather similar to older versions of the OSX developer tools' <code>/Developer</code> directory. The similarities don&rsquo;t end there, though - <strong>several of the tools, like Interface Builder, will be rather familiar to modern Apple-ecosystem devs, like Interface Builder</strong>:</p>
+After going through the effort to install NeXTstep Developer, what do we get? A new directory in the filesystem root, <code>NextDeveloper</code> containing some apps, demos, examples, various bits of GPL-required source code, headers for system libraries, and documentation. The structure is (unsurprisingly) rather similar to older versions of the OSX developer tools&rsquo; <code>/Developer</code> directory. The similarities don&rsquo;t end there, though - <strong>several of the tools, like Interface Builder, will be rather familiar to modern Apple-ecosystem devs, like Interface Builder</strong>:</p>
 
 
 <div class="box fancy-figure caption-position-none" >
@@ -1086,10 +1086,10 @@ Some demos that stood out to me were:</p>
 </div>
 
 <p>Digging around on the internet a bit gave me a clue - <strong>NeXTstep is picky about drive geometry</strong>. Some fine folks on the &ldquo;NeXT Computers&rdquo; forum <a href="http://www.nextcomputers.org/forums/index.php?PHPSESSID=f229ce4453f6d99df2a45651686a0fc6&amp;msg=24806">geometry settings</a> that will work with NeXTstep on a SCSI2SD. Unfortunately, the <code>scsi2sd-util</code> software doesn&rsquo;t have a way to set the important <code>sectorsPerTrack</code> and <code>headsPerCylinder</code>. Instead, I had to save the configuration to an XML file, open it up and edit those settings, and re-import the config in the utility. The offending default geometry settings were:</p>
-<pre><code>&lt;sectorsPerTrack&gt;63&lt;/sectorsPerTrack&gt;
+<pre tabindex="0"><code>&lt;sectorsPerTrack&gt;63&lt;/sectorsPerTrack&gt;
 &lt;headsPerCylinder&gt;255&lt;/headsPerCylinder&gt;
 </code></pre><p>I changed them to the recommended settings from the forum:</p>
-<pre><code>&lt;sectorsPerTrack&gt;139&lt;/sectorsPerTrack&gt;
+<pre tabindex="0"><code>&lt;sectorsPerTrack&gt;139&lt;/sectorsPerTrack&gt;
 &lt;headsPerCylinder&gt;4&lt;/headsPerCylinder&gt;
 </code></pre><p>This is good enough to get all the way through the install and software installation process, but <strong>it will just hang on the first true post-installation boot</strong>:</p>
 
@@ -1107,13 +1107,13 @@ Some demos that stood out to me were:</p>
 </div>
 
 <p>There&rsquo;s a lot going on here, and it doesn&rsquo;t <em>explicitly</em> tell you what&rsquo;s going on, but there are clues. The first interesting bit is:</p>
-<pre><code>Checking disks
+<pre tabindex="0"><code>Checking disks
 /dev/rsd0a file system clean: skipping check
 mountfs: illegal remount request
 mount: /dev/sd0a on /: Invalid argument
 mount: giving up
 </code></pre><p>In a <a href="https://en.wikipedia.org/wiki/Fsck#Use">typical</a> Unix boot sequence, the root filesystem is first mounted read-only, checked with <code>fsck</code>, then re-mounted read-write. <strong>It sounds like that re-mount didn&rsquo;t work</strong>! There&rsquo;s more indication that the root is still read-only further down when it attempts to start <code>syslogd</code>:</p>
-<pre><code>Starting early daemons: syslogdFeb 15 23:35:26 localhost syslogd: cannot create /dev/log: Read-only file system
+<pre tabindex="0"><code>Starting early daemons: syslogdFeb 15 23:35:26 localhost syslogd: cannot create /dev/log: Read-only file system
 </code></pre><p>So, it seems like I&rsquo;m having trouble with <code>/dev/sd0a</code>, the root partition. In a normal world, I&rsquo;d expect that that corresponds to:</p>
 <ul>
 <li>the first partition (the <code>a</code>)</li>
@@ -1121,7 +1121,7 @@ mount: giving up
 <li>attached to the SCSI bus (the <code>sd</code>)</li>
 </ul>
 <p>Given that I have my hard disk at SCSI ID 0 and CD-ROM at ID 3, <strong>you&rsquo;d think that <code>sd0a</code> would be the hard disk. You would be wrong.</strong> If you read a little higher in this boot output, it says:</p>
-<pre><code>The following scsi disks have been found:
+<pre tabindex="0"><code>The following scsi disks have been found:
   sd0 at target 3
   sd1 at target 0
 </code></pre><p>Excuse me? <code>sd0</code> is SCSI ID 3? That&rsquo;s&hellip;my CD-ROM drive. I guess it makes sense that it can&rsquo;t be mounted read/write?! It took some digging, but I found an explanation as to why from an unlikely source - <strong>a NeXT knowledge-base article from 1997</strong>! <a href="https://www.nextop.de/NeXTAnswers/1684.html#scsidevicenumbering">NeXTAnswers #1684</a> explains:</p>
@@ -1593,31 +1593,31 @@ mount: giving up
 <li>not having the terminator resistor pack in backwards</li>
 </ul>
 <p>got the drive to not cause a &ldquo;Sad Mac&rdquo; error on boot. Partitioning it was also pretty easy - it turns out that if you <strong>set the manufacturer and model strings to magical values</strong> in the SCSI2SD Utility, the stock HD SC Setup will be OK with formatting it. My config ended up being:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;SCSITarget</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">&gt;</span>
-	<span style="color:#f92672">&lt;enabled&gt;</span>true<span style="color:#f92672">&lt;/enabled&gt;</span>
-	<span style="color:#f92672">&lt;quirks&gt;</span>apple<span style="color:#f92672">&lt;/quirks&gt;</span>
-	<span style="color:#f92672">&lt;deviceType&gt;</span>0x0<span style="color:#f92672">&lt;/deviceType&gt;</span>
-	<span style="color:#f92672">&lt;deviceTypeModifier&gt;</span>0x0<span style="color:#f92672">&lt;/deviceTypeModifier&gt;</span>
-
-    <span style="color:#75715e">&lt;!-- The size has to be less than 2GB total 
-</span><span style="color:#75715e">         for A/UX to boot from it --&gt;</span>
-	<span style="color:#f92672">&lt;sdSectorStart&gt;</span>0<span style="color:#f92672">&lt;/sdSectorStart&gt;</span>
-	<span style="color:#f92672">&lt;scsiSectors&gt;</span>3984589<span style="color:#f92672">&lt;/scsiSectors&gt;</span>
-	<span style="color:#f92672">&lt;bytesPerSector&gt;</span>512<span style="color:#f92672">&lt;/bytesPerSector&gt;</span>
-	<span style="color:#f92672">&lt;sectorsPerTrack&gt;</span>63<span style="color:#f92672">&lt;/sectorsPerTrack&gt;</span>
-	<span style="color:#f92672">&lt;headsPerCylinder&gt;</span>255<span style="color:#f92672">&lt;/headsPerCylinder&gt;</span>
-
-    <span style="color:#75715e">&lt;!-- These are the magical settings: --&gt;</span>
-	<span style="color:#f92672">&lt;vendor&gt;</span> SEAGATE<span style="color:#f92672">&lt;/vendor&gt;</span>
-	<span style="color:#f92672">&lt;prodId&gt;</span>          ST225N<span style="color:#f92672">&lt;/prodId&gt;</span>
-	<span style="color:#f92672">&lt;revision&gt;</span>1.0 <span style="color:#f92672">&lt;/revision&gt;</span>
-	<span style="color:#f92672">&lt;serial&gt;</span>1234567812345678<span style="color:#f92672">&lt;/serial&gt;</span>
-
-	<span style="color:#f92672">&lt;modePages&gt;</span>
-	<span style="color:#f92672">&lt;/modePages&gt;</span>
-	<span style="color:#f92672">&lt;vpd&gt;</span>
-	<span style="color:#f92672">&lt;/vpd&gt;</span>
-<span style="color:#f92672">&lt;/SCSITarget&gt;</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;SCSITarget</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;enabled&gt;</span>true<span style="color:#f92672">&lt;/enabled&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;quirks&gt;</span>apple<span style="color:#f92672">&lt;/quirks&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;deviceType&gt;</span>0x0<span style="color:#f92672">&lt;/deviceType&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;deviceTypeModifier&gt;</span>0x0<span style="color:#f92672">&lt;/deviceTypeModifier&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- The size has to be less than 2GB total 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">         for A/UX to boot from it --&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;sdSectorStart&gt;</span>0<span style="color:#f92672">&lt;/sdSectorStart&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;scsiSectors&gt;</span>3984589<span style="color:#f92672">&lt;/scsiSectors&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;bytesPerSector&gt;</span>512<span style="color:#f92672">&lt;/bytesPerSector&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;sectorsPerTrack&gt;</span>63<span style="color:#f92672">&lt;/sectorsPerTrack&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;headsPerCylinder&gt;</span>255<span style="color:#f92672">&lt;/headsPerCylinder&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">&lt;!-- These are the magical settings: --&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;vendor&gt;</span> SEAGATE<span style="color:#f92672">&lt;/vendor&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;prodId&gt;</span>          ST225N<span style="color:#f92672">&lt;/prodId&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;revision&gt;</span>1.0 <span style="color:#f92672">&lt;/revision&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;serial&gt;</span>1234567812345678<span style="color:#f92672">&lt;/serial&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;modePages&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;/modePages&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;vpd&gt;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;/vpd&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/SCSITarget&gt;</span></span></span></code></pre></div>
 <p>For the installation process itself, I basically followed the instructions from <a href="http://www.aux-penelope.com/aux_3.0.htm">A/UX Penelope</a> pretty closely. I wont repeat their instructions, but here&rsquo;s some screenshots of my experience:</p>
 
 
@@ -1890,7 +1890,7 @@ mount: giving up
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <p>Eventually I gave up and went with plan b: <strong>the SCSI2SD can emulate multiple drives</strong>. It&rsquo;s a little bit annoying to set up - you can easily set the second, etc, drive to be a CD-ROM but loading the ISO on to it requires <code>dd</code>-ing the ISO to the appropriate offset after your primary disk.</p>
-<pre><code>&gt; dd if=C:\Users\haski\Downloads\IRIX_5.3.iso seek=16567501 of=&quot;\\.\Volume{a03b15f0-0f8b-11e8-9c75-00155d4b013b}&quot; --progress
+<pre tabindex="0"><code>&gt; dd if=C:\Users\haski\Downloads\IRIX_5.3.iso seek=16567501 of=&#34;\\.\Volume{a03b15f0-0f8b-11e8-9c75-00155d4b013b}&#34; --progress
 </code></pre><p>I try to avoid using this feature because &ldquo;<code>dd</code>-ing over your hard disk&rdquo; sounds like an even worse way to spend an evening than &ldquo;using a single-speed CD-ROM drive&rdquo;, but if you&rsquo;re careful, it works:</p>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ok that also didn’t work but setting it up as another drive on the *same* SCSI2SD worked great and now it’s working and I can go to bed happy <a href="https://t.co/OnTaXLUGCl">pic.twitter.com/OnTaXLUGCl</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/1007462825529348096?ref_src=twsrc%5Etfw">June 15, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -1915,24 +1915,23 @@ mount: giving up
 <h2 id="filesystem-headers">Filesystem headers</h2>
 <p>My goal was simple: <strong>efs disk image in, tarball out</strong>. I made a blank golang project, opened up the NetBSD source for a guide, and started reading raw bytes.</p>
 <p>Since the sources <a href="https://github.com/NetBSD/src/blob/4b6bcd63f3d324191969bdbe86c815937969e874/sys/fs/efs/efs.h#L119">helpfully point out</a> that the superblock lives in the first (zero-indexed) 512-byte block, I wrote up some code to unpack those bytes:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// cmd/where-is-the-superblock/main.go
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> (
-	<span style="color:#e6db74">&#34;os&#34;</span>
-
-	<span style="color:#e6db74">&#34;github.com/davecgh/go-spew/spew&#34;</span>
-)
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;./input.iso&#34;</span>)
-	<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">1024</span>)
-	<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">b</span>)
-	<span style="color:#a6e22e">spew</span>.<span style="color:#a6e22e">Dump</span>(<span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">512</span>:<span style="color:#ae81ff">1024</span>])
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// cmd/where-is-the-superblock/main.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/davecgh/go-spew/spew&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;./input.iso&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">spew</span>.<span style="color:#a6e22e">Dump</span>(<span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">512</span>:<span style="color:#ae81ff">1024</span>])
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>and got&hellip;nothing but zeros</p>
-<pre><code>&gt; go run .\cmd\where-is-the-superblock\main.go
+<pre tabindex="0"><code>&gt; go run .\cmd\where-is-the-superblock\main.go
 ([]uint8) (len=512 cap=512) {
  00000000  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
  00000010  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
@@ -1968,75 +1967,72 @@ mount: giving up
  000001f0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
 }
 </code></pre><p>What the heck? The NetBSD sources also claim that block 0 is unused, but if we look at <em>those</em>, there&rsquo;s definitely some non-zero bytes. The first 8 bytes are:</p>
-<pre><code>0b e5 a9 41 00 00 00 00
+<pre tabindex="0"><code>0b e5 a9 41 00 00 00 00
 </code></pre><p>Filesystems (like many formats) often use <a href="https://en.wikipedia.org/wiki/Magic_number_(programming)">&ldquo;magic numbers&rdquo;</a> - an arbitrary bunch of bytes that occur at a known location so they can be quickly identified by type. Maybe this string is a magic number? I grepped for <code>be5a941</code> in the NetBSD codebase and got a hit in <a href="https://github.com/NetBSD/src/blob/0bff031265b50be8e8b7719aed82212928d6c1df/sys/sys/bootblock.h#L1292"><code>sys/sys/bootblock.h</code></a> - <strong>it is indeed a magic number</strong>, <code>SGI_BOOT_BLOCK_MAGIC</code>. That <a href="https://github.com/NetBSD/src/blob/0bff031265b50be8e8b7719aed82212928d6c1df/sys/sys/bootblock.h#L1280-L1367">section</a> of the file defines the layout of the <em>boot block</em> of SGI partitions. A deeper dive in to that code and the <a href="http://nixdoc.net/man-pages/IRIX/man7/vh.7.html">IRIX manpage</a> for <code>vh</code> (volume header) explain what&rsquo;s going on.</p>
 <p>It turns out, these &ldquo;ISO&rdquo; files aren&rsquo;t just raw EFS filesystems, they&rsquo;re SGI-formatted <em>volumes</em> with an EFS <em>partition</em> on them. There&rsquo;s a whole volume header that has the partition table and some additional info:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from sgi/vh.go
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">VolumeHeader</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">MagicNumber</span>      <span style="color:#66d9ef">uint32</span>
-	<span style="color:#a6e22e">Root</span>             <span style="color:#66d9ef">int16</span>
-	<span style="color:#a6e22e">Swap</span>             <span style="color:#66d9ef">int16</span>
-	<span style="color:#a6e22e">Bootfile</span>         [<span style="color:#ae81ff">16</span>]<span style="color:#66d9ef">byte</span>
-	<span style="color:#a6e22e">BootDeviceParams</span> <span style="color:#a6e22e">DeviceParameters</span>
-	<span style="color:#a6e22e">VolumeDirectory</span>  [<span style="color:#ae81ff">15</span>]<span style="color:#a6e22e">FileHeader</span>
-	<span style="color:#a6e22e">Partitions</span>       [<span style="color:#ae81ff">16</span>]<span style="color:#a6e22e">Partition</span>
-	<span style="color:#a6e22e">Checksum</span>         <span style="color:#66d9ef">int32</span>
-	<span style="color:#a6e22e">Padding</span>          <span style="color:#66d9ef">int32</span>
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// from sgi/vh.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">VolumeHeader</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">MagicNumber</span>      <span style="color:#66d9ef">uint32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Root</span>             <span style="color:#66d9ef">int16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Swap</span>             <span style="color:#66d9ef">int16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Bootfile</span>         [<span style="color:#ae81ff">16</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">BootDeviceParams</span> <span style="color:#a6e22e">DeviceParameters</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">VolumeDirectory</span>  [<span style="color:#ae81ff">15</span>]<span style="color:#a6e22e">FileHeader</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Partitions</span>       [<span style="color:#ae81ff">16</span>]<span style="color:#a6e22e">Partition</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Checksum</span>         <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Padding</span>          <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>The <code>VolumeDirectory</code> field is pretty neat - its an array of pointers to <strong>files that exist outside of any filesystem</strong>, directly in the volume header. Its apparently usually used for the bootloader and the SGI partitioning program, <code>fx</code> (this is apparently why partitioning happens outside of the OS install process).</p>
 <p>The <code>Partitions</code> field contains what block offset each partition starts at, how long it is, and its filesystem type. It was a surprise to me that the partitions can (and do!) overlap! Apparently it&rsquo;s typical for one of the partitions to represent the whole disk, another this header section, and another for the actual partition (the partitioning SunOS uses also has overlaps like this). The EFS partition for my image was number 7.</p>
 <h2 id="crawling-inodes">Crawling inodes</h2>
 <p>Starting at the offset of the partition, I found the expected data in the Superblock (including the correct <em>filesystem</em> magic number, a plausible filesystem size, etc):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from efs/filesystem.go
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SuperBlock</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Size</span>         <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// filesystem size (in BasicBlocks)
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FirstCG</span>      <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// BasicBlock offset of the first CG 
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGSize</span>       <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// CylinderGroup size (in BasicBlocks)
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGInodeSize</span>  <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// Number of BBs per CG that are Inodes
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Sectors</span>      <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// sectors per track
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Heads</span>        <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// heads per cylinder
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGCount</span>      <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// CylinderGroups in the filesystem
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Dirty</span>        <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// whether an fsck is required
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">_</span>            <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// padding
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CTime</span>        <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// last SuperBlock updated time
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Magic</span>        <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// filesystem magic number
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FSName</span>       [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">byte</span>  <span style="color:#75715e">// name of the filesystem
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FSPack</span>       [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">byte</span>  <span style="color:#75715e">// fs &#34;pack&#34; name
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">BMSize</span>       <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// size in bytes of bitmap
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FreeBlocks</span>   <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// count of free blocks
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FreeInodes</span>   <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// count of free inodes
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">BMBlock</span>      <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// offset of the bitmap
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ReplicatedSB</span> <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// offset of the replicated superblock
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">LastInode</span>    <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// last unallocated inode
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">_</span>            [<span style="color:#ae81ff">20</span>]<span style="color:#66d9ef">int8</span> <span style="color:#75715e">// padding
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Checksum</span>     <span style="color:#66d9ef">int32</span>
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// from efs/filesystem.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SuperBlock</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Size</span>         <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// filesystem size (in BasicBlocks)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FirstCG</span>      <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// BasicBlock offset of the first CG 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGSize</span>       <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// CylinderGroup size (in BasicBlocks)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGInodeSize</span>  <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// Number of BBs per CG that are Inodes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Sectors</span>      <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// sectors per track
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Heads</span>        <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// heads per cylinder
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGCount</span>      <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// CylinderGroups in the filesystem
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Dirty</span>        <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// whether an fsck is required
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">_</span>            <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// padding
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CTime</span>        <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// last SuperBlock updated time
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Magic</span>        <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// filesystem magic number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FSName</span>       [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">byte</span>  <span style="color:#75715e">// name of the filesystem
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FSPack</span>       [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">byte</span>  <span style="color:#75715e">// fs &#34;pack&#34; name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">BMSize</span>       <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// size in bytes of bitmap
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FreeBlocks</span>   <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// count of free blocks
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FreeInodes</span>   <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// count of free inodes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">BMBlock</span>      <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// offset of the bitmap
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ReplicatedSB</span> <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// offset of the replicated superblock
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">LastInode</span>    <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// last unallocated inode
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">_</span>            [<span style="color:#ae81ff">20</span>]<span style="color:#66d9ef">int8</span> <span style="color:#75715e">// padding
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Checksum</span>     <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>Most of this data is irrelevant to my purposes - since I&rsquo;m not adding <em>new</em> data, I don&rsquo;t really care about the bitmap, where the next free inode is, etc. The offset of the first CylinderGroup <em>is</em> important, though. The <strong>filesystem is divided in to &ldquo;cylinder groups&rdquo;</strong> - contiguous groups of blocks where the first <code>CGInodeSize</code> blocks of the cylinder group contain inodes, and the rest is data. The <a href="https://github.com/NetBSD/src/blob/4b6bcd63f3d324191969bdbe86c815937969e874/sys/fs/efs/efs_dinode.h#L28-L31">NetBSD sources</a> note that the root inode is at <em>inode</em> index 2, so probably at index 2 in the inode portion of the first cylinder group.</p>
 <p>Each inode includes a bunch of data about the object it represents:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from efs/inode.go
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Inode</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Mode</span>       <span style="color:#66d9ef">uint16</span>
-	<span style="color:#a6e22e">NumLinks</span>   <span style="color:#66d9ef">int16</span>
-	<span style="color:#a6e22e">UID</span>        <span style="color:#66d9ef">uint16</span>
-	<span style="color:#a6e22e">GID</span>        <span style="color:#66d9ef">uint16</span>
-	<span style="color:#a6e22e">Size</span>       <span style="color:#66d9ef">int32</span>
-	<span style="color:#a6e22e">ATime</span>      <span style="color:#66d9ef">uint32</span>
-	<span style="color:#a6e22e">MTime</span>      <span style="color:#66d9ef">uint32</span>
-	<span style="color:#a6e22e">CTime</span>      <span style="color:#66d9ef">uint32</span>
-	<span style="color:#a6e22e">Generation</span> <span style="color:#66d9ef">int32</span>
-	<span style="color:#a6e22e">NumExtents</span> <span style="color:#66d9ef">int16</span>
-	<span style="color:#a6e22e">Version</span>    <span style="color:#66d9ef">uint8</span>
-	<span style="color:#a6e22e">Spare</span>      <span style="color:#66d9ef">uint8</span>
-	<span style="color:#75715e">// Payload is a union struct - sometimes it contains extents, but
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// it also can contain other stuff (like link targets and device
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// descriptors, which are not implemented here)
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Payload</span> [<span style="color:#ae81ff">96</span>]<span style="color:#66d9ef">byte</span>
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// from efs/inode.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Inode</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Mode</span>       <span style="color:#66d9ef">uint16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">NumLinks</span>   <span style="color:#66d9ef">int16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">UID</span>        <span style="color:#66d9ef">uint16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">GID</span>        <span style="color:#66d9ef">uint16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Size</span>       <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ATime</span>      <span style="color:#66d9ef">uint32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">MTime</span>      <span style="color:#66d9ef">uint32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">CTime</span>      <span style="color:#66d9ef">uint32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Generation</span> <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">NumExtents</span> <span style="color:#66d9ef">int16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Version</span>    <span style="color:#66d9ef">uint8</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Spare</span>      <span style="color:#66d9ef">uint8</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Payload is a union struct - sometimes it contains extents, but
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// it also can contain other stuff (like link targets and device
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// descriptors, which are not implemented here)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Payload</span> [<span style="color:#ae81ff">96</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>If we write up a quick program to dump this data, it looks something like:</p>
-<pre><code>&gt; go run .\cmd\rootinode\main.go
+<pre tabindex="0"><code>&gt; go run .\cmd\rootinode\main.go
 (efs.Inode) {
  Mode: (uint16) 16895,
  NumLinks: (int16) 5,
@@ -2061,7 +2057,7 @@ mount: giving up
 }
 </code></pre><p>This is really promising - those timestamps (<code>784844972</code>) are in 1994 (<code>1994-11-14T20:29:32+00:00</code>) which seems appropriate given that the disk image I&rsquo;m working on is &ldquo;the developer tools that came with IRIX 5.3&rdquo;. The <code>Mode</code> field indicates that this inode represents a directory - seems reasonable, given that I&rsquo;d expect the root inode to be <code>/</code>.</p>
 <p>To find out what&rsquo;s in the directory listing, we need to unpack the <code>Payload</code> field. In this context, it contains <strong>extents - an array of the block ranges that make up the body</strong>. This approach to allocating blocks to files gave the filesystem its name, EFS (the Extent File System). Reading extents is somewhat more complicated than just parsing that Payload field, but we&rsquo;ll get to that later. The extents stored in the root inode look like:</p>
-<pre><code>&gt; go run .\cmd\root-inode-extents\main.go
+<pre tabindex="0"><code>&gt; go run .\cmd\root-inode-extents\main.go
 ([]efs.Extent) (len=1 cap=1) {
  (efs.Extent) {
   Magic: (uint8) 0,               // side note, yes - the magic number
@@ -2071,14 +2067,13 @@ mount: giving up
  }
 }
 </code></pre><p>which seems plausible for the root directory listing - it&rsquo;s short (only one block long), and early in the disk (block 224). Fetching that block is pretty easy, and if you dump it it <em>does</em> appear to have some filenames on it, but reading its format correctly takes a little care. The format of a data block belonging to a directory listing is:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from efs/directory.go
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Directory</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Magic</span>     <span style="color:#66d9ef">uint16</span>
-	<span style="color:#a6e22e">FirstUsed</span> <span style="color:#66d9ef">uint8</span>
-	<span style="color:#a6e22e">Slots</span>     <span style="color:#66d9ef">uint8</span>
-	<span style="color:#a6e22e">Data</span>      [<span style="color:#ae81ff">508</span>]<span style="color:#66d9ef">byte</span>
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// from efs/directory.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Directory</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Magic</span>     <span style="color:#66d9ef">uint16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">FirstUsed</span> <span style="color:#66d9ef">uint8</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Slots</span>     <span style="color:#66d9ef">uint8</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Data</span>      [<span style="color:#ae81ff">508</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>At the &ldquo;bottom&rdquo; of <code>Data</code> (the low indexes) there are some pointers (<code>Slots</code> many of them) to directory entry offsets (offsets from the base of the struct). The entries live at the &ldquo;top&rdquo; of <code>Data</code> (the high indexes) and are of variable lenth (because they include filename strings!), so are made up of:</p>
 <ul>
 <li>the index of inode for the entry</li>
@@ -2086,72 +2081,71 @@ mount: giving up
 <li>the name</li>
 </ul>
 <p>It&rsquo;s a somewhat wacky scheme - why isn&rsquo;t it just a list of entries starting at <code>Data[0]</code>? This indirect approach allows adding and removing entries without having to rewrite the entire block, which&hellip;I guess is nice if you&rsquo;re dealing with late 1980s / early 1990s disk performance (SGI replaced EFS with XFS for hard disks around 1993, but kept using EFS for CD-ROMs). At any rate, if we follow it, we can read the entries at the root inode, which look pretty rad to me:</p>
-<pre><code>&gt; go run .\cmd\root-inode-entries.go
+<pre tabindex="0"><code>&gt; go run .\cmd\root-inode-entries.go
 ([]efs.DirectoryEntry) (len=8 cap=8) {
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 2,
-  Name: (string) (len=1) &quot;.&quot;
+  Name: (string) (len=1) &#34;.&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 2,
-  Name: (string) (len=2) &quot;..&quot;
+  Name: (string) (len=2) &#34;..&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 3,
-  Name: (string) (len=11) &quot;CDgrelnotes&quot;
+  Name: (string) (len=11) &#34;CDgrelnotes&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 4,
-  Name: (string) (len=10) &quot;CDrelnotes&quot;
+  Name: (string) (len=10) &#34;CDrelnotes&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 5,
-  Name: (string) (len=4) &quot;dist&quot;
+  Name: (string) (len=4) &#34;dist&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 90,
-  Name: (string) (len=7) &quot;insight&quot;
+  Name: (string) (len=7) &#34;insight&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 1525,
-  Name: (string) (len=8) &quot;relnotes&quot;
+  Name: (string) (len=8) &#34;relnotes&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 1614,
-  Name: (string) (len=12) &quot;RELEASE.info&quot;
+  Name: (string) (len=12) &#34;RELEASE.info&#34;
  }
 }
 </code></pre><p>This seems <em>extremely</em> plausible to me as the root of the CD-ROM. The <code>.</code> and <code>..</code> entries even point (correctly) to the same inode (number 2) as the one we&rsquo;re displaying! The system works! From here, it wasn&rsquo;t too implausible to walk the whole filesystem and output filenames. Since it&rsquo;s a tree, we start at the root inode, visit each entry, and if it&rsquo;s a <em>directory</em>, recursively walk starting there. <strong>We have a complete list of all files</strong></p>
 <h2 id="file-contents">File contents</h2>
 <p>For the inode of a &ldquo;regular&rdquo; file, the extents just point to where the body of the file is. You can literally concatenate the bytes from the extent blocks and get the file, at least for <em>unfragmented</em> files.</p>
 <p>An inode&rsquo;s <code>Payload</code> field can fit up to 12 extents - each extent is 8 bytes, and the <code>Payload</code> field is 96 bytes. If a file is made up of <em>more</em> than 12 discontinuous ranges of blocks, its extent descriptors wont fit inside the inode. In this case, EFS switches from &ldquo;direct&rdquo; extents (the inode data contains the extents) to &ldquo;indirect&rdquo; extents (the extents in the inode point to blocks that contain <em>nothing but extents</em>, which are the actual extents of the file). This took me a few tries to implement correctly, but ends up being a fairly simple algorithm:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from efs/filesystem.go
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">fs</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Filesystem</span>) <span style="color:#a6e22e">extents</span>(<span style="color:#a6e22e">in</span> <span style="color:#a6e22e">Inode</span>) []<span style="color:#a6e22e">Extent</span> {
-	<span style="color:#a6e22e">payloadExtents</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">PayloadExtents</span>()
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">usesDirectExtents</span>() {
-		<span style="color:#75715e">// if all of the extents fit inside of Payload (aka &#34;direct&#34;)
-</span><span style="color:#75715e"></span>		<span style="color:#75715e">// we have a much simpler time reading the extents
-</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">payloadExtents</span>
-	}
-
-	<span style="color:#75715e">// if we have more than will fit in Payload, then the extents
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// in Payload (aka &#34;indirect extents&#34;) point to ranges that
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// themselves contain the actual extents.
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">extents</span> <span style="color:#f92672">:=</span> make([]<span style="color:#a6e22e">Extent</span>, <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">NumExtents</span>)
-	<span style="color:#a6e22e">extentsFetched</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
-	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">indirectExtent</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">payloadExtents</span> {
-		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">extentBB</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">ExtentToBlocks</span>(<span style="color:#a6e22e">indirectExtent</span>) {
-			<span style="color:#75715e">// copy respecting the length of extents saves us from
-</span><span style="color:#75715e"></span>			<span style="color:#75715e">// accidentally including the garbage extents at the end
-</span><span style="color:#75715e"></span>			<span style="color:#75715e">// of the last block (beyond NumExtents)
-</span><span style="color:#75715e"></span>			copy(<span style="color:#a6e22e">extents</span>[<span style="color:#a6e22e">extentsFetched</span>:], <span style="color:#a6e22e">extentBB</span>.<span style="color:#a6e22e">ToExtents</span>())
-			<span style="color:#a6e22e">extentsFetched</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">extentsPerBlock</span>
-		}
-	}
-
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">extents</span>
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// from efs/filesystem.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">fs</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Filesystem</span>) <span style="color:#a6e22e">extents</span>(<span style="color:#a6e22e">in</span> <span style="color:#a6e22e">Inode</span>) []<span style="color:#a6e22e">Extent</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">payloadExtents</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">PayloadExtents</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">usesDirectExtents</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// if all of the extents fit inside of Payload (aka &#34;direct&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">// we have a much simpler time reading the extents
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">payloadExtents</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// if we have more than will fit in Payload, then the extents
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// in Payload (aka &#34;indirect extents&#34;) point to ranges that
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// themselves contain the actual extents.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">extents</span> <span style="color:#f92672">:=</span> make([]<span style="color:#a6e22e">Extent</span>, <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">NumExtents</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">extentsFetched</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">indirectExtent</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">payloadExtents</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">extentBB</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">ExtentToBlocks</span>(<span style="color:#a6e22e">indirectExtent</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// copy respecting the length of extents saves us from
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#75715e">// accidentally including the garbage extents at the end
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#75715e">// of the last block (beyond NumExtents)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			copy(<span style="color:#a6e22e">extents</span>[<span style="color:#a6e22e">extentsFetched</span>:], <span style="color:#a6e22e">extentBB</span>.<span style="color:#a6e22e">ToExtents</span>())
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">extentsFetched</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">extentsPerBlock</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">extents</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>With this in place, I was able to get the contents of files, large and small! Mixed with the golang <code>archive/tar</code> library, I was able to get the tarball I had hoped for.</p>
 <h2 id="harvesting-the-fruits-of-my-labor">Harvesting the fruits of my labor</h2>
 <p>I copied the (hopefully correct) tarball to my NAS and unpacked it. Despite the 25 years between the birth of my Indy and my <a href="https://www.qnap.com/en-us/product/ts-231p">NAS</a> they both speak computing&rsquo;s lingua franca, unauthenticated NFS. The IRIX Software Manager doesn&rsquo;t care about <em>where</em> the software lives - it just wants a directory:</p>
@@ -2267,7 +2261,7 @@ mount: giving up
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">vaxstation reassembly progress <a href="https://t.co/KSgnz2Q2Rh">pic.twitter.com/KSgnz2Q2Rh</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/992196800458252288?ref_src=twsrc%5Etfw">May 4, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </p>
-<p>Not too bad for a few evenings' work! One day I&rsquo;ll have to try out <a href="http://www.retr0bright.com/">Retrobriting</a> the case since the plastic has yellowed quite a bit, but at least now it&rsquo;s not hiding tons of dirt.</p>
+<p>Not too bad for a few evenings&rsquo; work! One day I&rsquo;ll have to try out <a href="http://www.retr0bright.com/">Retrobriting</a> the case since the plastic has yellowed quite a bit, but at least now it&rsquo;s not hiding tons of dirt.</p>
 
 
 <div class="box fancy-figure caption-position-none" >
@@ -2288,7 +2282,7 @@ mount: giving up
     <a href="https://blog.pizzabox.computer/posts/booting-the-hp712/">Booting the HP 712</a>
   </h1>
   <time datetime="2018-04-28T18:00:00-0400" class="post-date">Sat, Apr 28, 2018</time>
-  <p>The HP 9000 workstations' industrial design inspires me - the 300 series was on my mind the week before I bought my first pizzabox:
+  <p>The HP 9000 workstations&rsquo; industrial design inspires me - the 300 series was on my mind the week before I bought my first pizzabox:
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">why did we stop making computers that looked like :( <a href="https://t.co/xBYUcnTaIe">pic.twitter.com/xBYUcnTaIe</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/884523284695588864?ref_src=twsrc%5Etfw">July 10, 2017</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </p>
@@ -2746,15 +2740,15 @@ The only HP-UX specific tool of note that comes by default is <strong>SAM: the S
 </ul>
 <h2 id="investigate-the-existing-os">Investigate the existing OS</h2>
 <p>The first order of business was to boot from the OS install disk to a shell and see if the already installed OS was salvageable. The <a href="https://docs.oracle.com/cd/E19620-01/805-3408/6j38cta0f/index.html">installation docs</a> say that at the <code>ok</code> prompt you should be able to do</p>
-<pre><code>ok boot cdrom
+<pre tabindex="0"><code>ok boot cdrom
 </code></pre><p>to get to the installer, and</p>
-<pre><code>ok boot cdrom -s
+<pre tabindex="0"><code>ok boot cdrom -s
 </code></pre><p>to boot from the CD in to a single-user mode root shell. My SPARCstation 1+ is old enough that its firmware doesn&rsquo;t have a concept of <code>cdrom</code> as a valid boot target. A <a href="https://docs.oracle.com/cd/E19620-01/805-3408/6j38cta0f/index.html">footnote</a> thankfully informed me:</p>
 <blockquote>
 <p>For systems with older EEPROMs, replace cdrom with sd(0,6,2) to boot from the system&rsquo;s CD-ROM.</p>
 </blockquote>
 <p>That worked! The first thing I tried was mounting the internal drives, which <strong>immediately failed</strong> and asked me to run <code>fsck</code>. Of the partitions, <code>fsck</code> found plenty of errors and only managed to make a few of them mountable. None of it was interesting or useable stuff (I think I got like, a <code>/</code> partition? but no <code>/boot</code> or <code>/usr</code>), so I made the call to wipe it and re-install:</p>
-<pre><code>sparcstation# format
+<pre tabindex="0"><code>sparcstation# format
 Searching for disks...done
 
 AVAILABLE DISK SELECTIONS:
@@ -2803,11 +2797,11 @@ format&gt;
 </code></pre><p>time to reboot and do a real install!</p>
 <h2 id="installation">Installation</h2>
 <p>The Solaris install process starts with a few questions about your language, locale, and terminal type. It then launches a curses-style install program to get details about your networking situation and time-zone settings. Finally, it informs you:</p>
-<pre><code>System identification is completed.
+<pre tabindex="0"><code>System identification is completed.
 </code></pre><p>&hellip;and <strong>hangs for about 20 minutes</strong> without any more output. The first few times this happened I was <em>convinced</em> I had done something wrong - maybe the installer was angry about me not using the framebuffer for install, or a RAM chip was bad, or <em>something</em>. It turns out it was just&hellip;thinking about stuff. After the long wait, the curses-style installer comes back:</p>
-<pre><code>- Solaris Interactive Installation ---------------------------------
+<pre tabindex="0"><code>- Solaris Interactive Installation ---------------------------------
 
-  You'll be using the initial option for installing Solaris software
+  You&#39;ll be using the initial option for installing Solaris software
   on the system. The initial option overwrites the system disks when
   the new Solaris software is installed.
 
@@ -2816,7 +2810,7 @@ format&gt;
 
 - Allocating space for diskless clients or AutoClient systems
 - Selecting the type of Solaris software to install
-- Selecting disks to hold software you've selected
+- Selecting disks to hold software you&#39;ve selected
 - Specifying how file systems are laid out on the disks
 
   After completing these tasks, a summary of your selections (called
@@ -2827,7 +2821,7 @@ format&gt;
 </code></pre><p>I went with the default partitioning and the basic set of packages that would fit on the small hard drive. The install proper took around two hours - a big reminder that this tech isn&rsquo;t from 2017! At completion, the installer installed a handful of patches and rebooted the machine.</p>
 <h2 id="first-boot">First boot</h2>
 <p>Post-install, things came up pretty smoothly (except for a bunch of network errors - I didn&rsquo;t have the ethernet cable plugged in)</p>
-<pre><code>SPARCstation 1+, No keyboard.
+<pre tabindex="0"><code>SPARCstation 1+, No keyboard.
 ROM Rev. 1.3, 64 MB memory installed, Serial #12648430.
 Ethernet address 8:0:20:c0:ff:ee, Host ID: 53c0ffee.
 
@@ -2846,15 +2840,15 @@ The system is coming up. Please wait.
 Configuring network interface addresses: le0.
 RPC: Timed out
 starting routing daemon.
-starting rpc services: rpcbindkeyserv: failed to generate host's netname when establishing root's key.
+starting rpc services: rpcbindkeyserv: failed to generate host&#39;s netname when establishing root&#39;s key.
  keyserv done.
 </code></pre><p>This being the first boot, I was prompted to make a root password:</p>
-<pre><code>On this screen you can create a root password.
+<pre tabindex="0"><code>On this screen you can create a root password.
 
 A root password can contain any number of characters, but only the
 first eight characters in the password are significant. (For
-example, if you create `a1b2c3d4e5f6' as your root password, you
-can use `a1b2c3d4' to gain root access.)
+example, if you create `a1b2c3d4e5f6&#39; as your root password, you
+can use `a1b2c3d4&#39; to gain root access.)
 
 You wil be prompted to type the root password twice; for security,
 the password will not be displayed on the screen as you type it.
@@ -2866,7 +2860,7 @@ Root password: _
 
 Press Return to continue.
 </code></pre><p>Finally, I made it to a shell!</p>
-<pre><code>System identification is completed.
+<pre tabindex="0"><code>System identification is completed.
 Setting netmask of le0 to 255.255.255.0
 Setting default interface for multicast: add net 224.0.0.0: gateway SPARCstation
 syslog service starting.
@@ -3083,7 +3077,7 @@ sparcstation
 </div>
 
 <p>After putting the framebuffer back in and closing up the case, it was time to set the IDPROM values for the last time! Based on the guide, I set a machine type of <code>53</code> (SPARCstation 1+) and a MAC address of <code>08:00:20:c0:ff:ee</code> (<code>08:00:20</code> is the Sun range, and the guide&rsquo;s example already referenced my favorite drink!). After booting to the <code>ok</code> prompt, I set those by doing:</p>
-<pre><code>ok
+<pre tabindex="0"><code>ok
 ok 1 0 mkp
 ok 53 1 mkp
 ok 8 2 mkp
@@ -3136,7 +3130,7 @@ ok setenv diag-switch? false
 <p>from the images hosted on the <a href="https://archive.org/">Internet Archive</a>. Since I was running from Linux instead of Windows (what the <code>irixboot</code> author tested), the <code>bridgenic</code> param was just the name of my server&rsquo;s ethernet interface (<code>eno1</code>). From there, all I needed was a <code>vagrant up</code> and I was ready!</p>
 <h2 id="partitioning-the-disk">Partitioning the disk</h2>
 <p>In most modern OS installers, partitioning the disk is part of the install process. Not so on IRIX! The IRIX installer seems to use the disk to store temporary files during installation, so you have to have valid partitions set up separately. To do that, you must boot to the Command Monitor:</p>
-<pre><code>System Maintenance Menu
+<pre tabindex="0"><code>System Maintenance Menu
 
 1) Start System
 2) Install System Software
@@ -3145,10 +3139,10 @@ ok setenv diag-switch? false
 5) Enter Command Monitor
 
 Option? 5
-Command Monitor.  Type &quot;exit&quot; to return to the menu.
+Command Monitor.  Type &#34;exit&#34; to return to the menu.
 &gt;&gt;
 </code></pre><p>and boot in to the <code>fx</code> partitioner from the &ldquo;Installation Tools&rdquo; disk</p>
-<pre><code>&gt;&gt; bootp():/inst/stand/fx.ARCS
+<pre tabindex="0"><code>&gt;&gt; bootp():/inst/stand/fx.ARCS
 Setting $netaddr to 192.168.1.242 (from server )
 Obtaining /inst/stand/fx.ARCS from server
 93664+25632+7056+2804464+48784d+5808+8832 entry: 0x8bd4b0f0
@@ -3160,12 +3154,12 @@ Currently in safe read-only mode.
 <li><code>stand/fx.ARCS</code> is the path to the <code>fx</code> partitioning tool on that disc.</li>
 </ul>
 <p>I found <a href="http://www.futuretech.blinkenlights.nl/6.5inst.html">Future Technology&rsquo;s guide</a> valuable in figuring out <em>how</em> to set things up - I accepted the defaults at each prompt until I got to the menu:</p>
-<pre><code>----- please choose one (? for help, .. to quit this menu)-----
+<pre tabindex="0"><code>----- please choose one (? for help, .. to quit this menu)-----
 [exi]t               [d]ebug/             [l]abel/
 [b]adblock/          [exe]rcise/          [r]epartition/
 fx&gt;
 </code></pre><p>chose &ldquo;repartition&rdquo; on the &ldquo;rootdrive&rdquo;, with the XFS filesystem:</p>
-<pre><code>fx&gt; r
+<pre tabindex="0"><code>fx&gt; r
 
 ----- partitions-----
 part  type        blocks            Megabytes   (base+size)
@@ -3188,7 +3182,7 @@ backed up if it contains any user data.  Continue? yes
 </code></pre><p>The Future Technology guide says you need to add a &ldquo;label&rdquo;, but that didn&rsquo;t seem to be an option for me, so I just proceeded to <code>/exit</code>.</p>
 <h2 id="netbooting-the-irix-installer">Netbooting the IRIX installer</h2>
 <p>That took me back to the &ldquo;System Maintenance Menu&rdquo; - this time choosing to &ldquo;Install System Software&rdquo;:</p>
-<pre><code>                         Installing System Software...
+<pre tabindex="0"><code>                         Installing System Software...
 
                        Press &lt;Esc&gt; to return to the menu.
 
@@ -3199,10 +3193,10 @@ backed up if it contains any user data.  Continue? yes
 Enter 1-4 to select source type, &lt;esc&gt; to quit,
 or &lt;enter&gt; to start:
 </code></pre><p>I used <code>2</code> for &ldquo;Remote Directory&rdquo;, entered in the IP address of my <code>irixboot</code> server and the path to the install tools disc:</p>
-<pre><code>Enter the name of the remote host: 192.168.1.10
+<pre tabindex="0"><code>Enter the name of the remote host: 192.168.1.10
 Enter the remote directory: /inst/dist
 </code></pre><p>This kicks you <em>back</em> to the &ldquo;Installing System Software&rdquo; menu - you press enter to use your chosen settings to kick off an install:</p>
-<pre><code>Setting $netaddr to 192.168.1.242 (from server )
+<pre tabindex="0"><code>Setting $netaddr to 192.168.1.242 (from server )
 Copying installation program to disk.
 Setting $netaddr to 192.168.1.242 (from server )
 ......... 10% ......... 20% ......... 30% ......... 40% ......... 50%
@@ -3226,7 +3220,7 @@ Creating miniroot devices, please wait...
 Current system date is Mon Dec 15 12:14:34 PST 2014
 </code></pre><p>(the clock in my machine is stuck in the past!).</p>
 <p>Since I just repartitioned the disk in <code>fx</code>, the installer needs to make a file system on it:</p>
-<pre><code>Mounting file systems:
+<pre tabindex="0"><code>Mounting file systems:
 
 /dev/dsk/dks0d1s0: Invalid argument
 /hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/volume/char: [Alert] Illegal request: Illegal field in CDB (asc=0x24, asq=0x0), Block #40601
@@ -3253,13 +3247,12 @@ unwritten flagging is enabled
 Trying again to mount /dev/dsk/dks0d1s0 on /root.
 
 /hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/volume/char: [Alert] Illegal request: Illegal field in CDB (asc=0x24, asq=0x0), Block #0
-UX:make: INFO: `scsi' is up to date.
+UX:make: INFO: `scsi&#39; is up to date.
     /dev/miniroot            on  /
     /dev/dsk/dks0d1s0        on  /root
-
 </code></pre><h2 id="installing-irix">Installing IRIX</h2>
 <p>Now it&rsquo;s time for the <em>real</em> installing to begin.</p>
-<pre><code>Invoking software installation.
+<pre tabindex="0"><code>Invoking software installation.
 
 What is the hostname (system name) of your machine? indy
 What is the network address of indy? 192.168.1.242
@@ -3267,9 +3260,9 @@ What is the netmask for 192.168.1.242?
 Press Enter for the IP class default [0xffffff00]:
 Starting network with hostname: indy, at ip address: 192.168.1.242
 </code></pre><p>Man, it&rsquo;s asking <em>again</em> for an IP address - the Indy is from an time where ubiquitous reliable DHCP was not a thing. That final obstacle was all gated the main menu of the IRIX install tool (creatively named <code>inst</code>):</p>
-<pre><code>Default distribution to install from: 192.168.1.10:/inst/dist
+<pre tabindex="0"><code>Default distribution to install from: 192.168.1.10:/inst/dist
 
-For help on inst commands, type &quot;help overview&quot;.
+For help on inst commands, type &#34;help overview&#34;.
 
 
 Inst 3.3 Main Menu
@@ -3291,7 +3284,7 @@ Inst 3.3 Main Menu
 
 Inst&gt;
 </code></pre><p>The &ldquo;default distribution&rdquo; is a reminder that <code>inst</code> knows about the &ldquo;Installation Tools&rdquo; disc it booted from, but needs to be told about the other four CDs:</p>
-<pre><code>Inst&gt; open irixboot:foundation/dist
+<pre tabindex="0"><code>Inst&gt; open irixboot:foundation/dist
 What is the network address of irixboot? 192.168.1.10
 Reading product descriptions .. 100% Done.
 
@@ -3308,29 +3301,29 @@ Reading product descriptions .. 100% Done.
 
 Inst&gt;
 </code></pre><p>I went with the package sets Future Technology recommended, and started the installation:</p>
-<pre><code>Inst&gt; keep *
+<pre tabindex="0"><code>Inst&gt; keep *
 
 Inst&gt; install standard
 
 Inst&gt; install prereqs
-No matches for &quot;prereqs&quot; were found
+No matches for &#34;prereqs&#34; were found
 
 Inst&gt; go
 </code></pre><p>This takes a <em>very</em> long time (the <a href="http://www.futuretech.blinkenlights.nl/6.5inst.html">Future Technology Guide</a> even has a table of how different workstations perform differently - apparently CPU has a lot to do with it). Mine took 130 minutes, from <code>go</code> to reboot:</p>
-<pre><code>Ready to restart the system.  Restart? { (y)es, (n)o, (sh)ell, (h)elp }:
+<pre tabindex="0"><code>Ready to restart the system.  Restart? { (y)es, (n)o, (sh)ell, (h)elp }:
 Preparing to restart system ...
 
 The system is being restarted.
 </code></pre><h2 id="postinstall">Postinstall</h2>
 <p>After install, the machine came up nicely:</p>
-<pre><code>IRIX Release 6.5 IP22 Version 05190003 System V
+<pre tabindex="0"><code>IRIX Release 6.5 IP22 Version 05190003 System V
 Copyright 1987-1998 Silicon Graphics, Inc.
 All Rights Reserved.
 
 dksc0d1: [Alert] Illegal request: Illegal field in CDB (asc=0x24, asq=0x0), Block #0
 The system is coming up.
 Warning: Internet Gateway web server running as root.
-Use &quot;chkconfig webface off&quot; if you wish to disable.
+Use &#34;chkconfig webface off&#34; if you wish to disable.
 startup: listening to port 80 as nobody
 
 
@@ -3345,16 +3338,16 @@ indy 1#
 <ul>
 <li>
 <p>DNS to be configured in <code>/etc/resolv.conf</code>:</p>
-<pre><code>domain taketimetobesafe.biz
+<pre tabindex="0"><code>domain taketimetobesafe.biz
 nameserver 192.168.1.1
 </code></pre></li>
 <li>
 <p>a default route to be entered in <code>/etc/config/static-route.options</code>:</p>
-<pre><code>$ROUTE $QUIET add net default 192.168.1.1
+<pre tabindex="0"><code>$ROUTE $QUIET add net default 192.168.1.1
 </code></pre></li>
 <li>
 <p>an X11 font server enabled (where would we be without fonts!):</p>
-<pre><code>indy # chkconfig fontserver on
+<pre tabindex="0"><code>indy # chkconfig fontserver on
 </code></pre></li>
 </ul>
 <p>Since I had just changed a bunch of network connections (and this machine was made in 1993) a reboot seemed in order. After it came back up, I connected a remote X session. In this case, I was using Xming on Windows (for some reason XQuartz just crashes when I try to connect). The effective Xnest command my options translates to is: <code>Xnest -query indy.taketimetobesafe.biz -screen 0 1024x768@1 -fp tcp/indy.taketimetobesafe.biz:7100</code>. This gave me a login window!</p>
@@ -3412,7 +3405,7 @@ I <em>believe</em> this is the first workstation I&rsquo;ve bought that didn&rsq
 <p>Since I <a href="/posts/the-dream">don&rsquo;t have</a> a PS/2 keyboard and mouse, hooking the Indy up to a monitor and directly using it is not an option. Some researching on the <a href="http://www.nekochan.net/wiki/Headless">Nekochan wiki</a> confirmed that a DB25 to mini-DIN 8 cable would do the trick - I grabbed one from <a href="https://www.monoprice.com/product?c_id=102&amp;cp_id=10215&amp;cs_id=1021501&amp;p_id=521&amp;seq=1&amp;format=2">Monoprice</a>.  These are fairly common thanks to Apple using the same connector (mini-DIN 8) for their serial ports in the pre-USB era.</p>
 <p>By chance, I seem to have gotten the right one: they sell a <em>very</em> similar <a href="https://www.monoprice.com/product?c_id=102&amp;cp_id=10215&amp;cs_id=1021501&amp;p_id=516&amp;seq=1&amp;format=2">cable</a> that sounds like it tries to account for a different signaling standard (Mac serial ports were RS-422, whereas the Indy&rsquo;s is RS-232). The one I got also seems to be a null-modem cable (though the listing doesn&rsquo;t say this) - that means I can more or less directly connect it to the Indy and to my USB Serial adapter and be all set.</p>
 <p>With the wires plugged in, I used <code>minicom</code> on my laptop (set to 9600bps, no parity, one stop bit, 8 bits per character, and software flow control), and turned on the Indy. To get a Unix tty on the serial port, you have to enable it in the PROM monitor. At the prompt, I pressed <code>&lt;Esc&gt;</code> to enter maintenance:</p>
-<pre><code>To perform system maintenance instead, press &lt;Esc&gt;
+<pre tabindex="0"><code>To perform system maintenance instead, press &lt;Esc&gt;
 
 System Maintenance Menu
 
@@ -3424,12 +3417,12 @@ System Maintenance Menu
 
 Option?
 </code></pre><p>picked option 5 (the PROM monitor), and disabled the local graphics console:</p>
-<pre><code>Command Monitor.  Type &quot;exit&quot; to return to the menu.
+<pre tabindex="0"><code>Command Monitor.  Type &#34;exit&#34; to return to the menu.
 &gt;&gt; setenv console d
 </code></pre><p>After rebooting, an OS came up!</p>
 <h2 id="getting-root">Getting root</h2>
 <p>Incredibly, the remaining hard drive had a functioning OS on it! The</p>
-<pre><code>IRIX Release 6.5 IP22 Version 05190003 System V
+<pre tabindex="0"><code>IRIX Release 6.5 IP22 Version 05190003 System V
 Copyright 1987-1998 Silicon Graphics, Inc
 All Rights Reserved.
 </code></pre><p>banner was encouraging. The login prompt, however, was not. The internet pointed towards some typically wide-open IRIX user accounts (<code>EZsetup</code>, <code>lp</code>, and <code>guest</code>) but this machine had them locked down. On some operating systems (macOS and most Linuxes, in particular), there is a &ldquo;single-user mode&rdquo; that automatically logs you in as root. This sounds like a huge security hole (and kind of is), but is in keeping with the reality that if you have physical access to a computer, you can <em>get</em> root anyway. IRIX&rsquo;s single-user mode requires you to know the root password, so I had to do it the hard way.</p>
@@ -3446,7 +3439,7 @@ All Rights Reserved.
 <h2 id="getting-root-take-2">Getting root, take 2</h2>
 <p>Netbooted into the IRIX installer, I launched a shell and took stock. My Indy&rsquo;s root partition had been mounted for me (entertainingly at <code>/root</code>, since IRIX seems to make <code>/</code> the root <em>user</em>&rsquo;s home directory). Remember, my goal is to clear the root user&rsquo;s password by <a href="https://stackoverflow.com/a/11700775">editing <code>/etc/shadow</code></a>.</p>
 <p>So, all I need to do is a quick</p>
-<pre><code># vi /root/etc/shadow
+<pre tabindex="0"><code># vi /root/etc/shadow
 </code></pre><p>right? Well, it turns out the IRIX install image doesn&rsquo;t have <code>vi</code> installed. What does it have? The <strong>standard</strong> editor, <code>ed</code>. I had never actually <em>used</em> <code>ed</code> - it&rsquo;s mostly the butt of a <a href="https://www.gnu.org/fun/jokes/ed-msg.txt">running joke</a> from 1991. With the help of the (aptly named) <a href="https://sanctum.geek.nz/arabesque/actually-using-ed/">Actually Using Ed</a>, I managed to clear root&rsquo;s password.</p>
 <h2 id="moment-of-truth">Moment of truth</h2>
 <p>Was this enough to get in? My first attempt (straight up booting and trying to log in) failed - this time, with a message that root wasn&rsquo;t <em>allowed</em> to log in on this console. Though I later learned <a href="http://csweb.cs.wfu.edu/~torgerse/Kokua/SGI/007-2862-005/sgi_html/ch04.html#id5202783">where that is configured</a> (and so could have gone back to the netbooted installer environment and hacked it), in the moment, I tried single-user mode again:</p>
@@ -3475,7 +3468,7 @@ All Rights Reserved.
 <li>something smelled funny (maybe the <a href="https://en.wikipedia.org/wiki/Magic_smoke">magic smoke</a> was escaping!)</li>
 <li>the light cycled between red and green somewhat erratically</li>
 <li>on my attached serial console, it appeared to be looping through startup - at that point, I might have considered a &ldquo;full&rdquo; startup to be text like:
-<pre><code>Data path test                             *FAILED*
+<pre tabindex="0"><code>Data path test                             *FAILED*
 RTC path test                              *FAILED*
 
 Running power-on diagnostics...

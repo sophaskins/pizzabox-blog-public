@@ -95,7 +95,7 @@
 <p>from the images hosted on the <a href="https://archive.org/">Internet Archive</a>. Since I was running from Linux instead of Windows (what the <code>irixboot</code> author tested), the <code>bridgenic</code> param was just the name of my server&rsquo;s ethernet interface (<code>eno1</code>). From there, all I needed was a <code>vagrant up</code> and I was ready!</p>
 <h2 id="partitioning-the-disk">Partitioning the disk</h2>
 <p>In most modern OS installers, partitioning the disk is part of the install process. Not so on IRIX! The IRIX installer seems to use the disk to store temporary files during installation, so you have to have valid partitions set up separately. To do that, you must boot to the Command Monitor:</p>
-<pre><code>System Maintenance Menu
+<pre tabindex="0"><code>System Maintenance Menu
 
 1) Start System
 2) Install System Software
@@ -104,10 +104,10 @@
 5) Enter Command Monitor
 
 Option? 5
-Command Monitor.  Type &quot;exit&quot; to return to the menu.
+Command Monitor.  Type &#34;exit&#34; to return to the menu.
 &gt;&gt;
 </code></pre><p>and boot in to the <code>fx</code> partitioner from the &ldquo;Installation Tools&rdquo; disk</p>
-<pre><code>&gt;&gt; bootp():/inst/stand/fx.ARCS
+<pre tabindex="0"><code>&gt;&gt; bootp():/inst/stand/fx.ARCS
 Setting $netaddr to 192.168.1.242 (from server )
 Obtaining /inst/stand/fx.ARCS from server
 93664+25632+7056+2804464+48784d+5808+8832 entry: 0x8bd4b0f0
@@ -119,12 +119,12 @@ Currently in safe read-only mode.
 <li><code>stand/fx.ARCS</code> is the path to the <code>fx</code> partitioning tool on that disc.</li>
 </ul>
 <p>I found <a href="http://www.futuretech.blinkenlights.nl/6.5inst.html">Future Technology&rsquo;s guide</a> valuable in figuring out <em>how</em> to set things up - I accepted the defaults at each prompt until I got to the menu:</p>
-<pre><code>----- please choose one (? for help, .. to quit this menu)-----
+<pre tabindex="0"><code>----- please choose one (? for help, .. to quit this menu)-----
 [exi]t               [d]ebug/             [l]abel/
 [b]adblock/          [exe]rcise/          [r]epartition/
 fx&gt;
 </code></pre><p>chose &ldquo;repartition&rdquo; on the &ldquo;rootdrive&rdquo;, with the XFS filesystem:</p>
-<pre><code>fx&gt; r
+<pre tabindex="0"><code>fx&gt; r
 
 ----- partitions-----
 part  type        blocks            Megabytes   (base+size)
@@ -147,7 +147,7 @@ backed up if it contains any user data.  Continue? yes
 </code></pre><p>The Future Technology guide says you need to add a &ldquo;label&rdquo;, but that didn&rsquo;t seem to be an option for me, so I just proceeded to <code>/exit</code>.</p>
 <h2 id="netbooting-the-irix-installer">Netbooting the IRIX installer</h2>
 <p>That took me back to the &ldquo;System Maintenance Menu&rdquo; - this time choosing to &ldquo;Install System Software&rdquo;:</p>
-<pre><code>                         Installing System Software...
+<pre tabindex="0"><code>                         Installing System Software...
 
                        Press &lt;Esc&gt; to return to the menu.
 
@@ -158,10 +158,10 @@ backed up if it contains any user data.  Continue? yes
 Enter 1-4 to select source type, &lt;esc&gt; to quit,
 or &lt;enter&gt; to start:
 </code></pre><p>I used <code>2</code> for &ldquo;Remote Directory&rdquo;, entered in the IP address of my <code>irixboot</code> server and the path to the install tools disc:</p>
-<pre><code>Enter the name of the remote host: 192.168.1.10
+<pre tabindex="0"><code>Enter the name of the remote host: 192.168.1.10
 Enter the remote directory: /inst/dist
 </code></pre><p>This kicks you <em>back</em> to the &ldquo;Installing System Software&rdquo; menu - you press enter to use your chosen settings to kick off an install:</p>
-<pre><code>Setting $netaddr to 192.168.1.242 (from server )
+<pre tabindex="0"><code>Setting $netaddr to 192.168.1.242 (from server )
 Copying installation program to disk.
 Setting $netaddr to 192.168.1.242 (from server )
 ......... 10% ......... 20% ......... 30% ......... 40% ......... 50%
@@ -185,7 +185,7 @@ Creating miniroot devices, please wait...
 Current system date is Mon Dec 15 12:14:34 PST 2014
 </code></pre><p>(the clock in my machine is stuck in the past!).</p>
 <p>Since I just repartitioned the disk in <code>fx</code>, the installer needs to make a file system on it:</p>
-<pre><code>Mounting file systems:
+<pre tabindex="0"><code>Mounting file systems:
 
 /dev/dsk/dks0d1s0: Invalid argument
 /hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/volume/char: [Alert] Illegal request: Illegal field in CDB (asc=0x24, asq=0x0), Block #40601
@@ -212,13 +212,12 @@ unwritten flagging is enabled
 Trying again to mount /dev/dsk/dks0d1s0 on /root.
 
 /hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/volume/char: [Alert] Illegal request: Illegal field in CDB (asc=0x24, asq=0x0), Block #0
-UX:make: INFO: `scsi' is up to date.
+UX:make: INFO: `scsi&#39; is up to date.
     /dev/miniroot            on  /
     /dev/dsk/dks0d1s0        on  /root
-
 </code></pre><h2 id="installing-irix">Installing IRIX</h2>
 <p>Now it&rsquo;s time for the <em>real</em> installing to begin.</p>
-<pre><code>Invoking software installation.
+<pre tabindex="0"><code>Invoking software installation.
 
 What is the hostname (system name) of your machine? indy
 What is the network address of indy? 192.168.1.242
@@ -226,9 +225,9 @@ What is the netmask for 192.168.1.242?
 Press Enter for the IP class default [0xffffff00]:
 Starting network with hostname: indy, at ip address: 192.168.1.242
 </code></pre><p>Man, it&rsquo;s asking <em>again</em> for an IP address - the Indy is from an time where ubiquitous reliable DHCP was not a thing. That final obstacle was all gated the main menu of the IRIX install tool (creatively named <code>inst</code>):</p>
-<pre><code>Default distribution to install from: 192.168.1.10:/inst/dist
+<pre tabindex="0"><code>Default distribution to install from: 192.168.1.10:/inst/dist
 
-For help on inst commands, type &quot;help overview&quot;.
+For help on inst commands, type &#34;help overview&#34;.
 
 
 Inst 3.3 Main Menu
@@ -250,7 +249,7 @@ Inst 3.3 Main Menu
 
 Inst&gt;
 </code></pre><p>The &ldquo;default distribution&rdquo; is a reminder that <code>inst</code> knows about the &ldquo;Installation Tools&rdquo; disc it booted from, but needs to be told about the other four CDs:</p>
-<pre><code>Inst&gt; open irixboot:foundation/dist
+<pre tabindex="0"><code>Inst&gt; open irixboot:foundation/dist
 What is the network address of irixboot? 192.168.1.10
 Reading product descriptions .. 100% Done.
 
@@ -267,29 +266,29 @@ Reading product descriptions .. 100% Done.
 
 Inst&gt;
 </code></pre><p>I went with the package sets Future Technology recommended, and started the installation:</p>
-<pre><code>Inst&gt; keep *
+<pre tabindex="0"><code>Inst&gt; keep *
 
 Inst&gt; install standard
 
 Inst&gt; install prereqs
-No matches for &quot;prereqs&quot; were found
+No matches for &#34;prereqs&#34; were found
 
 Inst&gt; go
 </code></pre><p>This takes a <em>very</em> long time (the <a href="http://www.futuretech.blinkenlights.nl/6.5inst.html">Future Technology Guide</a> even has a table of how different workstations perform differently - apparently CPU has a lot to do with it). Mine took 130 minutes, from <code>go</code> to reboot:</p>
-<pre><code>Ready to restart the system.  Restart? { (y)es, (n)o, (sh)ell, (h)elp }:
+<pre tabindex="0"><code>Ready to restart the system.  Restart? { (y)es, (n)o, (sh)ell, (h)elp }:
 Preparing to restart system ...
 
 The system is being restarted.
 </code></pre><h2 id="postinstall">Postinstall</h2>
 <p>After install, the machine came up nicely:</p>
-<pre><code>IRIX Release 6.5 IP22 Version 05190003 System V
+<pre tabindex="0"><code>IRIX Release 6.5 IP22 Version 05190003 System V
 Copyright 1987-1998 Silicon Graphics, Inc.
 All Rights Reserved.
 
 dksc0d1: [Alert] Illegal request: Illegal field in CDB (asc=0x24, asq=0x0), Block #0
 The system is coming up.
 Warning: Internet Gateway web server running as root.
-Use &quot;chkconfig webface off&quot; if you wish to disable.
+Use &#34;chkconfig webface off&#34; if you wish to disable.
 startup: listening to port 80 as nobody
 
 
@@ -304,16 +303,16 @@ indy 1#
 <ul>
 <li>
 <p>DNS to be configured in <code>/etc/resolv.conf</code>:</p>
-<pre><code>domain taketimetobesafe.biz
+<pre tabindex="0"><code>domain taketimetobesafe.biz
 nameserver 192.168.1.1
 </code></pre></li>
 <li>
 <p>a default route to be entered in <code>/etc/config/static-route.options</code>:</p>
-<pre><code>$ROUTE $QUIET add net default 192.168.1.1
+<pre tabindex="0"><code>$ROUTE $QUIET add net default 192.168.1.1
 </code></pre></li>
 <li>
 <p>an X11 font server enabled (where would we be without fonts!):</p>
-<pre><code>indy # chkconfig fontserver on
+<pre tabindex="0"><code>indy # chkconfig fontserver on
 </code></pre></li>
 </ul>
 <p>Since I had just changed a bunch of network connections (and this machine was made in 1993) a reboot seemed in order. After it came back up, I connected a remote X session. In this case, I was using Xming on Windows (for some reason XQuartz just crashes when I try to connect). The effective Xnest command my options translates to is: <code>Xnest -query indy.taketimetobesafe.biz -screen 0 1024x768@1 -fp tcp/indy.taketimetobesafe.biz:7100</code>. This gave me a login window!</p>

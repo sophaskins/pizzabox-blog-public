@@ -75,7 +75,7 @@
 <p>Since I <a href="/posts/the-dream">don&rsquo;t have</a> a PS/2 keyboard and mouse, hooking the Indy up to a monitor and directly using it is not an option. Some researching on the <a href="http://www.nekochan.net/wiki/Headless">Nekochan wiki</a> confirmed that a DB25 to mini-DIN 8 cable would do the trick - I grabbed one from <a href="https://www.monoprice.com/product?c_id=102&amp;cp_id=10215&amp;cs_id=1021501&amp;p_id=521&amp;seq=1&amp;format=2">Monoprice</a>.  These are fairly common thanks to Apple using the same connector (mini-DIN 8) for their serial ports in the pre-USB era.</p>
 <p>By chance, I seem to have gotten the right one: they sell a <em>very</em> similar <a href="https://www.monoprice.com/product?c_id=102&amp;cp_id=10215&amp;cs_id=1021501&amp;p_id=516&amp;seq=1&amp;format=2">cable</a> that sounds like it tries to account for a different signaling standard (Mac serial ports were RS-422, whereas the Indy&rsquo;s is RS-232). The one I got also seems to be a null-modem cable (though the listing doesn&rsquo;t say this) - that means I can more or less directly connect it to the Indy and to my USB Serial adapter and be all set.</p>
 <p>With the wires plugged in, I used <code>minicom</code> on my laptop (set to 9600bps, no parity, one stop bit, 8 bits per character, and software flow control), and turned on the Indy. To get a Unix tty on the serial port, you have to enable it in the PROM monitor. At the prompt, I pressed <code>&lt;Esc&gt;</code> to enter maintenance:</p>
-<pre><code>To perform system maintenance instead, press &lt;Esc&gt;
+<pre tabindex="0"><code>To perform system maintenance instead, press &lt;Esc&gt;
 
 System Maintenance Menu
 
@@ -87,12 +87,12 @@ System Maintenance Menu
 
 Option?
 </code></pre><p>picked option 5 (the PROM monitor), and disabled the local graphics console:</p>
-<pre><code>Command Monitor.  Type &quot;exit&quot; to return to the menu.
+<pre tabindex="0"><code>Command Monitor.  Type &#34;exit&#34; to return to the menu.
 &gt;&gt; setenv console d
 </code></pre><p>After rebooting, an OS came up!</p>
 <h2 id="getting-root">Getting root</h2>
 <p>Incredibly, the remaining hard drive had a functioning OS on it! The</p>
-<pre><code>IRIX Release 6.5 IP22 Version 05190003 System V
+<pre tabindex="0"><code>IRIX Release 6.5 IP22 Version 05190003 System V
 Copyright 1987-1998 Silicon Graphics, Inc
 All Rights Reserved.
 </code></pre><p>banner was encouraging. The login prompt, however, was not. The internet pointed towards some typically wide-open IRIX user accounts (<code>EZsetup</code>, <code>lp</code>, and <code>guest</code>) but this machine had them locked down. On some operating systems (macOS and most Linuxes, in particular), there is a &ldquo;single-user mode&rdquo; that automatically logs you in as root. This sounds like a huge security hole (and kind of is), but is in keeping with the reality that if you have physical access to a computer, you can <em>get</em> root anyway. IRIX&rsquo;s single-user mode requires you to know the root password, so I had to do it the hard way.</p>
@@ -109,7 +109,7 @@ All Rights Reserved.
 <h2 id="getting-root-take-2">Getting root, take 2</h2>
 <p>Netbooted into the IRIX installer, I launched a shell and took stock. My Indy&rsquo;s root partition had been mounted for me (entertainingly at <code>/root</code>, since IRIX seems to make <code>/</code> the root <em>user</em>&rsquo;s home directory). Remember, my goal is to clear the root user&rsquo;s password by <a href="https://stackoverflow.com/a/11700775">editing <code>/etc/shadow</code></a>.</p>
 <p>So, all I need to do is a quick</p>
-<pre><code># vi /root/etc/shadow
+<pre tabindex="0"><code># vi /root/etc/shadow
 </code></pre><p>right? Well, it turns out the IRIX install image doesn&rsquo;t have <code>vi</code> installed. What does it have? The <strong>standard</strong> editor, <code>ed</code>. I had never actually <em>used</em> <code>ed</code> - it&rsquo;s mostly the butt of a <a href="https://www.gnu.org/fun/jokes/ed-msg.txt">running joke</a> from 1991. With the help of the (aptly named) <a href="https://sanctum.geek.nz/arabesque/actually-using-ed/">Actually Using Ed</a>, I managed to clear root&rsquo;s password.</p>
 <h2 id="moment-of-truth">Moment of truth</h2>
 <p>Was this enough to get in? My first attempt (straight up booting and trying to log in) failed - this time, with a message that root wasn&rsquo;t <em>allowed</em> to log in on this console. Though I later learned <a href="http://csweb.cs.wfu.edu/~torgerse/Kokua/SGI/007-2862-005/sgi_html/ch04.html#id5202783">where that is configured</a> (and so could have gone back to the netbooted installer environment and hacked it), in the moment, I tried single-user mode again:</p>

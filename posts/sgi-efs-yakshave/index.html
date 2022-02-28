@@ -95,7 +95,7 @@
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <p>Eventually I gave up and went with plan b: <strong>the SCSI2SD can emulate multiple drives</strong>. It&rsquo;s a little bit annoying to set up - you can easily set the second, etc, drive to be a CD-ROM but loading the ISO on to it requires <code>dd</code>-ing the ISO to the appropriate offset after your primary disk.</p>
-<pre><code>&gt; dd if=C:\Users\haski\Downloads\IRIX_5.3.iso seek=16567501 of=&quot;\\.\Volume{a03b15f0-0f8b-11e8-9c75-00155d4b013b}&quot; --progress
+<pre tabindex="0"><code>&gt; dd if=C:\Users\haski\Downloads\IRIX_5.3.iso seek=16567501 of=&#34;\\.\Volume{a03b15f0-0f8b-11e8-9c75-00155d4b013b}&#34; --progress
 </code></pre><p>I try to avoid using this feature because &ldquo;<code>dd</code>-ing over your hard disk&rdquo; sounds like an even worse way to spend an evening than &ldquo;using a single-speed CD-ROM drive&rdquo;, but if you&rsquo;re careful, it works:</p>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ok that also didn’t work but setting it up as another drive on the *same* SCSI2SD worked great and now it’s working and I can go to bed happy <a href="https://t.co/OnTaXLUGCl">pic.twitter.com/OnTaXLUGCl</a></p>&mdash; cron mom (@sophaskins) <a href="https://twitter.com/sophaskins/status/1007462825529348096?ref_src=twsrc%5Etfw">June 15, 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -120,24 +120,23 @@
 <h2 id="filesystem-headers">Filesystem headers</h2>
 <p>My goal was simple: <strong>efs disk image in, tarball out</strong>. I made a blank golang project, opened up the NetBSD source for a guide, and started reading raw bytes.</p>
 <p>Since the sources <a href="https://github.com/NetBSD/src/blob/4b6bcd63f3d324191969bdbe86c815937969e874/sys/fs/efs/efs.h#L119">helpfully point out</a> that the superblock lives in the first (zero-indexed) 512-byte block, I wrote up some code to unpack those bytes:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// cmd/where-is-the-superblock/main.go
-</span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
-
-<span style="color:#f92672">import</span> (
-	<span style="color:#e6db74">&#34;os&#34;</span>
-
-	<span style="color:#e6db74">&#34;github.com/davecgh/go-spew/spew&#34;</span>
-)
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;./input.iso&#34;</span>)
-	<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">1024</span>)
-	<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">b</span>)
-	<span style="color:#a6e22e">spew</span>.<span style="color:#a6e22e">Dump</span>(<span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">512</span>:<span style="color:#ae81ff">1024</span>])
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// cmd/where-is-the-superblock/main.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;os&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;github.com/davecgh/go-spew/spew&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">file</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Open</span>(<span style="color:#e6db74">&#34;./input.iso&#34;</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Read</span>(<span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">spew</span>.<span style="color:#a6e22e">Dump</span>(<span style="color:#a6e22e">b</span>[<span style="color:#ae81ff">512</span>:<span style="color:#ae81ff">1024</span>])
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>and got&hellip;nothing but zeros</p>
-<pre><code>&gt; go run .\cmd\where-is-the-superblock\main.go
+<pre tabindex="0"><code>&gt; go run .\cmd\where-is-the-superblock\main.go
 ([]uint8) (len=512 cap=512) {
  00000000  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
  00000010  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
@@ -173,75 +172,72 @@
  000001f0  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
 }
 </code></pre><p>What the heck? The NetBSD sources also claim that block 0 is unused, but if we look at <em>those</em>, there&rsquo;s definitely some non-zero bytes. The first 8 bytes are:</p>
-<pre><code>0b e5 a9 41 00 00 00 00
+<pre tabindex="0"><code>0b e5 a9 41 00 00 00 00
 </code></pre><p>Filesystems (like many formats) often use <a href="https://en.wikipedia.org/wiki/Magic_number_(programming)">&ldquo;magic numbers&rdquo;</a> - an arbitrary bunch of bytes that occur at a known location so they can be quickly identified by type. Maybe this string is a magic number? I grepped for <code>be5a941</code> in the NetBSD codebase and got a hit in <a href="https://github.com/NetBSD/src/blob/0bff031265b50be8e8b7719aed82212928d6c1df/sys/sys/bootblock.h#L1292"><code>sys/sys/bootblock.h</code></a> - <strong>it is indeed a magic number</strong>, <code>SGI_BOOT_BLOCK_MAGIC</code>. That <a href="https://github.com/NetBSD/src/blob/0bff031265b50be8e8b7719aed82212928d6c1df/sys/sys/bootblock.h#L1280-L1367">section</a> of the file defines the layout of the <em>boot block</em> of SGI partitions. A deeper dive in to that code and the <a href="http://nixdoc.net/man-pages/IRIX/man7/vh.7.html">IRIX manpage</a> for <code>vh</code> (volume header) explain what&rsquo;s going on.</p>
 <p>It turns out, these &ldquo;ISO&rdquo; files aren&rsquo;t just raw EFS filesystems, they&rsquo;re SGI-formatted <em>volumes</em> with an EFS <em>partition</em> on them. There&rsquo;s a whole volume header that has the partition table and some additional info:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from sgi/vh.go
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">VolumeHeader</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">MagicNumber</span>      <span style="color:#66d9ef">uint32</span>
-	<span style="color:#a6e22e">Root</span>             <span style="color:#66d9ef">int16</span>
-	<span style="color:#a6e22e">Swap</span>             <span style="color:#66d9ef">int16</span>
-	<span style="color:#a6e22e">Bootfile</span>         [<span style="color:#ae81ff">16</span>]<span style="color:#66d9ef">byte</span>
-	<span style="color:#a6e22e">BootDeviceParams</span> <span style="color:#a6e22e">DeviceParameters</span>
-	<span style="color:#a6e22e">VolumeDirectory</span>  [<span style="color:#ae81ff">15</span>]<span style="color:#a6e22e">FileHeader</span>
-	<span style="color:#a6e22e">Partitions</span>       [<span style="color:#ae81ff">16</span>]<span style="color:#a6e22e">Partition</span>
-	<span style="color:#a6e22e">Checksum</span>         <span style="color:#66d9ef">int32</span>
-	<span style="color:#a6e22e">Padding</span>          <span style="color:#66d9ef">int32</span>
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// from sgi/vh.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">VolumeHeader</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">MagicNumber</span>      <span style="color:#66d9ef">uint32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Root</span>             <span style="color:#66d9ef">int16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Swap</span>             <span style="color:#66d9ef">int16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Bootfile</span>         [<span style="color:#ae81ff">16</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">BootDeviceParams</span> <span style="color:#a6e22e">DeviceParameters</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">VolumeDirectory</span>  [<span style="color:#ae81ff">15</span>]<span style="color:#a6e22e">FileHeader</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Partitions</span>       [<span style="color:#ae81ff">16</span>]<span style="color:#a6e22e">Partition</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Checksum</span>         <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Padding</span>          <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>The <code>VolumeDirectory</code> field is pretty neat - its an array of pointers to <strong>files that exist outside of any filesystem</strong>, directly in the volume header. Its apparently usually used for the bootloader and the SGI partitioning program, <code>fx</code> (this is apparently why partitioning happens outside of the OS install process).</p>
 <p>The <code>Partitions</code> field contains what block offset each partition starts at, how long it is, and its filesystem type. It was a surprise to me that the partitions can (and do!) overlap! Apparently it&rsquo;s typical for one of the partitions to represent the whole disk, another this header section, and another for the actual partition (the partitioning SunOS uses also has overlaps like this). The EFS partition for my image was number 7.</p>
 <h2 id="crawling-inodes">Crawling inodes</h2>
 <p>Starting at the offset of the partition, I found the expected data in the Superblock (including the correct <em>filesystem</em> magic number, a plausible filesystem size, etc):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from efs/filesystem.go
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SuperBlock</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Size</span>         <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// filesystem size (in BasicBlocks)
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FirstCG</span>      <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// BasicBlock offset of the first CG 
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGSize</span>       <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// CylinderGroup size (in BasicBlocks)
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGInodeSize</span>  <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// Number of BBs per CG that are Inodes
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Sectors</span>      <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// sectors per track
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Heads</span>        <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// heads per cylinder
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGCount</span>      <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// CylinderGroups in the filesystem
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Dirty</span>        <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// whether an fsck is required
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">_</span>            <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// padding
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CTime</span>        <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// last SuperBlock updated time
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Magic</span>        <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// filesystem magic number
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FSName</span>       [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">byte</span>  <span style="color:#75715e">// name of the filesystem
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FSPack</span>       [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">byte</span>  <span style="color:#75715e">// fs &#34;pack&#34; name
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">BMSize</span>       <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// size in bytes of bitmap
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FreeBlocks</span>   <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// count of free blocks
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FreeInodes</span>   <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// count of free inodes
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">BMBlock</span>      <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// offset of the bitmap
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ReplicatedSB</span> <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// offset of the replicated superblock
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">LastInode</span>    <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// last unallocated inode
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">_</span>            [<span style="color:#ae81ff">20</span>]<span style="color:#66d9ef">int8</span> <span style="color:#75715e">// padding
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Checksum</span>     <span style="color:#66d9ef">int32</span>
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// from efs/filesystem.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SuperBlock</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Size</span>         <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// filesystem size (in BasicBlocks)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FirstCG</span>      <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// BasicBlock offset of the first CG 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGSize</span>       <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// CylinderGroup size (in BasicBlocks)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGInodeSize</span>  <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// Number of BBs per CG that are Inodes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Sectors</span>      <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// sectors per track
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Heads</span>        <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// heads per cylinder
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CGCount</span>      <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// CylinderGroups in the filesystem
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Dirty</span>        <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// whether an fsck is required
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">_</span>            <span style="color:#66d9ef">int16</span>    <span style="color:#75715e">// padding
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">CTime</span>        <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// last SuperBlock updated time
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Magic</span>        <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// filesystem magic number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FSName</span>       [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">byte</span>  <span style="color:#75715e">// name of the filesystem
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FSPack</span>       [<span style="color:#ae81ff">6</span>]<span style="color:#66d9ef">byte</span>  <span style="color:#75715e">// fs &#34;pack&#34; name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">BMSize</span>       <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// size in bytes of bitmap
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FreeBlocks</span>   <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// count of free blocks
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">FreeInodes</span>   <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// count of free inodes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">BMBlock</span>      <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// offset of the bitmap
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ReplicatedSB</span> <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// offset of the replicated superblock
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">LastInode</span>    <span style="color:#66d9ef">int32</span>    <span style="color:#75715e">// last unallocated inode
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">_</span>            [<span style="color:#ae81ff">20</span>]<span style="color:#66d9ef">int8</span> <span style="color:#75715e">// padding
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Checksum</span>     <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>Most of this data is irrelevant to my purposes - since I&rsquo;m not adding <em>new</em> data, I don&rsquo;t really care about the bitmap, where the next free inode is, etc. The offset of the first CylinderGroup <em>is</em> important, though. The <strong>filesystem is divided in to &ldquo;cylinder groups&rdquo;</strong> - contiguous groups of blocks where the first <code>CGInodeSize</code> blocks of the cylinder group contain inodes, and the rest is data. The <a href="https://github.com/NetBSD/src/blob/4b6bcd63f3d324191969bdbe86c815937969e874/sys/fs/efs/efs_dinode.h#L28-L31">NetBSD sources</a> note that the root inode is at <em>inode</em> index 2, so probably at index 2 in the inode portion of the first cylinder group.</p>
 <p>Each inode includes a bunch of data about the object it represents:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from efs/inode.go
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Inode</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Mode</span>       <span style="color:#66d9ef">uint16</span>
-	<span style="color:#a6e22e">NumLinks</span>   <span style="color:#66d9ef">int16</span>
-	<span style="color:#a6e22e">UID</span>        <span style="color:#66d9ef">uint16</span>
-	<span style="color:#a6e22e">GID</span>        <span style="color:#66d9ef">uint16</span>
-	<span style="color:#a6e22e">Size</span>       <span style="color:#66d9ef">int32</span>
-	<span style="color:#a6e22e">ATime</span>      <span style="color:#66d9ef">uint32</span>
-	<span style="color:#a6e22e">MTime</span>      <span style="color:#66d9ef">uint32</span>
-	<span style="color:#a6e22e">CTime</span>      <span style="color:#66d9ef">uint32</span>
-	<span style="color:#a6e22e">Generation</span> <span style="color:#66d9ef">int32</span>
-	<span style="color:#a6e22e">NumExtents</span> <span style="color:#66d9ef">int16</span>
-	<span style="color:#a6e22e">Version</span>    <span style="color:#66d9ef">uint8</span>
-	<span style="color:#a6e22e">Spare</span>      <span style="color:#66d9ef">uint8</span>
-	<span style="color:#75715e">// Payload is a union struct - sometimes it contains extents, but
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// it also can contain other stuff (like link targets and device
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// descriptors, which are not implemented here)
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Payload</span> [<span style="color:#ae81ff">96</span>]<span style="color:#66d9ef">byte</span>
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// from efs/inode.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Inode</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Mode</span>       <span style="color:#66d9ef">uint16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">NumLinks</span>   <span style="color:#66d9ef">int16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">UID</span>        <span style="color:#66d9ef">uint16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">GID</span>        <span style="color:#66d9ef">uint16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Size</span>       <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ATime</span>      <span style="color:#66d9ef">uint32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">MTime</span>      <span style="color:#66d9ef">uint32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">CTime</span>      <span style="color:#66d9ef">uint32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Generation</span> <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">NumExtents</span> <span style="color:#66d9ef">int16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Version</span>    <span style="color:#66d9ef">uint8</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Spare</span>      <span style="color:#66d9ef">uint8</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Payload is a union struct - sometimes it contains extents, but
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// it also can contain other stuff (like link targets and device
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// descriptors, which are not implemented here)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Payload</span> [<span style="color:#ae81ff">96</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>If we write up a quick program to dump this data, it looks something like:</p>
-<pre><code>&gt; go run .\cmd\rootinode\main.go
+<pre tabindex="0"><code>&gt; go run .\cmd\rootinode\main.go
 (efs.Inode) {
  Mode: (uint16) 16895,
  NumLinks: (int16) 5,
@@ -266,7 +262,7 @@
 }
 </code></pre><p>This is really promising - those timestamps (<code>784844972</code>) are in 1994 (<code>1994-11-14T20:29:32+00:00</code>) which seems appropriate given that the disk image I&rsquo;m working on is &ldquo;the developer tools that came with IRIX 5.3&rdquo;. The <code>Mode</code> field indicates that this inode represents a directory - seems reasonable, given that I&rsquo;d expect the root inode to be <code>/</code>.</p>
 <p>To find out what&rsquo;s in the directory listing, we need to unpack the <code>Payload</code> field. In this context, it contains <strong>extents - an array of the block ranges that make up the body</strong>. This approach to allocating blocks to files gave the filesystem its name, EFS (the Extent File System). Reading extents is somewhat more complicated than just parsing that Payload field, but we&rsquo;ll get to that later. The extents stored in the root inode look like:</p>
-<pre><code>&gt; go run .\cmd\root-inode-extents\main.go
+<pre tabindex="0"><code>&gt; go run .\cmd\root-inode-extents\main.go
 ([]efs.Extent) (len=1 cap=1) {
  (efs.Extent) {
   Magic: (uint8) 0,               // side note, yes - the magic number
@@ -276,14 +272,13 @@
  }
 }
 </code></pre><p>which seems plausible for the root directory listing - it&rsquo;s short (only one block long), and early in the disk (block 224). Fetching that block is pretty easy, and if you dump it it <em>does</em> appear to have some filenames on it, but reading its format correctly takes a little care. The format of a data block belonging to a directory listing is:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from efs/directory.go
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Directory</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Magic</span>     <span style="color:#66d9ef">uint16</span>
-	<span style="color:#a6e22e">FirstUsed</span> <span style="color:#66d9ef">uint8</span>
-	<span style="color:#a6e22e">Slots</span>     <span style="color:#66d9ef">uint8</span>
-	<span style="color:#a6e22e">Data</span>      [<span style="color:#ae81ff">508</span>]<span style="color:#66d9ef">byte</span>
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// from efs/directory.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Directory</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Magic</span>     <span style="color:#66d9ef">uint16</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">FirstUsed</span> <span style="color:#66d9ef">uint8</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Slots</span>     <span style="color:#66d9ef">uint8</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Data</span>      [<span style="color:#ae81ff">508</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>At the &ldquo;bottom&rdquo; of <code>Data</code> (the low indexes) there are some pointers (<code>Slots</code> many of them) to directory entry offsets (offsets from the base of the struct). The entries live at the &ldquo;top&rdquo; of <code>Data</code> (the high indexes) and are of variable lenth (because they include filename strings!), so are made up of:</p>
 <ul>
 <li>the index of inode for the entry</li>
@@ -291,72 +286,71 @@
 <li>the name</li>
 </ul>
 <p>It&rsquo;s a somewhat wacky scheme - why isn&rsquo;t it just a list of entries starting at <code>Data[0]</code>? This indirect approach allows adding and removing entries without having to rewrite the entire block, which&hellip;I guess is nice if you&rsquo;re dealing with late 1980s / early 1990s disk performance (SGI replaced EFS with XFS for hard disks around 1993, but kept using EFS for CD-ROMs). At any rate, if we follow it, we can read the entries at the root inode, which look pretty rad to me:</p>
-<pre><code>&gt; go run .\cmd\root-inode-entries.go
+<pre tabindex="0"><code>&gt; go run .\cmd\root-inode-entries.go
 ([]efs.DirectoryEntry) (len=8 cap=8) {
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 2,
-  Name: (string) (len=1) &quot;.&quot;
+  Name: (string) (len=1) &#34;.&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 2,
-  Name: (string) (len=2) &quot;..&quot;
+  Name: (string) (len=2) &#34;..&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 3,
-  Name: (string) (len=11) &quot;CDgrelnotes&quot;
+  Name: (string) (len=11) &#34;CDgrelnotes&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 4,
-  Name: (string) (len=10) &quot;CDrelnotes&quot;
+  Name: (string) (len=10) &#34;CDrelnotes&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 5,
-  Name: (string) (len=4) &quot;dist&quot;
+  Name: (string) (len=4) &#34;dist&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 90,
-  Name: (string) (len=7) &quot;insight&quot;
+  Name: (string) (len=7) &#34;insight&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 1525,
-  Name: (string) (len=8) &quot;relnotes&quot;
+  Name: (string) (len=8) &#34;relnotes&#34;
  },
  (efs.DirectoryEntry) {
   InodeIndex: (uint32) 1614,
-  Name: (string) (len=12) &quot;RELEASE.info&quot;
+  Name: (string) (len=12) &#34;RELEASE.info&#34;
  }
 }
 </code></pre><p>This seems <em>extremely</em> plausible to me as the root of the CD-ROM. The <code>.</code> and <code>..</code> entries even point (correctly) to the same inode (number 2) as the one we&rsquo;re displaying! The system works! From here, it wasn&rsquo;t too implausible to walk the whole filesystem and output filenames. Since it&rsquo;s a tree, we start at the root inode, visit each entry, and if it&rsquo;s a <em>directory</em>, recursively walk starting there. <strong>We have a complete list of all files</strong></p>
 <h2 id="file-contents">File contents</h2>
 <p>For the inode of a &ldquo;regular&rdquo; file, the extents just point to where the body of the file is. You can literally concatenate the bytes from the extent blocks and get the file, at least for <em>unfragmented</em> files.</p>
 <p>An inode&rsquo;s <code>Payload</code> field can fit up to 12 extents - each extent is 8 bytes, and the <code>Payload</code> field is 96 bytes. If a file is made up of <em>more</em> than 12 discontinuous ranges of blocks, its extent descriptors wont fit inside the inode. In this case, EFS switches from &ldquo;direct&rdquo; extents (the inode data contains the extents) to &ldquo;indirect&rdquo; extents (the extents in the inode point to blocks that contain <em>nothing but extents</em>, which are the actual extents of the file). This took me a few tries to implement correctly, but ends up being a fairly simple algorithm:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#75715e">// from efs/filesystem.go
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">fs</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Filesystem</span>) <span style="color:#a6e22e">extents</span>(<span style="color:#a6e22e">in</span> <span style="color:#a6e22e">Inode</span>) []<span style="color:#a6e22e">Extent</span> {
-	<span style="color:#a6e22e">payloadExtents</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">PayloadExtents</span>()
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">usesDirectExtents</span>() {
-		<span style="color:#75715e">// if all of the extents fit inside of Payload (aka &#34;direct&#34;)
-</span><span style="color:#75715e"></span>		<span style="color:#75715e">// we have a much simpler time reading the extents
-</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">payloadExtents</span>
-	}
-
-	<span style="color:#75715e">// if we have more than will fit in Payload, then the extents
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// in Payload (aka &#34;indirect extents&#34;) point to ranges that
-</span><span style="color:#75715e"></span>	<span style="color:#75715e">// themselves contain the actual extents.
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">extents</span> <span style="color:#f92672">:=</span> make([]<span style="color:#a6e22e">Extent</span>, <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">NumExtents</span>)
-	<span style="color:#a6e22e">extentsFetched</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
-	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">indirectExtent</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">payloadExtents</span> {
-		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">extentBB</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">ExtentToBlocks</span>(<span style="color:#a6e22e">indirectExtent</span>) {
-			<span style="color:#75715e">// copy respecting the length of extents saves us from
-</span><span style="color:#75715e"></span>			<span style="color:#75715e">// accidentally including the garbage extents at the end
-</span><span style="color:#75715e"></span>			<span style="color:#75715e">// of the last block (beyond NumExtents)
-</span><span style="color:#75715e"></span>			copy(<span style="color:#a6e22e">extents</span>[<span style="color:#a6e22e">extentsFetched</span>:], <span style="color:#a6e22e">extentBB</span>.<span style="color:#a6e22e">ToExtents</span>())
-			<span style="color:#a6e22e">extentsFetched</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">extentsPerBlock</span>
-		}
-	}
-
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">extents</span>
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#75715e">// from efs/filesystem.go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">fs</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Filesystem</span>) <span style="color:#a6e22e">extents</span>(<span style="color:#a6e22e">in</span> <span style="color:#a6e22e">Inode</span>) []<span style="color:#a6e22e">Extent</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">payloadExtents</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">PayloadExtents</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">usesDirectExtents</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// if all of the extents fit inside of Payload (aka &#34;direct&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">// we have a much simpler time reading the extents
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">payloadExtents</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// if we have more than will fit in Payload, then the extents
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// in Payload (aka &#34;indirect extents&#34;) point to ranges that
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// themselves contain the actual extents.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">extents</span> <span style="color:#f92672">:=</span> make([]<span style="color:#a6e22e">Extent</span>, <span style="color:#a6e22e">in</span>.<span style="color:#a6e22e">NumExtents</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">extentsFetched</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">indirectExtent</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">payloadExtents</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">extentBB</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">ExtentToBlocks</span>(<span style="color:#a6e22e">indirectExtent</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// copy respecting the length of extents saves us from
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#75715e">// accidentally including the garbage extents at the end
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#75715e">// of the last block (beyond NumExtents)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			copy(<span style="color:#a6e22e">extents</span>[<span style="color:#a6e22e">extentsFetched</span>:], <span style="color:#a6e22e">extentBB</span>.<span style="color:#a6e22e">ToExtents</span>())
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">extentsFetched</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">extentsPerBlock</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">extents</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>With this in place, I was able to get the contents of files, large and small! Mixed with the golang <code>archive/tar</code> library, I was able to get the tarball I had hoped for.</p>
 <h2 id="harvesting-the-fruits-of-my-labor">Harvesting the fruits of my labor</h2>
 <p>I copied the (hopefully correct) tarball to my NAS and unpacked it. Despite the 25 years between the birth of my Indy and my <a href="https://www.qnap.com/en-us/product/ts-231p">NAS</a> they both speak computing&rsquo;s lingua franca, unauthenticated NFS. The IRIX Software Manager doesn&rsquo;t care about <em>where</em> the software lives - it just wants a directory:</p>

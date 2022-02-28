@@ -99,15 +99,15 @@
 </ul>
 <h2 id="investigate-the-existing-os">Investigate the existing OS</h2>
 <p>The first order of business was to boot from the OS install disk to a shell and see if the already installed OS was salvageable. The <a href="https://docs.oracle.com/cd/E19620-01/805-3408/6j38cta0f/index.html">installation docs</a> say that at the <code>ok</code> prompt you should be able to do</p>
-<pre><code>ok boot cdrom
+<pre tabindex="0"><code>ok boot cdrom
 </code></pre><p>to get to the installer, and</p>
-<pre><code>ok boot cdrom -s
+<pre tabindex="0"><code>ok boot cdrom -s
 </code></pre><p>to boot from the CD in to a single-user mode root shell. My SPARCstation 1+ is old enough that its firmware doesn&rsquo;t have a concept of <code>cdrom</code> as a valid boot target. A <a href="https://docs.oracle.com/cd/E19620-01/805-3408/6j38cta0f/index.html">footnote</a> thankfully informed me:</p>
 <blockquote>
 <p>For systems with older EEPROMs, replace cdrom with sd(0,6,2) to boot from the system&rsquo;s CD-ROM.</p>
 </blockquote>
 <p>That worked! The first thing I tried was mounting the internal drives, which <strong>immediately failed</strong> and asked me to run <code>fsck</code>. Of the partitions, <code>fsck</code> found plenty of errors and only managed to make a few of them mountable. None of it was interesting or useable stuff (I think I got like, a <code>/</code> partition? but no <code>/boot</code> or <code>/usr</code>), so I made the call to wipe it and re-install:</p>
-<pre><code>sparcstation# format
+<pre tabindex="0"><code>sparcstation# format
 Searching for disks...done
 
 AVAILABLE DISK SELECTIONS:
@@ -156,11 +156,11 @@ format&gt;
 </code></pre><p>time to reboot and do a real install!</p>
 <h2 id="installation">Installation</h2>
 <p>The Solaris install process starts with a few questions about your language, locale, and terminal type. It then launches a curses-style install program to get details about your networking situation and time-zone settings. Finally, it informs you:</p>
-<pre><code>System identification is completed.
+<pre tabindex="0"><code>System identification is completed.
 </code></pre><p>&hellip;and <strong>hangs for about 20 minutes</strong> without any more output. The first few times this happened I was <em>convinced</em> I had done something wrong - maybe the installer was angry about me not using the framebuffer for install, or a RAM chip was bad, or <em>something</em>. It turns out it was just&hellip;thinking about stuff. After the long wait, the curses-style installer comes back:</p>
-<pre><code>- Solaris Interactive Installation ---------------------------------
+<pre tabindex="0"><code>- Solaris Interactive Installation ---------------------------------
 
-  You'll be using the initial option for installing Solaris software
+  You&#39;ll be using the initial option for installing Solaris software
   on the system. The initial option overwrites the system disks when
   the new Solaris software is installed.
 
@@ -169,7 +169,7 @@ format&gt;
 
 - Allocating space for diskless clients or AutoClient systems
 - Selecting the type of Solaris software to install
-- Selecting disks to hold software you've selected
+- Selecting disks to hold software you&#39;ve selected
 - Specifying how file systems are laid out on the disks
 
   After completing these tasks, a summary of your selections (called
@@ -180,7 +180,7 @@ format&gt;
 </code></pre><p>I went with the default partitioning and the basic set of packages that would fit on the small hard drive. The install proper took around two hours - a big reminder that this tech isn&rsquo;t from 2017! At completion, the installer installed a handful of patches and rebooted the machine.</p>
 <h2 id="first-boot">First boot</h2>
 <p>Post-install, things came up pretty smoothly (except for a bunch of network errors - I didn&rsquo;t have the ethernet cable plugged in)</p>
-<pre><code>SPARCstation 1+, No keyboard.
+<pre tabindex="0"><code>SPARCstation 1+, No keyboard.
 ROM Rev. 1.3, 64 MB memory installed, Serial #12648430.
 Ethernet address 8:0:20:c0:ff:ee, Host ID: 53c0ffee.
 
@@ -199,15 +199,15 @@ The system is coming up. Please wait.
 Configuring network interface addresses: le0.
 RPC: Timed out
 starting routing daemon.
-starting rpc services: rpcbindkeyserv: failed to generate host's netname when establishing root's key.
+starting rpc services: rpcbindkeyserv: failed to generate host&#39;s netname when establishing root&#39;s key.
  keyserv done.
 </code></pre><p>This being the first boot, I was prompted to make a root password:</p>
-<pre><code>On this screen you can create a root password.
+<pre tabindex="0"><code>On this screen you can create a root password.
 
 A root password can contain any number of characters, but only the
 first eight characters in the password are significant. (For
-example, if you create `a1b2c3d4e5f6' as your root password, you
-can use `a1b2c3d4' to gain root access.)
+example, if you create `a1b2c3d4e5f6&#39; as your root password, you
+can use `a1b2c3d4&#39; to gain root access.)
 
 You wil be prompted to type the root password twice; for security,
 the password will not be displayed on the screen as you type it.
@@ -219,7 +219,7 @@ Root password: _
 
 Press Return to continue.
 </code></pre><p>Finally, I made it to a shell!</p>
-<pre><code>System identification is completed.
+<pre tabindex="0"><code>System identification is completed.
 Setting netmask of le0 to 255.255.255.0
 Setting default interface for multicast: add net 224.0.0.0: gateway SPARCstation
 syslog service starting.
