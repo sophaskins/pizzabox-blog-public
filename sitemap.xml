@@ -1,205 +1,125 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://blog.pizzabox.computer/posts/hp712-nextstep-part-2/</loc>
     <lastmod>2020-06-09T09:45:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/</loc>
     <lastmod>2020-06-09T09:45:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/</loc>
     <lastmod>2020-06-09T09:45:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/hp712-nextstep-part-1/</loc>
     <lastmod>2020-01-20T20:20:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/installing-aux-quadra/</loc>
     <lastmod>2018-12-02T16:45:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/decstation/</loc>
     <lastmod>2018-07-07T14:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/filling-in-more-cracks/</loc>
     <lastmod>2018-07-07T14:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/hp425e/</loc>
     <lastmod>2018-07-07T14:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/</loc>
     <lastmod>2018-07-07T14:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/sparcstation20/</loc>
     <lastmod>2018-07-07T14:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/sunblade150/</loc>
     <lastmod>2018-07-07T14:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/sgi-efs-yakshave/</loc>
     <lastmod>2018-07-04T15:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/cleaning-vaxstation/</loc>
     <lastmod>2018-05-03T22:40:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/booting-the-hp712/</loc>
     <lastmod>2018-04-28T18:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/booting-the-multia/</loc>
     <lastmod>2018-03-17T17:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/powermac-surprise/</loc>
     <lastmod>2018-02-13T21:00:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/booting-sparcstation/</loc>
     <lastmod>2017-11-21T16:00:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/aviion300/</loc>
     <lastmod>2017-11-21T16:00:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/alphaaxp/</loc>
     <lastmod>2017-11-21T16:00:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/alphastation/</loc>
     <lastmod>2017-11-21T16:00:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/multia/</loc>
     <lastmod>2017-11-21T16:00:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/powerstation250/</loc>
     <lastmod>2017-11-21T16:00:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/three-new-risc-boxes/</loc>
     <lastmod>2017-11-21T16:00:00-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/dead-vram/</loc>
     <lastmod>2017-10-28T20:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/getting-an-indy-desktop/</loc>
     <lastmod>2017-09-25T21:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/hp712/</loc>
     <lastmod>2017-09-18T21:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/quadra605/</loc>
     <lastmod>2017-09-18T21:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/quadra610/</loc>
     <lastmod>2017-09-18T21:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/powermac6100/</loc>
     <lastmod>2017-09-18T21:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/two-macs-and-an-hp/</loc>
     <lastmod>2017-09-18T21:00:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/booting-the-indy/</loc>
     <lastmod>2017-09-09T22:20:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/indy-power-supply-replacement/</loc>
     <lastmod>2017-09-02T16:20:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/vaxstation/</loc>
     <lastmod>2017-08-23T20:30:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/nextstation/</loc>
     <lastmod>2017-08-23T20:30:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/indy/</loc>
     <lastmod>2017-08-23T20:30:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/pizzaboxes/sparcstation/</loc>
     <lastmod>2017-08-23T20:30:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/the-first-four/</loc>
     <lastmod>2017-08-23T20:30:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/the-dream/</loc>
     <lastmod>2017-08-20T14:52:04-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/what-is-a-workstation/</loc>
     <lastmod>2017-08-17T21:30:00-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.pizzabox.computer/posts/welcome/</loc>
     <lastmod>2017-07-30T21:01:38-04:00</lastmod>
   </url>
-  
 </urlset>
